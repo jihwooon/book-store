@@ -1,0 +1,6 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 로컬 환경 세팅하기
+    url: https://github.com/jihwooon/book-store/wiki/%EB%A1%9C%EC%BB%AC-%ED%99%98%EA%B2%BD-%EC%85%8B%ED%8C%85%ED%95%98%EA%B8%B0
+    about: 로컬 환경 세팅하기 Wiki
+
