@@ -1,18 +1,10 @@
 import * as winston from 'winston';
+
 import 'winston-daily-rotate-file';
 
-const {
-  combine, timestamp, printf, splat,
-} = winston.format;
+import rTracer from 'cls-rtracer';
 
-const logFormat = printf(
-  ({
-    level,
-    message,
-    label,
-    timestamp: time,
-  }) => `${time} [${label}] ${level}: ${message}`,
-);
+const { combine, timestamp } = winston.format;
 
 const transportsInfo = new winston.transports.DailyRotateFile({
   level: 'info',
@@ -46,9 +38,13 @@ const logger = winston.createLogger({
     timestamp({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
-    logFormat,
-    splat(),
+    winston.format.json(),
   ),
+  defaultMeta: {
+    get requestId() {
+      return rTracer.id();
+    },
+  },
   transports: [
     transportsInfo,
     transportsError,
