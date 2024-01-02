@@ -3,18 +3,21 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  parser: '@typescript-eslint/parser',
   env: {
     node: true,
-    jest: true,
+    'jest/globals': true,
   },
   extends: [
     'airbnb-base',
-    'plugin:import/recommended',
     'plugin:jest/recommended',
+    'plugin:import/typescript',
+    'plugin:@typescript-eslint/recommended',
   ],
   plugins: [
     'jest',
     'import',
+    '@typescript-eslint',
   ],
   overrides: [
     {
@@ -32,10 +35,14 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts'],
+    },
   },
+  ignorePatterns: ['dist', 'scripts'],
   rules: {
     indent: ['error', 2],
     'no-trailing-spaces': 'error',
@@ -58,7 +65,22 @@ module.exports = {
     'key-spacing': ['error', { mode: 'strict' }],
     'arrow-spacing': ['error', { before: true, after: true }],
     'import/no-extraneous-dependencies': 'off',
-    'import/extensions': ['error', 'always', { ignorePackages: true }],
+    'jest/no-disabled-tests': 'warn',
+    'jest/no-focused-tests': 'error',
+    'jest/no-identical-title': 'error',
+    'jest/prefer-to-have-length': 'warn',
+    'jest/valid-expect': 'error',
+    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    'import/extensions': ['error', 'ignorePackages', {
+      js: 'never',
+      jsx: 'never',
+      ts: 'never',
+      tsx: 'never',
+    }],
     'import/order': [
       'error',
       {
@@ -70,10 +92,5 @@ module.exports = {
         ],
       },
     ],
-    'jest/no-disabled-tests': 'warn',
-    'jest/no-focused-tests': 'error',
-    'jest/no-identical-title': 'error',
-    'jest/prefer-to-have-length': 'warn',
-    'jest/valid-expect': 'error',
   },
 };
