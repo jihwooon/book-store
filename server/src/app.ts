@@ -1,7 +1,7 @@
 import express from 'express';
 import rTracer from 'cls-rtracer';
 
-import userRouter from './routers/users.router.js';
+import userRouter from './routers/users.router';
 
 const app = express();
 

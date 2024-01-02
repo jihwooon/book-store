@@ -1,8 +1,10 @@
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
   testEnvironment: 'node',
   moduleFileExtensions: [
     'js',
     'json',
+    'ts',
   ],
   setupFiles: [
     'jest-plugin-context/setup',
@@ -12,12 +14,12 @@ module.exports = {
   ],
   rootDir: '.',
   transform: {
-    '^.+\\.js?$': [
+    '^.+\\.(t|j)s?$': [
       '@swc/jest',
     ],
   },
   collectCoverageFrom: [
-    '**/*.js',
+    '**/*.(t|j)s',
   ],
   roots: [
     '<rootDir>/',
