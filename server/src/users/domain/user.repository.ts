@@ -1,4 +1,4 @@
-import doQuery from '../../mariadb';
+import { doQuery } from '../../database/mariadb';
 import logger from '../../config/logger';
 
 const childLogger = logger.child({
