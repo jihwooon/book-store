@@ -9,7 +9,7 @@ const { combine, timestamp } = winston.format;
 const transportsInfo = new winston.transports.DailyRotateFile({
   level: 'info',
   filename: './logs/%DATE%.info.log',
-  datePattern: 'YYYY-MM-DD-HH',
+  datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   maxSize: '20m',
   maxFiles: '30d',
@@ -18,7 +18,7 @@ const transportsInfo = new winston.transports.DailyRotateFile({
 const transportsError = new winston.transports.DailyRotateFile({
   level: 'error',
   filename: './logs/%DATE%.error.log',
-  datePattern: 'YYYY-MM-DD-HH',
+  datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   maxSize: '20m',
   maxFiles: '14d',
@@ -27,7 +27,7 @@ const transportsError = new winston.transports.DailyRotateFile({
 const exceptionHandlers = new winston.transports.DailyRotateFile({
   level: 'error',
   filename: './logs/%DATE%.exception.log',
-  datePattern: 'YYYY-MM-DD-HH',
+  datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   maxSize: '20m',
   maxFiles: '14d',
