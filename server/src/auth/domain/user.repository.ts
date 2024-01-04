@@ -1,3 +1,5 @@
+import { RowDataPacket } from 'mysql2';
+
 import { doQuery } from '../../database/mariadb';
 import logger from '../../config/logger';
 
@@ -23,4 +25,27 @@ export const save = async (
     }
     throw error;
   }
+};
+
+export const findByEmail = async (
+  email: string,
+): Promise<{
+  email: string,
+  password: string,
+}> => {
+  const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
+    'SELECT * FROM users WHERE email = ?',
+    [email],
+  ));
+
+  const [row] = rows ?? [];
+  if (!row) {
+    childLogger.error(row);
+    return undefined;
+  }
+
+  return {
+    email: row.email,
+    password: row.password,
+  };
 };
