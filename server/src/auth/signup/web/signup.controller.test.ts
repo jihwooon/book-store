@@ -1,9 +1,9 @@
 import request from 'supertest';
 
-import app from '../../app';
-import { save } from '../domain/user.repository';
+import app from '../../../app';
+import { save } from '../../domain/user.repository';
 
-jest.mock('../domain/user.repository.ts');
+jest.mock('../../domain/user.repository.ts');
 
 describe('signup Controller', () => {
   const email = 'abc@gmail.com';
