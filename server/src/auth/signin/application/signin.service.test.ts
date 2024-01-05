@@ -1,7 +1,9 @@
+import { isMatchPassword } from '../../domain/password.provider';
 import { findByEmail } from '../../domain/user.repository';
 import signinService from './signin.service';
 
 jest.mock('../../domain/user.repository.ts');
+jest.mock('./../../domain/password.provider.ts');
 
 describe('Signin service', () => {
   const ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDQzNjM5ODksImV4cCI6MTcwNDM2NDI4OX0.8rGlNEppd0H3eEfmbHTMp-fXGUmRhBUQSsR7OB9IJvA';
@@ -12,10 +14,11 @@ describe('Signin service', () => {
   };
 
   describe('signinService', () => {
+    beforeEach(() => {
+      (findByEmail as jest.Mock).mockResolvedValue(userMock);
+      (isMatchPassword as jest.Mock).mockResolvedValue(true);
+    });
     context('회원 정보가 주어지면', () => {
-      beforeEach(() => {
-        (findByEmail as jest.Mock).mockResolvedValue(userMock);
-      });
       it('패스워드 인증 후 accessToken을 반환한다.', async () => {
         const accessToken = await signinService(userMock.email, userMock.password);
 
