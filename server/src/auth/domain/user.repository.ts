@@ -11,11 +11,12 @@ export const save = async (
   email: string,
   password: string,
   name: string,
+  salt: string,
 ): Promise<boolean> => {
   try {
     await doQuery((connection) => connection.execute(
-      'INSERT INTO users (email, password, name) VALUES (?, ?, ?)',
-      [email, password, name],
+      'INSERT INTO users (email, password, name, salt) VALUES (?, ?, ?, ?)',
+      [email, password, name, salt],
     ));
     return true;
   } catch (error: any) {
