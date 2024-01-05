@@ -1,4 +1,5 @@
-import { findByEmail, updateUserByPassword } from '../../domain/user.repository';
+import { createHash, createSalt } from '../../domain/password.provider';
+import { findByEmail, updateUserByPasswordAndSalt } from '../../domain/user.repository';
 
 export const passwordResetRequester = async (
   email: string,
@@ -13,5 +14,12 @@ export const passwordResetRequester = async (
 
 export const passwordResetter = async (
   email: string,
-  password: string,
-): Promise<boolean> => updateUserByPassword(email, password);
+  rawPassword: string,
+): Promise<boolean> => {
+  const salt = await createSalt();
+  const hashPassword = await createHash(rawPassword, salt);
+
+  const resetPassword = await updateUserByPasswordAndSalt(email, hashPassword, salt);
+
+  return resetPassword;
+};
