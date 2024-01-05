@@ -33,6 +33,7 @@ export const findByEmail = async (
 ): Promise<{
   email: string,
   password: string,
+  salt: string,
 }> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
     'SELECT * FROM users WHERE email = ?',
@@ -48,6 +49,7 @@ export const findByEmail = async (
   return {
     email: row.email,
     password: row.password,
+    salt: row.salt,
   };
 };
 
