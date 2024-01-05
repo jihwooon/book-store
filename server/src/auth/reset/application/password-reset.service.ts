@@ -1,4 +1,4 @@
-import { findByEmail } from '../../domain/user.repository';
+import { findByEmail, updateUserByPassword } from '../../domain/user.repository';
 
 export const passwordResetRequester = async (
   email: string,
@@ -11,4 +11,7 @@ export const passwordResetRequester = async (
   return true;
 };
 
-export default passwordResetRequester;
+export const passwordResetter = async (
+  email: string,
+  password: string,
+): Promise<boolean> => updateUserByPassword(email, password);
