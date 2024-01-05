@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+import { isMatchPassword } from '../../domain/password.provider';
 import { findByEmail } from '../../domain/user.repository';
 
 const generateToken = (loginUser: { email: string; password: string; }) => jwt.sign({
@@ -7,12 +8,6 @@ const generateToken = (loginUser: { email: string; password: string; }) => jwt.s
 }, '1235467898910', {
   expiresIn: '5m',
 });
-
-const isMatchPassword = (loginUser: { email: string; password: string; }, password: string) => {
-  if (loginUser.password !== password) {
-    throw new Error('패스워드가 올바르지 않습니다.');
-  }
-};
 
 const signinService = async (
   email: string,
@@ -23,7 +18,7 @@ const signinService = async (
     throw new Error('회원 정보를 찾을 수 없습니다.');
   }
 
-  isMatchPassword(loginUser, password);
+  isMatchPassword(loginUser.password, loginUser.salt, password);
 
   const token = generateToken(loginUser);
 
