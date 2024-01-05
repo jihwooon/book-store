@@ -1,4 +1,4 @@
-import { findByEmail, updateUserByPassword } from '../../domain/user.repository';
+import { findByEmail, updateUserByPasswordAndSalt } from '../../domain/user.repository';
 import { passwordResetRequester, passwordResetter } from './password-reset.service';
 
 jest.mock('../../domain/user.repository.ts');
@@ -34,7 +34,7 @@ describe('PasswordReset service', () => {
   describe('passwordResetter', () => {
     context('패스워드 변경에 성공하면', () => {
       beforeEach(() => {
-        (updateUserByPassword as jest.Mock).mockResolvedValue(true);
+        (updateUserByPasswordAndSalt as jest.Mock).mockResolvedValue(true);
       });
       it('true를 반환한다.', async () => {
         const verifiedEmail = await passwordResetter(userMock.email, userMock.password);
@@ -45,7 +45,7 @@ describe('PasswordReset service', () => {
 
     context('패스워드 변경에 실패하면', () => {
       beforeEach(() => {
-        (updateUserByPassword as jest.Mock).mockResolvedValue(false);
+        (updateUserByPasswordAndSalt as jest.Mock).mockResolvedValue(false);
       });
       it('false를 반환한다.', async () => {
         const verifiedEmail = await passwordResetter(userMock.email, userMock.password);

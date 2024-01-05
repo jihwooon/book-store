@@ -1,7 +1,7 @@
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 
-import { doQuery } from '../../database/mariadb';
 import logger from '../../config/logger';
+import { doQuery } from '../../database/mariadb';
 
 const childLogger = logger.child({
   label: 'user.repository.ts',
@@ -53,10 +53,14 @@ export const findByEmail = async (
   };
 };
 
-export const updateUserByPassword = async (email: string, password: string): Promise<boolean> => {
+export const updateUserByPasswordAndSalt = async (
+  email: string,
+  password: string,
+  salt: string,
+): Promise<boolean> => {
   const [{ affectedRows }] = await doQuery((connection) => connection.execute<ResultSetHeader>(
-    'UPDATE users SET password=? WHERE email = ?',
-    [email, password],
+    'UPDATE users SET password = ?, salt = ? WHERE email = ?',
+    [password, salt, email],
   ));
 
   if (affectedRows === 0) {
