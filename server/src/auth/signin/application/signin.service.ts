@@ -19,6 +19,10 @@ const signinService = async (
   password: string,
 ): Promise<{ accessToken: string }> => {
   const loginUser = await findByEmail(email);
+  if (!loginUser) {
+    throw new Error('회원 정보를 찾을 수 없습니다.');
+  }
+
   isMatchPassword(loginUser, password);
 
   const token = generateToken(loginUser);
