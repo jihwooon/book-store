@@ -14,27 +14,29 @@ describe('passwordReset Controller', () => {
   describe('POST /reset', () => {
     context('올바른 이메일이 주어지면', () => {
       beforeEach(() => {
-        (passwordResetRequester as jest.Mock).mockResolvedValue(true);
+        (passwordResetRequester as jest.Mock).mockResolvedValue(userMock);
       });
-      it('200 상태코드를 반환한다.', async () => {
-        const { statusCode } = await request(app).post('/reset').send(
+      it('200 상태코드와 이메일를 반환한다.', async () => {
+        const { statusCode, body: { email } } = await request(app).post('/reset').send(
           userMock.email,
         );
 
         expect(statusCode).toBe(200);
+        expect(email).toBe('abc@gmail.com');
       });
     });
 
     context('올바르지 못 한 이메일이 주어지면', () => {
       beforeEach(() => {
-        (passwordResetRequester as jest.Mock).mockResolvedValue(false);
+        (passwordResetRequester as jest.Mock).mockResolvedValue(undefined);
       });
-      it('401 상태코드를 반환한다.', async () => {
-        const { statusCode } = await request(app).post('/reset').send(
+      it('401 상태코드와 에러 메시지를 반환한다.', async () => {
+        const { statusCode, body: { message } } = await request(app).post('/reset').send(
           userMock.email,
         );
 
         expect(statusCode).toBe(401);
+        expect(message).toBe('유효하지 않은 이메일입니다.');
       });
     });
   });

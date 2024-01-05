@@ -8,10 +8,14 @@ export const passwordResetRequestController = async (req: Request, res: Response
 
   const verifiedEmail = await passwordResetRequester(email);
   if (!verifiedEmail) {
-    return res.status(StatusCodes.UNAUTHORIZED).end();
+    return res.status(StatusCodes.UNAUTHORIZED).json({
+      message: '유효하지 않은 이메일입니다.',
+    });
   }
 
-  return res.status(StatusCodes.OK).end();
+  return res.status(StatusCodes.OK).json({
+    email: verifiedEmail.email,
+  });
 };
 
 export const passwordResetController = async (req: Request, res: Response) => {
