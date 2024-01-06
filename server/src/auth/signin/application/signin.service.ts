@@ -18,9 +18,9 @@ const signinService = async (
     throw new Error('회원 정보를 찾을 수 없습니다.');
   }
 
-  isMatchPassword(loginUser.password, loginUser.salt, password);
+  isMatchPassword(loginUser.getPassword(), loginUser.getSalt(), password);
 
-  const token = generateToken(loginUser);
+  const token = generateToken({ email: loginUser.getEmail(), password: loginUser.getPassword() });
 
   return {
     accessToken: token,

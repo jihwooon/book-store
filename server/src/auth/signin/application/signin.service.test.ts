@@ -1,4 +1,5 @@
 import { isMatchPassword } from '../../domain/password.provider';
+import User from '../../domain/user';
 import { findByEmail } from '../../domain/user.repository';
 import signinService from './signin.service';
 
@@ -11,11 +12,12 @@ describe('Signin service', () => {
   const userMock = {
     email: 'abc@gmail.com',
     password: '12345',
+    salt: 'ARNhEBG6dKaNBg==',
   };
 
   describe('signinService', () => {
     beforeEach(() => {
-      (findByEmail as jest.Mock).mockResolvedValue(userMock);
+      (findByEmail as jest.Mock).mockResolvedValue(new User(userMock));
       (isMatchPassword as jest.Mock).mockResolvedValue(true);
     });
     context('회원 정보가 주어지면', () => {

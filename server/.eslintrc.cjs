@@ -65,6 +65,8 @@ module.exports = {
     'key-spacing': ['error', { mode: 'strict' }],
     'arrow-spacing': ['error', { before: true, after: true }],
     'import/no-extraneous-dependencies': 'off',
+    'no-empty-function': 'off',
+    'no-useless-constructor': 'off',
     'jest/no-disabled-tests': 'warn',
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',

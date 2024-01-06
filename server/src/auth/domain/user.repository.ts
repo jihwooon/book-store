@@ -2,6 +2,7 @@ import { ResultSetHeader, RowDataPacket } from 'mysql2';
 
 import logger from '../../config/logger';
 import { doQuery } from '../../database/mariadb';
+import User from './user';
 
 const childLogger = logger.child({
   label: 'user.repository.ts',
@@ -30,11 +31,7 @@ export const save = async (
 
 export const findByEmail = async (
   email: string,
-): Promise<{
-  email: string,
-  password: string,
-  salt: string,
-}> => {
+): Promise<User> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
     'SELECT * FROM users WHERE email = ?',
     [email],
@@ -46,11 +43,11 @@ export const findByEmail = async (
     return undefined;
   }
 
-  return {
+  return new User({
     email: row.email,
     password: row.password,
     salt: row.salt,
-  };
+  });
 };
 
 export const updateUserByPasswordAndSalt = async (
