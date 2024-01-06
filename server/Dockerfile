@@ -22,4 +22,4 @@ COPY package.json /app
 COPY . /app
 
 RUN npm ci
-CMD ["node", "src/index.js"]
+CMD npm start

@@ -4,12 +4,14 @@ import { findByEmail, updateUserByPasswordAndSalt } from '../../domain/user.repo
 export const passwordResetRequester = async (
   email: string,
 ): Promise<{ email: string }> => {
-  const existedEmail = await findByEmail(email);
-  if (!existedEmail) {
+  const validEmailUser = await findByEmail(email);
+  if (!validEmailUser) {
     throw new Error('이메일을 찾을 수가 없습니다.');
   }
 
-  return existedEmail;
+  return {
+    email: validEmailUser.getEmail(),
+  };
 };
 
 export const passwordResetter = async (
