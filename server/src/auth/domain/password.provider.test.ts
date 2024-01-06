@@ -28,8 +28,8 @@ describe('Password provider', () => {
       (createHash as jest.Mock).mockResolvedValue(salt);
       (isMatchPassword as jest.Mock).mockResolvedValue(true);
     });
-    context('패스워드가 일치하지 않으면', () => {
-      it('Error를 던져야', async () => {
+    context('패스워드와 저장된 패스워드가 일치하면', () => {
+      it('true를 반환한다.', async () => {
         const hashPassword = await isMatchPassword(hashedPassword, salt, userMock.password);
 
         expect(hashPassword).toEqual(true);
