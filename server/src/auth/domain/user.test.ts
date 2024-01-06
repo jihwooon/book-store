@@ -1,16 +1,9 @@
+import { existingUser } from '../../fixture/user.fixture';
 import User from './user';
 
 describe('User class', () => {
-  const userMock = {
-    id: 1,
-    email: 'abc@gmail.com',
-    password: '12345',
-    name: '홍길동',
-    salt: 'ARNhEBG6dKaNBg==',
-  };
-
   context('객체에 값이 주어지면', () => {
-    const user = new User(userMock);
+    const user = new User(existingUser);
 
     it('멤버 변수를 값을 리턴해야 한다.', () => {
       expect(user.getId()).toBe(1);
