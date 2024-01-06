@@ -5,6 +5,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"docker:up": "docker-compose up -d",
+		"docker:down": "docker-compose down",
 		"lint": "eslint . --ext .ts",
 		"lint:fix": "eslint --fix \"src/**/*.ts\" .",
 		"test": "jest",
