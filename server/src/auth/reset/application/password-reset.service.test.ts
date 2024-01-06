@@ -1,4 +1,5 @@
 import { existingUser, inValidUser, validUser } from '../../../fixture/user.fixture';
+import User from '../../domain/user';
 import { findByEmail, updateUserByPasswordAndSalt } from '../../domain/user.repository';
 import { passwordResetRequester, passwordResetter } from './password-reset.service';
 
@@ -7,7 +8,7 @@ jest.mock('../../domain/user.repository.ts');
 describe('PasswordReset service', () => {
   describe('passwordResetRequester', () => {
     beforeEach(() => {
-      (findByEmail as jest.Mock).mockResolvedValue(existingUser);
+      (findByEmail as jest.Mock).mockResolvedValue(new User(existingUser));
     });
     context('사용자의 email이 올바르게 입력된 경우', () => {
       it('검증 된 이메일를 반환한다.', async () => {
