@@ -70,6 +70,8 @@ export const existingBook = {
   pubDate: '2019-01-01',
   summary: '어리다....',
   title: '어린왕자들',
+  imgId: 7,
+  categoryId: 1,
 };
 
 export const nonExistingBook = {
@@ -82,7 +84,9 @@ export const nonExistingBook = {
   likes: 99999,
   pages: 99999,
   price: 99999,
-  pubDate: '',
+  pub_date: '',
   summary: '',
   title: '',
+  imgId: 0,
+  categoryId: 0,
 };
