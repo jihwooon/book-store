@@ -67,7 +67,22 @@ export const existingBook = {
   likes: 3,
   pages: 100,
   price: 20000,
-  pubDate: new Date('2019-01-01'),
+  pubDate: '2019-01-01',
   summary: '어리다....',
   title: '어린왕자들',
+};
+
+export const nonExistingBook = {
+  id: 99999,
+  author: '',
+  contents: '',
+  detail: '',
+  form: '',
+  isbn: '',
+  likes: 99999,
+  pages: 99999,
+  price: 99999,
+  pubDate: '',
+  summary: '',
+  title: '',
 };
