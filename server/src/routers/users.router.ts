@@ -1,8 +1,8 @@
 import express from 'express';
 
-import { passwordResetRequestController, passwordResetController } from '../auth/reset/web/password-reset.controller';
-import signinController from '../auth/signin/web/signin.controller';
-import signupController from '../auth/signup/web/signup.controller';
+import { passwordResetRequestController, passwordResetController } from '../users/reset/web/password-reset.controller';
+import signinController from '../users/signin/web/signin.controller';
+import signupController from '../users/signup/web/signup.controller';
 
 const router = express.Router();
 
