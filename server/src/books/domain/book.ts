@@ -3,6 +3,10 @@ export default class Book {
 
   private title: string;
 
+  private imgId: number;
+
+  private categoryId: number;
+
   private form: string;
 
   private isbn: string;
@@ -26,6 +30,8 @@ export default class Book {
   constructor({
     id = 0,
     title = '',
+    imgId = 0,
+    categoryId = 0,
     form = '',
     isbn = '',
     summary = '',
@@ -39,6 +45,8 @@ export default class Book {
   }: {
     id?: number,
     title?: string,
+    imgId?: number,
+    categoryId?: number,
     form?: string,
     isbn?: string,
     summary?: string,
@@ -52,6 +60,8 @@ export default class Book {
   }) {
     this.id = id;
     this.title = title;
+    this.imgId = imgId;
+    this.categoryId = categoryId;
     this.form = form;
     this.isbn = isbn;
     this.summary = summary;
@@ -70,6 +80,14 @@ export default class Book {
 
   getTitle() {
     return this.title;
+  }
+
+  getImgId() {
+    return this.imgId;
+  }
+
+  getCategoryId() {
+    return this.categoryId;
   }
 
   getForm() {
