@@ -5,8 +5,8 @@ dotenv.config();
 
 export const connectionPromise = createPool({
   host: 'localhost',
-  user: process.env.MARIADB_USER,
-  password: process.env.MARIADB_PASSWORD,
+  user: process.env.MARIADB_ROOT_USER,
+  password: process.env.MARIADB_ROOT_PASSWORD,
   database: process.env.MARIADB_DATABASE,
   port: Number(process.env.MARIADB_PORT),
   dateStrings: true,

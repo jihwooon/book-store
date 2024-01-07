@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  database:
+    image: mariadb:11.2.2
+    container_name: book-store-compose
+    restart: always
+    ports:
+      - 3307:3306
+    env_file:
+      - ./server/.env
+    volumes:
+      - ./data/conf.d:/etc/mysql/conf.d
+      - ./data/data:/var/lib/mysql
+      - ./server/resources/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      TZ: Asia/Seoul
+    command: --init-file /docker-entrypoint-initdb.d/init.sql
