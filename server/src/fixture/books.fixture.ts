@@ -67,11 +67,11 @@ export const existingBook = {
   likes: 3,
   pages: 100,
   price: 20000,
-  pub_date: '2019-01-01',
+  pubDate: '2019-01-01',
   summary: '어리다....',
   title: '어린왕자들',
-  img_id: 1,
-  category_id: 1,
+  imgId: 7,
+  categoryId: 1,
 };
 
 export const nonExistingBook = {
@@ -87,6 +87,6 @@ export const nonExistingBook = {
   pub_date: '',
   summary: '',
   title: '',
-  img_id: 0,
-  category_id: 0,
+  imgId: 0,
+  categoryId: 0,
 };
