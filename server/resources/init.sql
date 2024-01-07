@@ -1,6 +1,9 @@
 -- table users
 CREATE DATABASE IF NOT EXISTS BookStore;
 
+DROP TABLE BookStore.users;
+DROP TABLE BookStore.books;
+
 CREATE TABLE IF NOT EXISTS BookStore.users (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
@@ -23,6 +26,7 @@ CREATE TABLE IF NOT EXISTS BookStore.books (
   `pages` int(11) NOT NULL,
   `contents` longtext DEFAULT NULL,
   `price` int(11) NOT NULL,
+  `likes` int(11) NOT NULL,
   `pub_date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `isbn_UNIQUE` (`isbn`)
@@ -41,14 +45,14 @@ INSERT INTO BookStore.users (email, name, password, salt)
 VALUES ('abcd@gmail.com', 'Jonie', 'mZ9\1''rx', '$2a$04$OwFqvS1OKxgFZuf01.Qz0.JNzMGzOtuXvaOL5E7jeUyl3gt5NFVZK');
 
 -- books data
-INSERT INTO BookStore.books (title, form, isbn, summary, detail, author, pages, contents, price, pub_date)
-VALUES ("어린왕자들", "종이책", 0, "어리다....", "많이 어리다...", "김어림", 100, "목차", 20000, "2019-01-01");
+INSERT INTO BookStore.books (title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("어린왕자들", "종이책", 0, "어리다....", "많이 어리다...", "김어림", 100, "목차", 20000, 3 , "2019-01-01");
 
-INSERT INTO BookStore.books (title, form, isbn, summary, detail, author, pages, contents, price, pub_date)
-VALUES ("신델렐라", "종이책", 1, "유리구두...", "투명한 유리구두", "걍구두", 100, "목차", 20000, "2019-01-01");
+INSERT INTO BookStore.books (title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("신델렐라", "종이책", 1, "유리구두...", "투명한 유리구두", "걍구두", 100, "목차", 20000, 10, "2019-01-01");
 
-INSERT INTO BookStore.books (title, form, isbn, summary, detail, author, pages, contents, price, pub_date)
-VALUES ("백설공주들", "종이책", 2, "사과...", "많이 어리다...", "김어림", 100, "목차", 20000, "2019-01-01");
+INSERT INTO BookStore.books (title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("백설공주들", "종이책", 2, "사과...", "많이 어리다...", "김어림", 100, "목차", 20000, 15, "2019-01-01");
 
-INSERT INTO BookStore.books (title, form, isbn, summary, detail, author, pages, contents, price, pub_date)
-VALUES ("흥부와 놀부", "종이책", 3, "제비...", "많이 어리다...", "김어림", 100, "목차", 20000, "2019-01-01");
+INSERT INTO BookStore.books (title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("흥부와 놀부", "종이책", 3, "제비...", "많이 어리다...", "김어림", 100, "목차", 20000, 20, "2019-01-01");
