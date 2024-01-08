@@ -1,4 +1,7 @@
+import { StatusCodes } from 'http-status-codes';
+
 import { existingBook, nonExistingBook } from '../../fixture/books.fixture';
+import HttpException from '../../utils/httpException';
 import { findBookWithCategory } from '../domain/books.repository';
 import getDetailBook from './books-detail.service';
 
@@ -23,7 +26,7 @@ describe('BooksDetail service', () => {
       });
       it('Error를 던져야 한다.', async () => {
         await expect(getDetailBook(nonExistingBook.id))
-          .rejects.toThrow(Error(`${nonExistingBook.id} 해당하는 도서 정보를 찾을 수 없습니다.`));
+          .rejects.toThrow(new HttpException(`${nonExistingBook.id} 해당하는 도서 정보를 찾을 수 없습니다.`, StatusCodes.NOT_FOUND));
       });
     });
   });
