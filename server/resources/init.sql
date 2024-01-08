@@ -1,50 +1,4 @@
--- table users
-CREATE DATABASE IF NOT EXISTS BookStore;
-
-DROP TABLE BookStore.users;
-DROP TABLE BookStore.books;
-DROP TABLE BookStore.category;
-
-CREATE TABLE IF NOT EXISTS BookStore.users (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(100) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `salt` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- table books
-CREATE TABLE IF NOT EXISTS BookStore.books (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(45) NOT NULL,
-  `img_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `form` varchar(45) NOT NULL,
-  `isbn` varchar(45) NOT NULL,
-  `summary` varchar(500) DEFAULT NULL,
-  `detail` longtext DEFAULT NULL,
-  `author` varchar(45) NOT NULL,
-  `pages` int(11) NOT NULL,
-  `contents` longtext DEFAULT NULL,
-  `price` int(11) NOT NULL,
-  `likes` int(11) NOT NULL,
-  `pub_date` date DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `isbn_UNIQUE` (`isbn`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS BookStore.category (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- truncate tables
 TRUNCATE BookStore.users;
-TRUNCATE BookStore.books;
-TRUNCATE BookStore.category;
 
 -- user data
 INSERT INTO BookStore.users (email, name, password, salt)
@@ -72,3 +26,59 @@ INSERT INTO BookStore.category (name) VALUES ('소설');
 INSERT INTO BookStore.category (name) VALUES ('컴퓨터 공학');
 
 INSERT INTO BookStore.category (name) VALUES ('자기계발');
+
+INSERT INTO BookStore.category (name) VALUES ('공상 과학');
+
+-- -- table users
+-- DROP DATABASE IF EXISTS BookStore;
+-- CREATE DATABASE IF NOT EXISTS BookStore;
+
+-- DROP TABLE IF EXISTS BookStore.users;
+-- DROP TABLE IF EXISTS BookStore.books;
+-- DROP TABLE IF EXISTS BookStore.category;
+
+-- CREATE TABLE IF NOT EXISTS BookStore.users (
+--   `id` int(11) NOT NULL AUTO_INCREMENT,
+--   `email` varchar(100) NOT NULL,
+--   `name` varchar(45) NOT NULL,
+--   `password` varchar(45) NOT NULL,
+--   `salt` varchar(100) DEFAULT NULL,
+--   PRIMARY KEY (`id`),
+--   UNIQUE KEY `email_UNIQUE` (`email`)
+-- ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- -- table books
+-- CREATE TABLE IF NOT EXISTS BookStore.books (
+--   `id` int(11) NOT NULL AUTO_INCREMENT,
+--   `title` varchar(45) NOT NULL,
+--   `img_id` int(11) NOT NULL,
+--   `category_id` int(11) NOT NULL,
+--   `form` varchar(45) NOT NULL,
+--   `isbn` varchar(45) NOT NULL,
+--   `summary` varchar(500) DEFAULT NULL,
+--   `detail` longtext DEFAULT NULL,
+--   `author` varchar(45) NOT NULL,
+--   `pages` int(11) NOT NULL,
+--   `contents` longtext DEFAULT NULL,
+--   `price` int(11) NOT NULL,
+--   `likes` int(11) NOT NULL,
+--   `pub_date` date DEFAULT NULL,
+--   PRIMARY KEY (`id`),
+--   UNIQUE KEY `isbn_UNIQUE` (`isbn`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- CREATE TABLE IF NOT EXISTS BookStore.category (
+--   `id` int(11) NOT NULL AUTO_INCREMENT,
+--   `name` varchar(100) NOT NULL,
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ALTER TABLE BookStore.books
+-- ADD CONSTRAINT fk_books_category
+-- FOREIGN KEY (category_id)
+-- REFERENCES BookStore.category(id);
+
+-- truncate tables
+
+-- TRUNCATE BookStore.books;
+-- TRUNCATE BookStore.category;
