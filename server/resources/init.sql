@@ -3,6 +3,7 @@ CREATE DATABASE IF NOT EXISTS BookStore;
 
 DROP TABLE BookStore.users;
 DROP TABLE BookStore.books;
+DROP TABLE BookStore.category;
 
 CREATE TABLE IF NOT EXISTS BookStore.users (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -34,10 +35,16 @@ CREATE TABLE IF NOT EXISTS BookStore.books (
   UNIQUE KEY `isbn_UNIQUE` (`isbn`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS BookStore.category (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- truncate tables
 TRUNCATE BookStore.users;
 TRUNCATE BookStore.books;
+TRUNCATE BookStore.category;
 
 -- user data
 INSERT INTO BookStore.users (email, name, password, salt)
@@ -58,3 +65,10 @@ VALUES ("백설공주들", 10, 3, "종이책", 2, "사과...", "많이 어리다
 
 INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
 VALUES ("흥부와 놀부", 20, 4, "종이책", 3, "제비...", "많이 어리다...", "김어림", 100, "목차", 20000, 20, "2019-01-01");
+
+-- category data
+INSERT INTO BookStore.category (name) VALUES ('소설');
+
+INSERT INTO BookStore.category (name) VALUES ('컴퓨터 공학');
+
+INSERT INTO BookStore.category (name) VALUES ('자기계발');
