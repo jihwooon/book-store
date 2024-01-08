@@ -29,9 +29,9 @@ export const findAll = async (): Promise<Book[]> => {
   }));
 };
 
-export const findById = async (id: number): Promise<Book> => {
+export const findBookWithCategory = async (id: number): Promise<Book> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
-    'SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date FROM books WHERE id=?',
+    'SELECT * FROM books b LEFT JOIN category c ON b.category_id = c.id WHERE b.id = ?',
     [id],
   ));
 
@@ -46,6 +46,7 @@ export const findById = async (id: number): Promise<Book> => {
     title: row.title,
     form: row.form,
     isbn: row.isbn,
+    categoryId: row.category_id,
     summary: row.summary,
     detail: row.detail,
     author: row.author,
