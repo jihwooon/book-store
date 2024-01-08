@@ -1,8 +1,9 @@
-import express from 'express';
 import rTracer from 'cls-rtracer';
+import express from 'express';
 
-import userRouter from './routers/users.router';
 import bookRouter from './routers/books.router';
+import categoryRouter from './routers/category.router';
+import userRouter from './routers/users.router';
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(rTracer.expressMiddleware());
 
 app.use(userRouter);
 app.use(bookRouter);
+app.use(categoryRouter);
 
 app.get('/', async (req, res) => {
   res.send('Hello World');
