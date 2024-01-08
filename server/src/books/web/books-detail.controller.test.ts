@@ -30,7 +30,9 @@ describe('bookDetail Controller', () => {
 
     context('도서 정보 id로 찾을 수 없을 경우', () => {
       beforeEach(() => {
-        when(getDetailBook as jest.Mock).calledWith(nonExistingBook.id).mockReturnValue(undefined);
+        when(getDetailBook as jest.Mock)
+          .calledWith(nonExistingBook.id)
+          .mockRejectedValue(Error(`해당 ${nonExistingBook.id}의 도서 정보를 찾을 수 없습니다.`));
       });
       it('404 상태코드와 에러 메시지를 반환한다', async () => {
         const { statusCode, body } = await request(app).get(`/books/${nonExistingBook.id}`);

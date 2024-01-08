@@ -23,7 +23,7 @@ describe('BooksDetail service', () => {
       });
       it('Error를 던져야 한다.', async () => {
         await expect(getDetailBook(nonExistingBook.id))
-          .rejects.toThrow(Error(`해당 ${nonExistingBook.id}의 도서 정보를 찾을 수 없습니다.`));
+          .rejects.toThrow(Error(`${nonExistingBook.id} 해당하는 도서 정보를 찾을 수 없습니다.`));
       });
     });
   });
