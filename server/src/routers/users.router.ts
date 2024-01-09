@@ -1,6 +1,7 @@
 import express from 'express';
 
-import { passwordResetRequestController, passwordResetController } from '../users/reset/web/password-reset.controller';
+import passwordResetRequestController from '../users/reset/web/password-request.controller';
+import passwordResetController from '../users/reset/web/password-reset.controller';
 import signinController from '../users/signin/web/signin.controller';
 import signupController from '../users/signup/web/signup.controller';
 

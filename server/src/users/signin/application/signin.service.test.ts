@@ -1,4 +1,8 @@
+import { StatusCodes } from 'http-status-codes';
+
 import { existingUser, inValidUser, nonExistingUser } from '../../../fixture/user.fixture';
+import HttpException from '../../../utils/httpException';
+
 import { isMatchPassword } from '../../domain/password.provider';
 import User from '../../domain/user';
 import { findByEmail } from '../../domain/user.repository';
@@ -21,13 +25,13 @@ describe('Signin service', () => {
       });
     });
 
-    context('사용자 정보가 찾을 수 없으면', () => {
+    context('사용자 정보를 찾을 수 없으면', () => {
       beforeEach(() => {
         (findByEmail as jest.Mock).mockResolvedValue(undefined);
       });
-      it('Error을 던져야 한다', async () => {
+      it('HttpException을 던져야 한다', async () => {
         await expect(signinService(nonExistingUser.email, nonExistingUser.password))
-          .rejects.toThrow(new Error('회원 정보를 찾을 수 없습니다.'));
+          .rejects.toThrow(new HttpException('회원 정보를 찾을 수 없습니다.', StatusCodes.NOT_FOUND));
       });
     });
   });
