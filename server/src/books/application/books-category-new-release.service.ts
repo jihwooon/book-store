@@ -4,7 +4,7 @@ import { newReleaseBook } from '../../fixture/books.fixture';
 import HttpException from '../../utils/httpException';
 import { findByCategoryAndNewRelease } from '../domain/books.repository';
 
-export const getBooksByNewRelease = async (categoryId: number, news: boolean) => {
+export const getBooksByCategoryAndNewRelease = async (categoryId: number, news: boolean) => {
   if (!news) {
     throw new HttpException('신간 도서가 아닙니다.', StatusCodes.BAD_REQUEST);
   }
