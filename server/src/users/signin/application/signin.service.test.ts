@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { existingUser, inValidUser, nonExistingUser } from '../../../fixture/user.fixture';
+import { existingUser, nonExistingUser } from '../../../fixture/user.fixture';
 import HttpException from '../../../utils/httpException';
 
 import { isMatchPassword } from '../../domain/password.provider';
@@ -19,7 +19,7 @@ describe('Signin service', () => {
     });
     context('사용자가 올바른 정보를 입력한다면', () => {
       it('accessToken을 반환한다.', async () => {
-        const token = await signinService(inValidUser.email, inValidUser.password);
+        const token = await signinService(existingUser.email, existingUser.password);
 
         expect(token).toEqual({ accessToken: expect.any(String) });
       });
@@ -32,6 +32,17 @@ describe('Signin service', () => {
       it('HttpException을 던져야 한다', async () => {
         await expect(signinService(nonExistingUser.email, nonExistingUser.password))
           .rejects.toThrow(new HttpException('회원 정보를 찾을 수 없습니다.', StatusCodes.NOT_FOUND));
+      });
+    });
+
+    context('사용자 비밀번호가 일치하지 않으면', () => {
+      beforeEach(() => {
+        (isMatchPassword as jest.Mock).mockResolvedValue(false);
+      });
+
+      it('HttpException을 던져야 한다', async () => {
+        await expect(signinService(nonExistingUser.email, nonExistingUser.password))
+          .rejects.toThrow(new HttpException('패스워드가 일치 하지 않습니다.', StatusCodes.BAD_REQUEST));
       });
     });
   });
