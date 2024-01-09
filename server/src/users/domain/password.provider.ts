@@ -1,9 +1,13 @@
 import crypto from 'node:crypto';
 
+import { StatusCodes } from 'http-status-codes';
+
+import HttpException from '../../utils/httpException';
+
 export const createHash = (
   password: string,
   salt: string,
-):Promise<string> => new Promise((resolve, reject) => {
+): Promise<string> => new Promise((resolve, reject) => {
   crypto.pbkdf2(password, salt, 10000, 10, 'sha512', (err, deivedKey) => {
     if (err) {
       reject(err);
@@ -27,9 +31,6 @@ export const isMatchPassword = async (
   plainPassword: string,
 ): Promise<boolean> => {
   const hashPassword = await createHash(plainPassword, salt);
-  if (storedPassword !== hashPassword) {
-    throw new Error('패스워드가 일치 하지 않습니다.');
-  }
 
-  return true;
+  return storedPassword === hashPassword;
 };

@@ -1,4 +1,7 @@
-import { validUser, inValidUser } from '../../../fixture/user.fixture';
+import { StatusCodes } from 'http-status-codes';
+
+import { inValidUser, validUser } from '../../../fixture/user.fixture';
+import HttpException from '../../../utils/httpException';
 import { save } from '../../domain/user.repository';
 import signupService from './signup.service';
 
@@ -23,11 +26,11 @@ describe('Signup service', () => {
 
     context('사용자가 비정상적인 정보를 입력될 경우', () => {
       beforeEach(() => {
-        (save as jest.Mock).mockResolvedValue(false);
+        (save as jest.Mock).mockReturnValue(false);
       });
-      it('Error을 던져야 한다', async () => {
+      it('HttpException을 던져야 한다', async () => {
         await expect(signupService(inValidUser.email, inValidUser.password, inValidUser.name))
-          .rejects.toThrow(new Error('중복된 항목이 있습니다.'));
+          .rejects.toThrow(new HttpException('회원 가입에 실패했습니다.', StatusCodes.BAD_REQUEST));
       });
     });
   });

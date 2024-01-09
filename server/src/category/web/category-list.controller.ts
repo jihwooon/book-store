@@ -1,20 +1,12 @@
 import { Request, Response } from 'express';
 
+import { StatusCodes } from 'http-status-codes';
+
+import { ResponseHandler } from '../../utils/responseHandler';
 import getAllCategory from '../application/category-list.service';
 
 const getAllCategoryHandler = async (req: Request, res: Response) => {
-  try {
-    const category = await getAllCategory();
-
-    res.status(200).json({
-      message: '도서 목록을 조회합니다.',
-      data: category,
-    });
-  } catch (error: any) {
-    res.status(404).json({
-      message: error.message,
-    });
-  }
+  ResponseHandler(() => getAllCategory(), StatusCodes.OK, res);
 };
 
 export default getAllCategoryHandler;

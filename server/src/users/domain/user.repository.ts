@@ -9,15 +9,12 @@ const childLogger = logger.child({
 });
 
 export const save = async (
-  email: string,
-  password: string,
-  name: string,
-  salt: string,
+  user: User,
 ): Promise<boolean> => {
   try {
     await doQuery((connection) => connection.execute(
       'INSERT INTO users (email, password, name, salt) VALUES (?, ?, ?, ?)',
-      [email, password, name, salt],
+      [user.getEmail(), user.getPassword(), user.getName(), user.getSalt()],
     ));
     return true;
   } catch (error: any) {
