@@ -2,8 +2,6 @@ import request from 'supertest';
 
 import { StatusCodes } from 'http-status-codes';
 
-import { when } from 'jest-when';
-
 import app from '../../../app';
 import { existingUser, nonExistingUser } from '../../../fixture/user.fixture';
 
@@ -16,9 +14,7 @@ describe('passwordRequest Controller', () => {
   describe('POST /reset', () => {
     context('올바른 email이 주어지면', () => {
       beforeEach(() => {
-        when(passwordResetRequestor as jest.Mock)
-          .calledWith(existingUser.email)
-          .mockResolvedValue(existingUser);
+        (passwordResetRequestor as jest.Mock).mockResolvedValue(existingUser);
       });
       it('200 상태코드와 검증 된 email를 반환한다.', async () => {
         const { statusCode, body: { data: { email } } } = await request(app).post('/reset').send(
@@ -32,8 +28,7 @@ describe('passwordRequest Controller', () => {
 
     context('올바르지 못 한 email이 주어지면', () => {
       beforeEach(() => {
-        when(passwordResetRequestor as jest.Mock)
-          .calledWith(nonExistingUser.email)
+        (passwordResetRequestor as jest.Mock)
           .mockRejectedValue(new HttpException('이메일을 찾을 수가 없습니다.', StatusCodes.NOT_FOUND));
       });
       it('404 상태코드와 에러 메시지를 반환한다.', async () => {
