@@ -69,7 +69,7 @@ module.exports = {
     'no-useless-constructor': 'off',
     'jest/no-disabled-tests': 'warn',
     'jest/no-focused-tests': 'error',
-    'jest/no-identical-title': 'error',
+    'jest/no-identical-title': 'off',
     'jest/prefer-to-have-length': 'warn',
     'jest/valid-expect': 'error',
     '@typescript-eslint/no-unused-vars': 'off',

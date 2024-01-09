@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import logger from '../config/logger';
 
-export const ResponseHandler = async <T>(
+export const ResponseHandler = async <T = any>(
   func: () => Promise<T>, status: StatusCodes, res: Response,
 ) => {
   try {
@@ -17,6 +17,8 @@ export const ResponseHandler = async <T>(
 
     res.status(error.status).json({
       message: error.message,
+      status: error.status,
+      timestamp: new Date().toISOString(),
     });
   }
 };
