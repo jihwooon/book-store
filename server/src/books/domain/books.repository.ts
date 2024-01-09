@@ -29,7 +29,7 @@ export const findAll = async (): Promise<Book[]> => {
   }));
 };
 
-export const findBookWithCategory = async (id: number): Promise<Book> => {
+export const findWithCategory = async (id: number): Promise<Book> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
     'SELECT * FROM books b LEFT JOIN category c ON b.category_id = c.id WHERE b.id = ?',
     [id],
@@ -58,7 +58,7 @@ export const findBookWithCategory = async (id: number): Promise<Book> => {
   });
 };
 
-export const findBookByCategory = async (categoryId: number): Promise<Book> => {
+export const findByCategory = async (categoryId: number): Promise<Book> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>('SELECT id, title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date FROM books WHERE category_id=?', [categoryId]));
 
   const [row] = rows ?? [];
@@ -85,7 +85,7 @@ export const findBookByCategory = async (categoryId: number): Promise<Book> => {
   });
 };
 
-export const findByBookNewRelease = async (
+export const findByCategoryAndNewRelease = async (
   categoryId: number,
 ): Promise<Book> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
