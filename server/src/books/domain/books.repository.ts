@@ -117,25 +117,14 @@ export const findByCategoryAndNewRelease = async (
   });
 };
 
-export const findByNewRelease = async (
-  categoryId: number,
-): Promise<Book> => {
+export const findByNewRelease = async (): Promise<Book[]> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
-    'SELECT * FROM books WHERE pub_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()'
-    , [categoryId],
+    'SELECT * FROM books WHERE pub_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()',
   ));
 
-  const [row] = rows ?? [];
-  if (!row) {
-    childLogger.error(row);
-    return undefined;
-  }
-
-  return new Book({
+  return (rows ?? []).map((row) => new Book({
     id: row.id,
     title: row.title,
-    imgId: row.img_id,
-    categoryId: row.category_id,
     form: row.form,
     isbn: row.isbn,
     summary: row.summary,
@@ -146,5 +135,5 @@ export const findByNewRelease = async (
     price: row.price,
     likes: row.likes,
     pubDate: row.pub_date,
-  });
+  }));
 };
