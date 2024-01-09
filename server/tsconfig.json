@@ -8,7 +8,13 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "esModuleInterop": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "baseUrl": "./",
+    "paths": {
+      "src/*": [
+        "src/*"
+      ],
+    }
   },
   "exclude": [
     "node_modules",
