@@ -32,12 +32,16 @@ describe('passwordRequest Controller', () => {
           .mockRejectedValue(new HttpException('이메일을 찾을 수가 없습니다.', StatusCodes.NOT_FOUND));
       });
       it('404 상태코드와 에러 메시지를 반환한다.', async () => {
-        const { statusCode, body: { message } } = await request(app).post('/reset').send(
+        const { statusCode, body } = await request(app).post('/reset').send(
           nonExistingUser.email,
         );
 
         expect(statusCode).toBe(404);
-        expect(message).toEqual('이메일을 찾을 수가 없습니다.');
+        expect(body).toEqual({
+          message: '이메일을 찾을 수가 없습니다.',
+          status: 404,
+          timestamp: expect.any(String),
+        });
       });
     });
   });

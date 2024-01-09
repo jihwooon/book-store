@@ -31,12 +31,16 @@ describe('passwordReset Controller', () => {
         (passwordResetter as jest.Mock).mockRejectedValue(new HttpException('패스워드 초기화에 실패했습니다.', StatusCodes.BAD_REQUEST));
       });
       it('400 상태코드와 에러 메세지를 반환한다.', async () => {
-        const { statusCode, body: { message } } = await request(app).put('/reset').send({
+        const { statusCode, body } = await request(app).put('/reset').send({
           existingUser,
         });
 
         expect(statusCode).toBe(400);
-        expect(message).toEqual('패스워드 초기화에 실패했습니다.');
+        expect(body).toEqual({
+          message: '패스워드 초기화에 실패했습니다.',
+          status: 400,
+          timestamp: expect.any(String),
+        });
       });
     });
   });

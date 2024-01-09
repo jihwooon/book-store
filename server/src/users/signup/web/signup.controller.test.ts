@@ -28,10 +28,14 @@ describe('signup Controller', () => {
         (signupService as jest.Mock).mockRejectedValue(new HttpException('회원 가입에 실패했습니다.', StatusCodes.BAD_REQUEST));
       });
       it('400 상태코드와 에러 메세지를 반환한다.', async () => {
-        const { statusCode, body: { message } } = await request(app).post('/signup').send(inValidUser);
+        const { statusCode, body } = await request(app).post('/signup').send(inValidUser);
 
         expect(statusCode).toBe(400);
-        expect(message).toBe('회원 가입에 실패했습니다.');
+        expect(body).toEqual({
+          message: '회원 가입에 실패했습니다.',
+          status: 400,
+          timestamp: expect.any(String),
+        });
       });
     });
   });
