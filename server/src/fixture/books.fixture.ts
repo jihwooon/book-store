@@ -67,7 +67,7 @@ export const existingBook = {
   likes: 3,
   pages: 100,
   price: 20000,
-  pubDate: '2019-01-01',
+  pub_date: '2019-01-01',
   summary: '어리다....',
   title: '어린왕자들',
   imgId: 7,
