@@ -1,19 +1,22 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
+import { ResponseHandler } from '../../../utils/responseHandler';
 import signinService from '../application/signin.service';
 
 const signinController = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  const { accessToken } = await signinService(email, password);
+  const signInFunction = async () => {
+    const { email, password } = req.body;
+    const { accessToken } = await signinService(email, password);
 
-  res.cookie('token', accessToken, {
-    httpOnly: true,
-  });
+    res.cookie('token', accessToken, {
+      httpOnly: true,
+    });
 
-  return res.status(StatusCodes.OK).json({
-    accessToken,
-  });
+    return accessToken;
+  };
+
+  ResponseHandler(signInFunction, StatusCodes.OK, res);
 };
 
 export default signinController;

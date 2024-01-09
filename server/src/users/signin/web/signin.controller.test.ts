@@ -15,12 +15,12 @@ describe('signin Controller', () => {
     });
     context('사용자의 로그인 정보가 입력되면', () => {
       it('200 상태코드와 accessToken을 반환한다..', async () => {
-        const { statusCode, body: { accessToken: token } } = await request(app).post('/signin').send({
+        const { statusCode, body: { data } } = await request(app).post('/signin').send({
           validUser,
         });
 
         expect(statusCode).toBe(200);
-        expect(token).toBe(ACCESS_TOKEN);
+        expect(data).toBe(ACCESS_TOKEN);
       });
     });
   });
