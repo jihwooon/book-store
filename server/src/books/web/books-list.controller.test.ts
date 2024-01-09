@@ -5,16 +5,18 @@ import { StatusCodes } from 'http-status-codes';
 
 import app from '../../app';
 import {
-  existingBook, existingBooks, newReleaseBook,
+  existingBook, existingBooks, newNewReleaseBooks, newReleaseBook,
   notNewReleaseBook,
 } from '../../fixture/books.fixture';
 import HttpException from '../../utils/httpException';
+import { getBooksByCategoryAndNewRelease } from '../application/books-category-new-release.service';
 import getBooksByCategory from '../application/books-category.service';
 import getAllBooks from '../application/books-list.service';
-import { getBooksByNewRelease } from '../application/books-new-release.service';
+import { getAllBooksByNewRelease } from '../application/books-new-release.service';
 
 jest.mock('../application/books-list.service.ts');
 jest.mock('../application/books-category.service.ts');
+jest.mock('../application/books-category-new-release.service.ts');
 jest.mock('../application/books-new-release.service.ts');
 
 describe('bookList Controller', () => {
@@ -46,13 +48,13 @@ describe('bookList Controller', () => {
     });
   });
 
-  describe('GET /books?category_id&&news', () => {
+  describe('GET /books?category_id&news', () => {
     context('사용자가 카테고리 id와 신간 조회한 경우', () => {
       beforeEach(() => {
-        (getBooksByNewRelease as jest.Mock).mockResolvedValue(newReleaseBook);
+        (getBooksByCategoryAndNewRelease as jest.Mock).mockResolvedValue(newReleaseBook);
       });
       it('200 상태코드를 반환한다.', async () => {
-        const { statusCode, body } = await request(app).get('/books?category_id&&news')
+        const { statusCode, body } = await request(app).get('/books?category_id&news')
           .query({ category_id: '1', news: true });
 
         expect(statusCode).toBe(200);
@@ -64,11 +66,11 @@ describe('bookList Controller', () => {
 
     context('사용자가 신간 조회를 비정상적으로 입력된 경우', () => {
       beforeEach(() => {
-        (getBooksByNewRelease as jest.Mock)
+        (getBooksByCategoryAndNewRelease as jest.Mock)
           .mockRejectedValue(new HttpException('신간 도서가 아닙니다.', StatusCodes.BAD_REQUEST));
       });
       it('400 상태코드를 반환한다.', async () => {
-        const { statusCode, body } = await request(app).get('/books?category_id&&news')
+        const { statusCode, body } = await request(app).get('/books?category_id&news')
           .query({ category_id: '1', news: false });
 
         expect(statusCode).toBe(400);
@@ -82,19 +84,56 @@ describe('bookList Controller', () => {
 
     context('사용자가 비정상적으로 카테고리 정보가 입력된 경우', () => {
       beforeEach(() => {
-        (getBooksByNewRelease as jest.Mock)
+        (getBooksByCategoryAndNewRelease as jest.Mock)
           .mockRejectedValue(
             new HttpException(`${notNewReleaseBook.categoryId} 카테고리 정보를 찾을 수 없습니다.`, StatusCodes.NOT_FOUND),
           );
       });
       it('404 상태코드를 반환한다.', async () => {
-        const { statusCode, body } = await request(app).get('/books?category_id&&news')
+        const { statusCode, body } = await request(app).get('/books?category_id&news')
           .query({ category_id: notNewReleaseBook.categoryId, news: true });
 
         expect(statusCode).toBe(404);
         expect(body).toEqual({
           message: `${notNewReleaseBook.categoryId} 카테고리 정보를 찾을 수 없습니다.`,
           status: 404,
+          timestamp: expect.any(String),
+        });
+      });
+    });
+  });
+
+  describe('GET /books?&news', () => {
+    context('사용자가 신간을 조회 성공하는 경우', () => {
+      beforeEach(() => {
+        (getAllBooksByNewRelease as jest.Mock).mockResolvedValue(newNewReleaseBooks);
+      });
+      it('200 상태코드를 반환한다.', async () => {
+        const { statusCode, body } = await request(app).get('/books?news')
+          .query({ news: true });
+
+        expect(statusCode).toBe(200);
+        expect(body).toEqual({
+          data: newNewReleaseBooks,
+        });
+      });
+    });
+
+    context('사용자가 신간을 조회 실패하는 경우', () => {
+      beforeEach(() => {
+        (getAllBooksByNewRelease as jest.Mock).mockRejectedValue(
+          new HttpException('신간 목록 조회하는 요청이 올바르지 않습니다.', StatusCodes.BAD_REQUEST),
+        );
+      });
+
+      it('400 상태코드를 반환한다.', async () => {
+        const { statusCode, body } = await request(app).get('/books?news')
+          .query({ news: false });
+
+        expect(statusCode).toBe(400);
+        expect(body).toEqual({
+          message: '신간 목록 조회하는 요청이 올바르지 않습니다.',
+          status: 400,
           timestamp: expect.any(String),
         });
       });

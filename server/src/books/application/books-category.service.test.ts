@@ -5,7 +5,7 @@ import { StatusCodes } from 'http-status-codes';
 import { existingBook, nonExistingBook } from '../../fixture/books.fixture';
 
 import HttpException from '../../utils/httpException';
-import { findBookByCategory } from '../domain/books.repository';
+import { findByCategory } from '../domain/books.repository';
 import getBooksByCategory from './books-category.service';
 
 jest.mock('../domain/books.repository.ts');
@@ -13,7 +13,7 @@ jest.mock('../domain/books.repository.ts');
 describe('BooksCategory service', () => {
   describe('getDetailBook', () => {
     beforeEach(() => {
-      when(findBookByCategory as jest.Mock)
+      when(findByCategory as jest.Mock)
         .calledWith(existingBook.categoryId)
         .mockResolvedValue(existingBook);
     });
@@ -27,7 +27,7 @@ describe('BooksCategory service', () => {
 
     context('도서 카테고리 id가 올바르지 않는 경우', () => {
       beforeEach(() => {
-        when(findBookByCategory as jest.Mock)
+        when(findByCategory as jest.Mock)
           .calledWith(nonExistingBook.categoryId)
           .mockReturnValue(undefined);
       });

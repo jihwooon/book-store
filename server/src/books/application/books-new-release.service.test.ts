@@ -1,39 +1,40 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { newReleaseBook, notNewReleaseBook } from '../../fixture/books.fixture';
-import { getBooksByNewRelease } from './books-new-release.service';
+import { newNewReleaseBooks } from '../../fixture/books.fixture';
+import { findByNewRelease } from '../domain/books.repository';
+import { getAllBooksByNewRelease } from './books-new-release.service';
 
 import HttpException from '../../utils/httpException';
-import { findByBookNewRelease } from '../domain/books.repository';
 
 jest.mock('../domain/books.repository.ts');
 
 describe('BooksNewRelease service', () => {
-  describe('getBooksByNewRelease', () => {
-    beforeEach(() => {
-      (findByBookNewRelease as jest.Mock).mockResolvedValue(newReleaseBook);
-    });
-    context('카테고리 id와 신간이 존재하면', () => {
-      it('최신 신간 목록 도서 정보를 반환한다.', async () => {
-        const newReleaseBooks = await getBooksByNewRelease(newReleaseBook.categoryId, true);
+  beforeEach(() => {
+    (findByNewRelease as jest.Mock).mockResolvedValue(newNewReleaseBooks);
+  });
+  describe('getAllBooksByNewRelease', () => {
+    context('신간 true인 경우', () => {
+      it('최신 신간 도서 목록를 반환한다.', async () => {
+        const newReleaseBooksMock = await getAllBooksByNewRelease(true);
 
-        expect(newReleaseBooks).toEqual(newReleaseBook);
+        expect(newReleaseBooksMock).toEqual(newNewReleaseBooks);
       });
     });
 
-    context('카테고리 id가 주어지고 신간이 존재하지 않으면', () => {
+    context('신간 true이지만 신간 도서 목록을 찾을 수 없는 경우', () => {
+      beforeEach(() => {
+        (findByNewRelease as jest.Mock).mockResolvedValue([]);
+      });
       it('HttpException을 던져야 한다.', async () => {
-        await expect(getBooksByNewRelease(newReleaseBook.categoryId, false)).rejects.toThrow(
-          new HttpException('신간 도서가 아닙니다.', StatusCodes.BAD_REQUEST),
-        );
+        await expect(getAllBooksByNewRelease(true))
+          .rejects.toThrow(new HttpException('현재 신간 도서 목록이 없습니다.', StatusCodes.NOT_FOUND));
       });
     });
 
-    context('카테고리 id가 올바르게 주어지지 않으면', () => {
+    context('신간 false인 경우', () => {
       it('HttpException을 던져야 한다.', async () => {
-        await expect(getBooksByNewRelease(notNewReleaseBook.categoryId, true)).rejects.toThrow(
-          new HttpException(`${notNewReleaseBook.categoryId} 카테고리 정보를 찾을 수 없습니다.`, StatusCodes.NOT_FOUND),
-        );
+        await expect(getAllBooksByNewRelease(false))
+          .rejects.toThrow(new HttpException('신간 목록 조회하는 요청이 올바르지 않습니다.', StatusCodes.BAD_REQUEST));
       });
     });
   });
