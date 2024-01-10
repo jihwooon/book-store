@@ -1,4 +1,5 @@
-import { existingBooks } from '../../fixture/books.fixture';
+import { existingBooks } from 'src/fixture/books.fixture';
+
 import { findAll } from '../domain/books.repository';
 import getAllBooks from './books-list.service';
 

@@ -2,10 +2,11 @@ import request from 'supertest';
 
 import { StatusCodes } from 'http-status-codes';
 
-import app from '../../../app';
-import { existingUser } from '../../../fixture/user.fixture';
+import app from 'src/app';
+import { existingUser } from 'src/fixture/user.fixture';
 
-import HttpException from '../../../utils/httpException';
+import HttpException from 'src/utils/httpException';
+
 import passwordResetter from '../application/password-reset.service';
 
 jest.mock('../application/password-reset.service.ts');

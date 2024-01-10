@@ -1,6 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 
-import HttpException from '../../utils/httpException';
+import HttpException from 'src/utils/httpException';
+
 import { findAll } from '../domain/category.repository';
 
 const getAllCategory = async () => {

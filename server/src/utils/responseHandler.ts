@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import logger from '../config/logger';
+import logger from 'src/config/logger';
 
 export const ResponseHandler = async <T = any>(
   func: () => Promise<T>, status: StatusCodes, res: Response,

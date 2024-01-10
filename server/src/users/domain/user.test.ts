@@ -1,4 +1,5 @@
-import { existingUser } from '../../fixture/user.fixture';
+import { existingUser } from 'src/fixture/user.fixture';
+
 import User from './user';
 
 describe('User class', () => {

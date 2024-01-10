@@ -1,4 +1,5 @@
-import { existingUser, nonExistingUser, validUser } from '../../fixture/user.fixture';
+import { existingUser, nonExistingUser, validUser } from 'src/fixture/user.fixture';
+
 import { createHash, createSalt, isMatchPassword } from './password.provider';
 
 jest.mock('./password.provider.ts');

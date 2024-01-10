@@ -1,6 +1,6 @@
 import { RowDataPacket } from 'mysql2';
+import { doQuery } from 'src/database/mariadb';
 
-import { doQuery } from '../../database/mariadb';
 import Category from './category';
 
 export const findAll = async (): Promise<Category[]> => {

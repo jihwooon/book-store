@@ -1,8 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
+import { updateUserByPasswordAndSalt } from 'src/users/domain/user.repository';
 
-import { existingUser, validUser } from '../../../fixture/user.fixture';
-import HttpException from '../../../utils/httpException';
-import { updateUserByPasswordAndSalt } from '../../domain/user.repository';
+import { existingUser, validUser } from 'src/fixture/user.fixture';
+import HttpException from 'src/utils/httpException';
+
 import passwordResetter from './password-reset.service';
 
 jest.mock('../../domain/user.repository.ts');

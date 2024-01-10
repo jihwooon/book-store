@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 
 import { StatusCodes } from 'http-status-codes';
 
-import { ResponseHandler } from '../../../utils/responseHandler';
+import { ResponseHandler } from 'src/utils/responseHandler';
+
 import passwordResetRequestor from '../application/password-request.service';
 
 const passwordResetRequestController = async (req: Request, res: Response) => {

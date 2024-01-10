@@ -1,9 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { existingUser, inValidUser, validUser } from '../../../fixture/user.fixture';
-import HttpException from '../../../utils/httpException';
-import User from '../../domain/user';
-import { findByEmail } from '../../domain/user.repository';
+import { existingUser, inValidUser, validUser } from 'src/fixture/user.fixture';
+
+import User from 'src/users/domain/user';
+import { findByEmail } from 'src/users/domain/user.repository';
+
+import HttpException from 'src/utils/httpException';
+
 import passwordResetRequestor from './password-request.service';
 
 jest.mock('../../domain/user.repository.ts');

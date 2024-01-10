@@ -1,6 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 
-import HttpException from '../../utils/httpException';
+import HttpException from 'src/utils/httpException';
+
 import Book from '../domain/book';
 import { findByCategory } from '../domain/books.repository';
 

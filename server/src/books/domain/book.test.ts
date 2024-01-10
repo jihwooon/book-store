@@ -1,4 +1,5 @@
-import { existingBook } from '../../fixture/books.fixture';
+import { existingBook } from 'src/fixture/books.fixture';
+
 import Book from './book';
 
 describe('Book Class', () => {

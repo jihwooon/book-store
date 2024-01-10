@@ -2,9 +2,10 @@ import { when } from 'jest-when';
 
 import { StatusCodes } from 'http-status-codes';
 
-import { existingBook, nonExistingBook } from '../../fixture/books.fixture';
+import { existingBook, nonExistingBook } from 'src/fixture/books.fixture';
 
-import HttpException from '../../utils/httpException';
+import HttpException from 'src/utils/httpException';
+
 import { findByCategory } from '../domain/books.repository';
 import getBooksByCategory from './books-category.service';
 
@@ -32,7 +33,8 @@ describe('BooksCategory service', () => {
           .mockReturnValue(undefined);
       });
       it('HttpException를 던져야 한다.', async () => {
-        await expect(getBooksByCategory(nonExistingBook.categoryId)).rejects.toThrow(new HttpException(`해당 ${nonExistingBook.categoryId}를 찾을 수 없습니다.`, StatusCodes.NOT_FOUND));
+        await expect(getBooksByCategory(nonExistingBook.categoryId))
+          .rejects.toThrow(new HttpException(`해당 ${nonExistingBook.categoryId}를 찾을 수 없습니다.`, StatusCodes.NOT_FOUND));
       });
     });
   });

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { ResponseHandler } from 'src/utils/responseHandler';
 
-import { ResponseHandler } from '../../utils/responseHandler';
 import getDetailBook from '../application/books-detail.service';
 
 const getBooksHandler = async ({ params: { id } }: Request, res: Response) => {

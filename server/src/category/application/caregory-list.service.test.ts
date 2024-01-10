@@ -1,4 +1,5 @@
-import { existingCategories } from '../../fixture/category.fixture';
+import { existingCategories } from 'src/fixture/category.fixture';
+
 import { findAll } from '../domain/category.repository';
 import getAllCategory from './category-list.service';
 

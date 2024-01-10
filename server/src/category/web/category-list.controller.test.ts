@@ -2,9 +2,10 @@ import request from 'supertest';
 
 import { StatusCodes } from 'http-status-codes';
 
-import app from '../../app';
-import { existingCategories } from '../../fixture/category.fixture';
-import HttpException from '../../utils/httpException';
+import app from 'src/app';
+import { existingCategories } from 'src/fixture/category.fixture';
+import HttpException from 'src/utils/httpException';
+
 import getAllCategory from '../application/category-list.service';
 
 jest.mock('../application/category-list.service.ts');
