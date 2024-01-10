@@ -9,7 +9,8 @@
 		"docker:down": "docker-compose down",
 		"lint": "eslint . --ext .ts",
 		"lint:fix": "eslint --fix \"src/**/*.ts\" .",
-		"test": "jest",
+		"test": "jest --runInBand --detectOpenHandles --forceExit",
+		"test:only-changed": "jest --runInBand --onlyChanged",
 		"test:watch": "jest --watch",
 		"start": "tsx watch src/index.ts"
 	},
