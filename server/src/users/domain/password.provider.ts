@@ -1,9 +1,5 @@
 import crypto from 'node:crypto';
 
-import { StatusCodes } from 'http-status-codes';
-
-import HttpException from '../../utils/httpException';
-
 export const createHash = (
   password: string,
   salt: string,
