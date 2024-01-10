@@ -1,7 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
+import HttpException from 'src/utils/httpException';
 
-import { newReleaseBook } from '../../fixture/books.fixture';
-import HttpException from '../../utils/httpException';
+import { newReleaseBook } from 'src/fixture/books.fixture';
+
 import { findByCategoryAndNewRelease } from '../domain/books.repository';
 
 export const getBooksByCategoryAndNewRelease = async (categoryId: number, news: boolean) => {

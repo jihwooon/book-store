@@ -3,15 +3,19 @@ import request from 'supertest';
 
 import { StatusCodes } from 'http-status-codes';
 
-import app from '../../app';
 import {
-  existingBook, existingBooks, newNewReleaseBooks, newReleaseBook,
-  notNewReleaseBook,
-} from '../../fixture/books.fixture';
-import HttpException from '../../utils/httpException';
+  existingBook, existingBooks, newNewReleaseBooks, newReleaseBook, notNewReleaseBook,
+} from 'src/fixture/books.fixture';
+
+import app from 'src/app';
+
+import HttpException from 'src/utils/httpException';
+
+import getAllBooks from '../application/books-list.service';
+
 import { getBooksByCategoryAndNewRelease } from '../application/books-category-new-release.service';
 import getBooksByCategory from '../application/books-category.service';
-import getAllBooks from '../application/books-list.service';
+
 import { getAllBooksByNewRelease } from '../application/books-new-release.service';
 
 jest.mock('../application/books-list.service.ts');

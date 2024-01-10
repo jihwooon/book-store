@@ -1,7 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { existingBook, nonExistingBook } from '../../fixture/books.fixture';
-import HttpException from '../../utils/httpException';
+import { existingBook, nonExistingBook } from 'src/fixture/books.fixture';
+
+import HttpException from 'src/utils/httpException';
+
 import { findWithCategory } from '../domain/books.repository';
 import getDetailBook from './books-detail.service';
 

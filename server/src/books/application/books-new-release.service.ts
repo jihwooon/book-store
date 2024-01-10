@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
+import HttpException from 'src/utils/httpException';
 
-import HttpException from '../../utils/httpException';
 import { findByNewRelease } from '../domain/books.repository';
 
 export const getAllBooksByNewRelease = async (news: boolean) => {

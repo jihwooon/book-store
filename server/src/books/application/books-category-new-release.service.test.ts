@@ -1,10 +1,11 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { newReleaseBook, notNewReleaseBook } from '../../fixture/books.fixture';
-import { getBooksByCategoryAndNewRelease } from './books-category-new-release.service';
+import { newReleaseBook, notNewReleaseBook } from 'src/fixture/books.fixture';
 
-import HttpException from '../../utils/httpException';
+import HttpException from 'src/utils/httpException';
+
 import { findByCategoryAndNewRelease } from '../domain/books.repository';
+import { getBooksByCategoryAndNewRelease } from './books-category-new-release.service';
 
 jest.mock('../domain/books.repository.ts');
 

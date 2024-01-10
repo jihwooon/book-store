@@ -2,14 +2,13 @@
 /* eslint-disable camelcase */
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { parseBoolean } from 'src/utils/parseBoolean';
+import { ResponseHandler } from 'src/utils/responseHandler';
 
-import { ResponseHandler } from '../../utils/responseHandler';
 import { getBooksByCategoryAndNewRelease } from '../application/books-category-new-release.service';
-import { getAllBooksByNewRelease } from '../application/books-new-release.service';
-
-import { parseBoolean } from '../../utils/parseBoolean';
 import getBooksByCategory from '../application/books-category.service';
 import getAllBooks from '../application/books-list.service';
+import { getAllBooksByNewRelease } from '../application/books-new-release.service';
 
 const getAllBooksHandler = async ({ query: { category_id, news } }: Request, res: Response) => {
   const isValue = parseBoolean(news);

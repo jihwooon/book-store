@@ -4,10 +4,10 @@ import { when } from 'jest-when';
 
 import { StatusCodes } from 'http-status-codes';
 
-import app from '../../app';
+import app from 'src/app';
+import { existingBook, nonExistingBook } from 'src/fixture/books.fixture';
+import HttpException from 'src/utils/httpException';
 
-import { existingBook, nonExistingBook } from '../../fixture/books.fixture';
-import HttpException from '../../utils/httpException';
 import getDetailBook from '../application/books-detail.service';
 
 jest.mock('../application/books-detail.service.ts');
