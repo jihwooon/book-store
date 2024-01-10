@@ -1,7 +1,8 @@
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import logger from 'src/config/logger';
 
-import logger from '../../config/logger';
-import { doQuery } from '../../database/mariadb';
+import { doQuery } from 'src/database/mariadb';
+
 import User from './user';
 
 const childLogger = logger.child({
