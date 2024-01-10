@@ -1,84 +1,46 @@
-TRUNCATE BookStore.users;
-
--- user data
-INSERT INTO BookStore.users (email, name, password, salt)
-VALUES ('abc@gmail.com', 'Cristin', 'cQ3''ex8=Ay?,Nnh9', '$2a$04$2Vtbz7zQhMsPzikLNQso2.G1mExwLzoqnh41w6K5.');
-
-INSERT INTO BookStore.users (email, name, password, salt)
-VALUES ('abcd@gmail.com', 'Jonie', 'mZ9\1''rx', '$2a$04$OwFqvS1OKxgFZuf01.Qz0.JNzMGzOtuXvaOL5E7jeUyl3gt5NFVZK');
-
--- books data
-INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
-VALUES ("어린왕자들", 7, 1, "종이책", 0, "어리다....", "많이 어리다...", "김어림", 100, "목차", 20000, 3 , "2019-01-01");
-
-INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
-VALUES ("신델렐라", 2, 2, "종이책", 1, "유리구두...", "투명한 유리구두", "걍구두", 100, "목차", 20000, 10, "2019-01-01");
-
-INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
-VALUES ("백설공주들", 10, 3, "종이책", 2, "사과...", "많이 어리다...", "김어림", 100, "목차", 20000, 15, "2019-01-01");
-
-INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
-VALUES ("흥부와 놀부", 20, 4, "종이책", 3, "제비...", "많이 어리다...", "김어림", 100, "목차", 20000, 20, "2019-01-01");
-
--- category data
-INSERT INTO BookStore.category (name) VALUES ('소설');
-
-INSERT INTO BookStore.category (name) VALUES ('컴퓨터 공학');
-
-INSERT INTO BookStore.category (name) VALUES ('자기계발');
-
-INSERT INTO BookStore.category (name) VALUES ('공상 과학');
-
--- -- table users
--- DROP DATABASE IF EXISTS BookStore;
--- CREATE DATABASE IF NOT EXISTS BookStore;
-
--- DROP TABLE IF EXISTS BookStore.users;
--- DROP TABLE IF EXISTS BookStore.books;
--- DROP TABLE IF EXISTS BookStore.category;
-
--- CREATE TABLE IF NOT EXISTS BookStore.users (
---   `id` int(11) NOT NULL AUTO_INCREMENT,
---   `email` varchar(100) NOT NULL,
---   `name` varchar(45) NOT NULL,
---   `password` varchar(45) NOT NULL,
---   `salt` varchar(100) DEFAULT NULL,
---   PRIMARY KEY (`id`),
---   UNIQUE KEY `email_UNIQUE` (`email`)
--- ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- -- table books
--- CREATE TABLE IF NOT EXISTS BookStore.books (
---   `id` int(11) NOT NULL AUTO_INCREMENT,
---   `title` varchar(45) NOT NULL,
---   `img_id` int(11) NOT NULL,
---   `category_id` int(11) NOT NULL,
---   `form` varchar(45) NOT NULL,
---   `isbn` varchar(45) NOT NULL,
---   `summary` varchar(500) DEFAULT NULL,
---   `detail` longtext DEFAULT NULL,
---   `author` varchar(45) NOT NULL,
---   `pages` int(11) NOT NULL,
---   `contents` longtext DEFAULT NULL,
---   `price` int(11) NOT NULL,
---   `likes` int(11) NOT NULL,
---   `pub_date` date DEFAULT NULL,
---   PRIMARY KEY (`id`),
---   UNIQUE KEY `isbn_UNIQUE` (`isbn`)
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- CREATE TABLE IF NOT EXISTS BookStore.category (
---   `id` int(11) NOT NULL AUTO_INCREMENT,
---   `name` varchar(100) NOT NULL,
---   PRIMARY KEY (`id`)
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ALTER TABLE BookStore.books
--- ADD CONSTRAINT fk_books_category
--- FOREIGN KEY (category_id)
--- REFERENCES BookStore.category(id);
+-- set Foreign key = 0
+set FOREIGN_KEY_CHECKS = 0;
 
 -- truncate tables
+TRUNCATE BookStore.books;
+TRUNCATE BookStore.category;
 
--- TRUNCATE BookStore.books;
--- TRUNCATE BookStore.category;
+-- insert Data
+INSERT INTO BookStore.category (name) VALUES ('소설');
+INSERT INTO BookStore.category (name) VALUES ('컴퓨터/IT');
+INSERT INTO BookStore.category (name) VALUES ('자기계발');
+INSERT INTO BookStore.category (name) VALUES ('기술/공학');
+INSERT INTO BookStore.category (name) VALUES ('시/에세이');
+INSERT INTO BookStore.category (name) VALUES ('인문');
+INSERT INTO BookStore.category (name) VALUES ('가정/육아');
+INSERT INTO BookStore.category (name) VALUES ('요리');
+INSERT INTO BookStore.category (name) VALUES ('건강');
+INSERT INTO BookStore.category (name) VALUES ('취미/실용/스포츠');
+INSERT INTO BookStore.category (name) VALUES ('정치/사회');
+INSERT INTO BookStore.category (name) VALUES ('역사 문화');
+
+INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("어린왕자들", 7, 1, "종이책", 0, "어리다....", "많이 어리다...", "김어림", 100, "목차", 20000, 3 , "2019-01-01");
+INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("신델렐라", 2, 2, "종이책", 1, "유리구두...", "투명한 유리구두", "걍구두", 100, "목차", 20000, 10, "2019-01-01");
+INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("백설공주들", 10, 3, "종이책", 2, "사과...", "많이 어리다...", "김어림", 100, "목차", 20000, 15, "2019-01-01");
+INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("흥부와 놀부", 20, 4, "종이책", 3, "제비...", "많이 어리다...", "김어림", 100, "목차", 20000, 20, "2019-01-01");
+INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("콩쥐 팥쥐", 4, 1, "ebook", 4, "콩팥..", "콩심은데 콩나고..", "김콩팥", 100, "목차입니다.", 20000, 5, "2023-12-07");
+INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("용궁에 간 토끼", 5, 1, "종이책", 5, "깡충..", "용왕님 하이..", "김거북", 100, "목차입니다.", 20000, 5, "2023-10-01");
+INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("해님달님", 15, 2, "ebook", 6, "동앗줄..", "황금 동앗줄..!", "김해님", 100, "목차입니다.", 20000, 5, "2023-07-16");
+INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("장화홍련전", 80, 1, "ebook", 7, "기억이 안나요..", "장화와 홍련이?..", "김장화", 100, "목차입니다.", 20000, 5, "2023-03-01");
+INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("견우와 직녀", 8, 2, "ebook", 8, "오작교!!", "칠월 칠석!!", "김다리", 100, "목차입니다.", 20000, 5, "2023-02-01");
+INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("효녀 심청", 12, 1, "종이책", 9, "심청아..", "공양미 삼백석..", "김심청", 100, "목차입니다.", 20000, 5, "2023-01-15");
+INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
+VALUES ("혹부리 영감", 22, 2, "ebook", 10, "노래 주머니..", "혹 두개 되버림..", "김영감", 100, "목차입니다.", 20000, 5, "2023-06-05");
+
+-- set Foreign key = 1
+set FOREIGN_KEY_CHECKS = 1;
