@@ -1,9 +1,10 @@
-import { StatusCodes } from 'http-status-codes';
-
-import { newReleaseBook, notNewReleaseBook } from 'src/fixture/books.fixture';
+import { newReleaseBook, newReleaseExistingBook, notNewReleaseBook } from 'src/fixture/books.fixture';
 
 import HttpException from 'src/utils/httpException';
 
+import { StatusCodes } from 'http-status-codes';
+
+import Book from '../domain/book';
 import { findByCategoryAndNewRelease } from '../domain/books.repository';
 import { getBooksByCategoryAndNewRelease } from './books-category-new-release.service';
 
@@ -12,7 +13,8 @@ jest.mock('../domain/books.repository.ts');
 describe('BooksCategoryAndNewRelease Service', () => {
   describe('GetBooksByCategoryAndNewRelease', () => {
     beforeEach(() => {
-      (findByCategoryAndNewRelease as jest.Mock).mockResolvedValue(newReleaseBook);
+      (findByCategoryAndNewRelease as jest.Mock)
+        .mockResolvedValue(new Book(newReleaseExistingBook));
     });
     context('카테고리 id와 신간이 존재하면', () => {
       it('최신 신간 목록 도서 정보를 반환한다.', async () => {
@@ -21,7 +23,7 @@ describe('BooksCategoryAndNewRelease Service', () => {
           true,
         );
 
-        expect(newReleaseBooks).toEqual(newReleaseBook);
+        expect(newReleaseBooks).toEqual(newReleaseExistingBook);
       });
     });
 

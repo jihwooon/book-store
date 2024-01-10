@@ -141,3 +141,20 @@ export const newNewReleaseBooks = [{
   summary: '어리다....',
   title: '어린왕자들',
 }];
+
+export const newReleaseExistingBook = {
+  author: '김어림',
+  categoryId: 1,
+  contents: '목차',
+  detail: '많이 어리다...',
+  form: '종이책',
+  id: 1,
+  imgId: 7,
+  isbn: '0',
+  likes: 3,
+  pages: 100,
+  price: 20000,
+  pubDate: new Date('2019-01-01'),
+  summary: '어리다....',
+  title: '어린왕자들',
+};
