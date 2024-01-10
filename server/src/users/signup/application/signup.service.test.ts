@@ -1,8 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
+import { save } from 'src/users/domain/user.repository';
 
-import { inValidUser, validUser } from '../../../fixture/user.fixture';
-import HttpException from '../../../utils/httpException';
-import { save } from '../../domain/user.repository';
+import { inValidUser, validUser } from 'src/fixture/user.fixture';
+import HttpException from 'src/utils/httpException';
+
 import signupService from './signup.service';
 
 jest.mock('../../domain/user.repository.ts');

@@ -1,9 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
-
-import HttpException from '../../../utils/httpException';
-import { createHash, createSalt } from '../../domain/password.provider';
-import User from '../../domain/user';
-import { save } from '../../domain/user.repository';
+import { createHash, createSalt } from 'src/users/domain/password.provider';
+import User from 'src/users/domain/user';
+import { save } from 'src/users/domain/user.repository';
+import HttpException from 'src/utils/httpException';
 
 const signupService = async (email: string, password: string, name: string): Promise<boolean> => {
   const salt = await createSalt();

@@ -2,9 +2,11 @@ import request from 'supertest';
 
 import { StatusCodes } from 'http-status-codes';
 
-import app from '../../../app';
-import { inValidUser, validUser } from '../../../fixture/user.fixture';
-import HttpException from '../../../utils/httpException';
+import app from 'src/app';
+import { inValidUser, validUser } from 'src/fixture/user.fixture';
+
+import HttpException from 'src/utils/httpException';
+
 import signupService from '../application/signup.service';
 
 jest.mock('../application/signup.service.ts');
