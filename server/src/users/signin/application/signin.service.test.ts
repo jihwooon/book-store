@@ -1,11 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
+import { existingUser, nonExistingUser } from 'src/fixture/user.fixture';
 
-import { existingUser, nonExistingUser } from '../../../fixture/user.fixture';
-import HttpException from '../../../utils/httpException';
+import { isMatchPassword } from 'src/users/domain/password.provider';
+import User from 'src/users/domain/user';
+import { findByEmail } from 'src/users/domain/user.repository';
 
-import { isMatchPassword } from '../../domain/password.provider';
-import User from '../../domain/user';
-import { findByEmail } from '../../domain/user.repository';
+import HttpException from 'src/utils/httpException';
+
 import signinService from './signin.service';
 
 jest.mock('../../domain/user.repository.ts');

@@ -1,10 +1,9 @@
 import jwt from 'jsonwebtoken';
 
 import { StatusCodes } from 'http-status-codes';
-
-import HttpException from '../../../utils/httpException';
-import { isMatchPassword } from '../../domain/password.provider';
-import { findByEmail } from '../../domain/user.repository';
+import { isMatchPassword } from 'src/users/domain/password.provider';
+import { findByEmail } from 'src/users/domain/user.repository';
+import HttpException from 'src/utils/httpException';
 
 const generateToken = (loginUser: { email: string; password: string; }) => jwt.sign({
   email: loginUser.email,
