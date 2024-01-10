@@ -9,6 +9,9 @@ module.exports = {
   setupFiles: [
     'jest-plugin-context/setup',
   ],
+  moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/src/$1',
+  },
   testPathIgnorePatterns: [
     '/node_modules/',
     'dist',

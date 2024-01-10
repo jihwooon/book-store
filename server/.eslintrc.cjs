@@ -78,6 +78,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'import/prefer-default-export': 'off',
+    'import/no-unresolved': [0, { commonjs: false }],
     'import/extensions': ['error', 'ignorePackages', {
       js: 'never',
       jsx: 'never',
