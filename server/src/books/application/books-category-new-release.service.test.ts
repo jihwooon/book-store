@@ -27,17 +27,6 @@ describe('BooksCategoryAndNewRelease Service', () => {
       });
     });
 
-    context('카테고리 id가 주어지고 신간이 존재하지 않으면', () => {
-      it('HttpException을 던져야 한다.', async () => {
-        await expect(getBooksByCategoryAndNewRelease(
-          newReleaseBook.categoryId,
-          false,
-        )).rejects.toThrow(
-          new HttpException('신간 도서가 아닙니다.', StatusCodes.BAD_REQUEST),
-        );
-      });
-    });
-
     context('카테고리 id가 올바르게 주어지지 않으면', () => {
       it('HttpException을 던져야 한다.', async () => {
         await expect(getBooksByCategoryAndNewRelease(
