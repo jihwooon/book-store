@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 
-import HttpException from '../../../utils/httpException';
-import { findByEmail } from '../../domain/user.repository';
+import { findByEmail } from 'src/users/domain/user.repository';
+import HttpException from 'src/utils/httpException';
 
 const passwordResetRequestor = async (
   email: string,

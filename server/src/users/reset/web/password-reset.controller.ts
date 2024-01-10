@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { ResponseHandler } from 'src/utils/responseHandler';
 
-import { ResponseHandler } from '../../../utils/responseHandler';
 import passwordResetter from '../application/password-reset.service';
 
 const passwordResetController = async (req: Request, res: Response) => {
