@@ -11,7 +11,7 @@
 		"lint:fix": "eslint --fix \"src/**/*.ts\" .",
 		"test": "jest --runInBand --detectOpenHandles --forceExit",
 		"test:only-changed": "jest --runInBand --onlyChanged",
-		"test:watch": "jest --watch",
+		"test:watch": "jest --watch --runInBand --detectOpenHandles --forceExit",
 		"start": "tsx watch src/index.ts"
 	},
 	"keywords": [],

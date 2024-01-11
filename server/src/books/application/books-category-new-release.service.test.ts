@@ -1,26 +1,25 @@
-import { newReleaseBook, newReleaseExistingBook, notNewReleaseBook } from 'src/fixture/books.fixture';
-
-import HttpException from 'src/utils/httpException';
+import { newReleaseExistingBook, notNewReleaseBook } from 'src/fixture/books.fixture';
 
 import { StatusCodes } from 'http-status-codes';
+import HttpException from 'src/utils/httpException';
 
-import Book from '../domain/book';
 import { findByCategoryAndNewRelease } from '../domain/books.repository';
+
 import { getBooksByCategoryAndNewRelease } from './books-category-new-release.service';
 
 jest.mock('../domain/books.repository.ts');
 
 describe('BooksCategoryAndNewRelease Service', () => {
+  const CATEGORY_ID = 1;
+
   describe('GetBooksByCategoryAndNewRelease', () => {
     beforeEach(() => {
-      (findByCategoryAndNewRelease as jest.Mock)
-        .mockResolvedValue(new Book(newReleaseExistingBook));
+      (findByCategoryAndNewRelease as jest.Mock).mockResolvedValue(newReleaseExistingBook);
     });
     context('카테고리 id와 신간이 존재하면', () => {
       it('최신 신간 목록 도서 정보를 반환한다.', async () => {
         const newReleaseBooks = await getBooksByCategoryAndNewRelease(
-          newReleaseBook.categoryId,
-          true,
+          CATEGORY_ID,
         );
 
         expect(newReleaseBooks).toEqual(newReleaseExistingBook);
@@ -31,7 +30,6 @@ describe('BooksCategoryAndNewRelease Service', () => {
       it('HttpException을 던져야 한다.', async () => {
         await expect(getBooksByCategoryAndNewRelease(
           notNewReleaseBook.categoryId,
-          true,
         )).rejects.toThrow(
           new HttpException(`${notNewReleaseBook.categoryId} 카테고리 정보를 찾을 수 없습니다.`, StatusCodes.NOT_FOUND),
         );
