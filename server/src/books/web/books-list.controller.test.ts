@@ -4,18 +4,19 @@ import request from 'supertest';
 import { StatusCodes } from 'http-status-codes';
 
 import {
-  existingBook, existingBooks, newNewReleaseBooks, newReleaseBook, notNewReleaseBook,
+  bookLimit,
+  existingBook,
+  newNewReleaseBooks, newReleaseBook, notNewReleaseBook,
 } from 'src/fixture/books.fixture';
 
 import app from 'src/app';
 
 import HttpException from 'src/utils/httpException';
 
-import getAllBooks from '../application/books-list.service';
-
 import { getBooksByCategoryAndNewRelease } from '../application/books-category-new-release.service';
 import getBooksByCategory from '../application/books-category.service';
 
+import getAllBooks from '../application/books-list.service';
 import { getAllBooksByNewRelease } from '../application/books-new-release.service';
 
 jest.mock('../application/books-list.service.ts');
@@ -24,16 +25,22 @@ jest.mock('../application/books-category-new-release.service.ts');
 jest.mock('../application/books-new-release.service.ts');
 
 describe('bookList Controller', () => {
-  context('GET /books', () => {
-    beforeEach(() => {
-      (getAllBooks as jest.Mock).mockResolvedValue(existingBooks);
-    });
-    it('200 상태코드를 반환한다.', async () => {
-      const { statusCode, body } = await request(app).get('/books');
+  describe('GET /books', () => {
+    context('쿼리 파라미터에 limit=3, currentPage=2가 주어지면', () => {
+      beforeEach(() => {
+        (getAllBooks as jest.Mock).mockResolvedValue({ books: bookLimit, totalCount: 3 });
+      });
+      it('200 상태코드와 도서 목록, totalCount를 반환한다.', async () => {
+        const { statusCode, body } = await request(app).get('/books')
+          .query({ limit: '3', currentPage: '2' });
 
-      expect(statusCode).toBe(200);
-      expect(body).toEqual({
-        data: existingBooks,
+        expect(statusCode).toBe(200);
+        expect(body).toEqual({
+          data: {
+            books: bookLimit,
+            totalCount: 3,
+          },
+        });
       });
     });
   });

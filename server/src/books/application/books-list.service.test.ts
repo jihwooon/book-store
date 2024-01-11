@@ -1,4 +1,4 @@
-import { books } from 'src/fixture/books.fixture';
+import { bookLimit } from 'src/fixture/books.fixture';
 
 import { findAll } from '../domain/books.repository';
 import getAllBooks from './books-list.service';
@@ -12,7 +12,7 @@ describe('BooksList service', () => {
   describe('getAllBooks', () => {
     beforeEach(() => {
       (findAll as jest.Mock).mockResolvedValue({
-        books,
+        books: bookLimit,
         totalCount: 4,
       });
     });

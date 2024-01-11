@@ -10,7 +10,11 @@ import getBooksByCategory from '../application/books-category.service';
 import getAllBooks from '../application/books-list.service';
 import { getAllBooksByNewRelease } from '../application/books-new-release.service';
 
-const getAllBooksHandler = async ({ query: { category_id, news } }: Request, res: Response) => {
+const getAllBooksHandler = async ({
+  query: {
+    category_id, news, limit, currentPage,
+  },
+}: Request, res: Response) => {
   const isValue = parseBoolean(news);
 
   if (category_id && isValue) {
@@ -27,7 +31,10 @@ const getAllBooksHandler = async ({ query: { category_id, news } }: Request, res
     return ResponseHandler(() => getAllBooksByNewRelease(), StatusCodes.OK, res);
   }
 
-  return ResponseHandler(getAllBooks, StatusCodes.OK, res);
+  return ResponseHandler(() => getAllBooks(
+    Number(limit),
+    Number(currentPage),
+  ), StatusCodes.OK, res);
 };
 
 export default getAllBooksHandler;
