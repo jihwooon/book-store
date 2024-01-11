@@ -12,7 +12,8 @@ const childLogger = logger.child({
 
 export const findAll = async (): Promise<Book[]> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
-    'SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date FROM books',
+    `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date
+       FROM books`,
   ));
 
   return (rows ?? []).map((row) => new Book({
@@ -33,7 +34,11 @@ export const findAll = async (): Promise<Book[]> => {
 
 export const findWithCategory = async (id: number): Promise<Book> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
-    'SELECT * FROM books b LEFT JOIN category c ON b.category_id = c.id WHERE b.id = ?',
+    `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date
+       FROM books b
+       LEFT JOIN category c
+         ON b.category_id = c.id
+      WHERE b.id = ?`,
     [id],
   ));
 
@@ -61,7 +66,12 @@ export const findWithCategory = async (id: number): Promise<Book> => {
 };
 
 export const findByCategory = async (categoryId: number): Promise<Book> => {
-  const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>('SELECT id, title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date FROM books WHERE category_id=?', [categoryId]));
+  const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
+    `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date
+       FROM books
+      WHERE category_id=?`,
+    [categoryId],
+  ));
 
   const [row] = rows ?? [];
   if (!row) {
@@ -91,7 +101,12 @@ export const findByCategoryAndNewRelease = async (
   categoryId: number,
 ): Promise<Book[]> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
-    'SELECT * FROM books WHERE category_id=? AND pub_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()'
+    `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date
+       FROM books
+      WHERE category_id=?
+        AND pub_date
+    BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH)
+        AND NOW()`
     , [categoryId],
   ));
 
@@ -115,7 +130,11 @@ export const findByCategoryAndNewRelease = async (
 
 export const findByNewRelease = async (): Promise<Book[]> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
-    'SELECT * FROM books WHERE pub_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()',
+    `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date
+       FROM books
+      WHERE pub_date
+    BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH)
+        AND NOW()`,
   ));
 
   return (rows ?? []).map((row) => new Book({
