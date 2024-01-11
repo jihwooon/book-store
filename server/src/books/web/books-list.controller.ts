@@ -16,7 +16,6 @@ const getAllBooksHandler = async ({ query: { category_id, news } }: Request, res
   if (category_id && isValue) {
     return ResponseHandler(() => getBooksByCategoryAndNewRelease(
       Number(category_id),
-      isValue,
     ), StatusCodes.OK, res);
   }
 
