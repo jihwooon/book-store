@@ -14,7 +14,9 @@ export const save = async (
 ): Promise<boolean> => {
   try {
     await doQuery((connection) => connection.execute(
-      'INSERT INTO users (email, password, name, salt) VALUES (?, ?, ?, ?)',
+      `INSERT
+         INTO users (email, password, name, salt)
+       VALUES (?, ?, ?, ?)`,
       [user.getEmail(), user.getPassword(), user.getName(), user.getSalt()],
     ));
     return true;
@@ -31,7 +33,8 @@ export const findByEmail = async (
   email: string,
 ): Promise<User> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
-    'SELECT * FROM users WHERE email = ?',
+    `SELECT email,password,salt
+       FROM users WHERE email = ?`,
     [email],
   ));
 
@@ -54,7 +57,9 @@ export const updateUserByPasswordAndSalt = async (
   salt: string,
 ): Promise<boolean> => {
   const [{ affectedRows }] = await doQuery((connection) => connection.execute<ResultSetHeader>(
-    'UPDATE users SET password = ?, salt = ? WHERE email = ?',
+    `UPDATE users
+        SET password = ?, salt = ?
+      WHERE email = ?`,
     [password, salt, email],
   ));
 
