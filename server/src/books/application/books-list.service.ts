@@ -1,9 +1,12 @@
 import { findAll } from '../domain/books.repository';
 
-const getAllBooks = async () => {
-  const books = await findAll();
+const getAllBooks = async (limit: number, currentPage: number) => {
+  const { books, totalCount } = await findAll(limit, currentPage);
 
-  return books;
+  return {
+    books,
+    totalCount,
+  };
 };
 
 export default getAllBooks;
