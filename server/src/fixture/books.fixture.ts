@@ -210,3 +210,22 @@ export const newReleaseExistingBook = [
     title: '장화홍련전',
   }),
 ];
+
+export const recentBooks = [
+  new Book({
+    author: '김어림',
+    categoryId: 0,
+    contents: '목차',
+    detail: '많이 어리다...',
+    form: '종이책',
+    id: 1,
+    imgId: 0,
+    isbn: '0',
+    likes: 3,
+    pages: 100,
+    price: 20000,
+    pubDate: new Date('2024-01-01'),
+    summary: '어리다....',
+    title: '어린왕자들',
+  }),
+];
