@@ -89,19 +89,13 @@ export const findByCategory = async (categoryId: number): Promise<Book> => {
 
 export const findByCategoryAndNewRelease = async (
   categoryId: number,
-): Promise<Book> => {
+): Promise<Book[]> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
     'SELECT * FROM books WHERE category_id=? AND pub_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()'
     , [categoryId],
   ));
 
-  const [row] = rows ?? [];
-  if (!row) {
-    childLogger.error(row);
-    return undefined;
-  }
-
-  return new Book({
+  return (rows ?? []).map((row) => new Book({
     id: row.id,
     title: row.title,
     imgId: row.img_id,
@@ -116,7 +110,7 @@ export const findByCategoryAndNewRelease = async (
     price: row.price,
     likes: row.likes,
     pubDate: row.pub_date,
-  });
+  }));
 };
 
 export const findByNewRelease = async (): Promise<Book[]> => {
