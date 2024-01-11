@@ -45,7 +45,7 @@ export const findAll = async (limit: number, currentPage: number): Promise<{
 
 export const findWithCategory = async (id: number): Promise<Book> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
-    `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date
+    `SELECT b.id, b.title, b.category_id, b.form, b.isbn, b.summary, b.detail, b.author, b.pages, b.contents, b.price, b.likes, b.pub_date
        FROM books b
        LEFT JOIN category c
          ON b.category_id = c.id
