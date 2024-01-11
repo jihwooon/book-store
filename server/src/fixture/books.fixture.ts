@@ -1,12 +1,70 @@
 import Book from 'src/books/domain/book';
 
 export const existingBooks = [
-  {
-    id: 1,
+  new Book({
     author: '김어림',
     contents: '목차',
     detail: '많이 어리다...',
     form: '종이책',
+    id: 1,
+    isbn: '0',
+    likes: 3,
+    pages: 100,
+    price: 20000,
+    pubDate: new Date('2019-01-01'),
+    summary: '어리다....',
+    title: '어린왕자들',
+  }),
+  new Book({
+    author: '걍구두',
+    contents: '목차',
+    detail: '투명한 유리구두',
+    form: '종이책',
+    id: 2,
+    isbn: '1',
+    likes: 10,
+    pages: 100,
+    price: 20000,
+    pubDate: new Date('2019-01-01'),
+    summary: '유리구두...',
+    title: '신델렐라',
+  }),
+  new Book({
+    author: '김어림',
+    contents: '목차',
+    detail: '많이 어리다...',
+    form: '종이책',
+    id: 3,
+    isbn: '2',
+    likes: 15,
+    pages: 100,
+    price: 20000,
+    pubDate: new Date('2019-01-01'),
+    summary: '사과...',
+    title: '백설공주들',
+  }),
+  new Book({
+    author: '김어림',
+    contents: '목차',
+    detail: '많이 어리다...',
+    form: '종이책',
+    id: 4,
+    isbn: '3',
+    likes: 20,
+    pages: 100,
+    price: 20000,
+    pubDate: new Date('2019-01-01'),
+    summary: '제비...',
+    title: '흥부와 놀부',
+  })];
+
+export const bookLimit = [
+  {
+    author: '김어림',
+    contents: '목차',
+    detail: '많이 어리다...',
+    form: '종이책',
+    id: 1,
     isbn: '0',
     likes: 3,
     pages: 100,
@@ -16,11 +74,11 @@ export const existingBooks = [
     title: '어린왕자들',
   },
   {
-    id: 2,
     author: '걍구두',
     contents: '목차',
     detail: '투명한 유리구두',
     form: '종이책',
+    id: 2,
     isbn: '1',
     likes: 10,
     pages: 100,
@@ -30,11 +88,11 @@ export const existingBooks = [
     title: '신델렐라',
   },
   {
-    id: 3,
     author: '김어림',
     contents: '목차',
     detail: '많이 어리다...',
     form: '종이책',
+    id: 3,
     isbn: '2',
     likes: 15,
     pages: 100,
@@ -44,11 +102,11 @@ export const existingBooks = [
     title: '백설공주들',
   },
   {
-    id: 4,
     author: '김어림',
     contents: '목차',
     detail: '많이 어리다...',
     form: '종이책',
+    id: 4,
     isbn: '3',
     likes: 20,
     pages: 100,
@@ -56,8 +114,7 @@ export const existingBooks = [
     pubDate: '2019-01-01',
     summary: '제비...',
     title: '흥부와 놀부',
-  },
-];
+  }];
 
 export const existingBook = {
   id: 1,
