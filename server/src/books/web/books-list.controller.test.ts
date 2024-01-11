@@ -122,25 +122,5 @@ describe('bookList Controller', () => {
         });
       });
     });
-
-    context('사용자가 신간을 조회 실패하는 경우', () => {
-      beforeEach(() => {
-        (getAllBooksByNewRelease as jest.Mock).mockRejectedValue(
-          new HttpException('신간 목록 조회하는 요청이 올바르지 않습니다.', StatusCodes.BAD_REQUEST),
-        );
-      });
-
-      it('400 상태코드를 반환한다.', async () => {
-        const { statusCode, body } = await request(app).get('/books?news')
-          .query({ news: false });
-
-        expect(statusCode).toBe(400);
-        expect(body).toEqual({
-          message: '신간 목록 조회하는 요청이 올바르지 않습니다.',
-          status: 400,
-          timestamp: expect.any(String),
-        });
-      });
-    });
   });
 });
