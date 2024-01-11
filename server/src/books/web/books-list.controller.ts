@@ -20,6 +20,8 @@ const getAllBooksHandler = async ({
   if (category_id && isValue) {
     return ResponseHandler(() => getBooksByCategoryAndNewRelease(
       Number(category_id),
+      Number(limit),
+      Number(currentPage),
     ), StatusCodes.OK, res);
   }
 

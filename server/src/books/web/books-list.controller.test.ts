@@ -6,7 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 import {
   bookLimit,
   existingBook,
-  newNewReleaseBooks, newReleaseBook, notNewReleaseBook,
+  newNewReleaseBooks, notNewReleaseBook,
 } from 'src/fixture/books.fixture';
 
 import app from 'src/app';
@@ -60,49 +60,38 @@ describe('bookList Controller', () => {
   });
 
   describe('GET /books?category_id&news', () => {
-    context('사용자가 카테고리 id와 신간 조회한 경우', () => {
+    context('쿼리 파라미터에 카테고리와 신간 true, limit=4, currentPage=0가 주어지면', () => {
       beforeEach(() => {
-        (getBooksByCategoryAndNewRelease as jest.Mock).mockResolvedValue(newReleaseBook);
+        (getBooksByCategoryAndNewRelease as jest.Mock).mockResolvedValue({
+          books: bookLimit, totalCount: bookLimit.length,
+        });
       });
-      it('200 상태코드를 반환한다.', async () => {
-        const { statusCode, body } = await request(app).get('/books?category_id&news')
-          .query({ category_id: '1', news: true });
+      it('200 상태코드와 도서 목록, totalCount를 반환한다.', async () => {
+        const { statusCode, body: { data } } = await request(app).get('/books?category_id&news')
+          .query({
+            category_id: 1, news: true, limit: '4', currentPage: '0',
+          });
 
         expect(statusCode).toBe(200);
-        expect(body).toEqual({
-          data: newReleaseBook,
+        expect(data).toEqual({
+          books: bookLimit,
+          totalCount: bookLimit.length,
         });
       });
     });
 
-    context('사용자가 신간 조회를 비정상적으로 입력된 경우', () => {
-      beforeEach(() => {
-        (getBooksByCategoryAndNewRelease as jest.Mock)
-          .mockRejectedValue(new HttpException('신간 도서가 아닙니다.', StatusCodes.BAD_REQUEST));
-      });
-      it('400 상태코드를 반환한다.', async () => {
-        const { statusCode, body } = await request(app).get('/books?category_id&news')
-          .query({ category_id: '1', news: false });
-
-        expect(statusCode).toBe(400);
-        expect(body).toEqual({
-          message: '신간 도서가 아닙니다.',
-          status: 400,
-          timestamp: expect.any(String),
-        });
-      });
-    });
-
-    context('사용자가 비정상적으로 카테고리 정보가 입력된 경우', () => {
+    context('쿼리 파라미터에 존재하지 않는 카테고리가 주어지면', () => {
       beforeEach(() => {
         (getBooksByCategoryAndNewRelease as jest.Mock)
           .mockRejectedValue(
             new HttpException(`${notNewReleaseBook.categoryId} 카테고리 정보를 찾을 수 없습니다.`, StatusCodes.NOT_FOUND),
           );
       });
-      it('404 상태코드를 반환한다.', async () => {
+      it('404 상태코드와 에러 메시지를 반환한다.', async () => {
         const { statusCode, body } = await request(app).get('/books?category_id&news')
-          .query({ category_id: notNewReleaseBook.categoryId, news: true });
+          .query({
+            category_id: notNewReleaseBook.categoryId, news: true, limit: '4', currentPage: '0',
+          });
 
         expect(statusCode).toBe(404);
         expect(body).toEqual({
