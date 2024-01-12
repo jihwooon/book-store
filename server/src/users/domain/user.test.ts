@@ -9,7 +9,7 @@ describe('User class', () => {
     it('멤버 변수를 값을 리턴해야 한다.', () => {
       expect(user.getId()).toBe(1);
       expect(user.getEmail()).toBe('abc@gmail.com');
-      expect(user.getPassword()).toBe('12345');
+      expect(user.getPassword()).toBe('12345678');
       expect(user.getSalt()).toBe('ARNhEBG6dKaNBg==');
       expect(user.getName()).toBe('홍길동');
     });
