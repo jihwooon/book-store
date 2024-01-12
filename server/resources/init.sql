@@ -1,9 +1,13 @@
+use BookStore;
+
 -- set Foreign key = 0
 set FOREIGN_KEY_CHECKS = 0;
 
 -- truncate tables
 TRUNCATE BookStore.books;
 TRUNCATE BookStore.category;
+TRUNCATE BookStore.likes;
+TRUNCATE BookStore.users;
 
 -- insert Data
 INSERT INTO BookStore.category (name) VALUES ('소설');
@@ -41,6 +45,13 @@ INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, de
 VALUES ("효녀 심청", 12, 1, "종이책", 9, "심청아..", "공양미 삼백석..", "김심청", 100, "목차입니다.", 20000, 5, "2024-01-12");
 INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
 VALUES ("혹부리 영감", 22, 2, "ebook", 10, "노래 주머니..", "혹 두개 되버림..", "김영감", 100, "목차입니다.", 20000, 5, "2024-01-05");
+
+INSERT INTO BookStore.users (email, name, password, salt) VALUES ('abc@gmail.com', '홍길동', 'DXG6vjL/j7wfMA==', 'y9gFwrBaPpH7FQ==');
+INSERT INTO BookStore.users (email, name, password, salt) VALUES ('abcd@gmail.com', '이홍철', '7Gzc43UTFzogzA==', 'I+0dnN1aFMFdDA==');
+
+INSERT INTO BookStore.likes (user_id, liked_book_id) VALUES (1, 1);
+INSERT INTO BookStore.likes (user_id, liked_book_id) VALUES (2, 2);
+INSERT INTO BookStore.likes (user_id, liked_book_id) VALUES (1, 3);
 
 -- set Foreign key = 1
 set FOREIGN_KEY_CHECKS = 1;
