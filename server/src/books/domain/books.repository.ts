@@ -1,4 +1,4 @@
-import { RowDataPacket } from 'mysql2';
+import { type RowDataPacket } from 'mysql2';
 
 import logger from 'src/config/logger';
 
