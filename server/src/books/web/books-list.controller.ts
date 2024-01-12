@@ -30,7 +30,10 @@ const getAllBooksHandler = async ({
   }
 
   if (isValue) {
-    return ResponseHandler(() => getAllBooksByNewRelease(), StatusCodes.OK, res);
+    return ResponseHandler(() => getAllBooksByNewRelease(
+      Number(limit),
+      Number(currentPage),
+    ), StatusCodes.OK, res);
   }
 
   return ResponseHandler(() => getAllBooks(

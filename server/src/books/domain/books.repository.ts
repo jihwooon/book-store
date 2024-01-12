@@ -148,16 +148,22 @@ export const findByCategoryAndNewRelease = async (
   };
 };
 
-export const findByNewRelease = async (): Promise<Book[]> => {
+export const findByNewRelease = async (
+  limit: number,
+  currentPage: number,
+): Promise<{ books: Book[], totalCount: number }> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
     `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date
        FROM books
       WHERE pub_date
     BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH)
-        AND NOW()`,
+        AND NOW()
+      LIMIT ?
+     OFFSET ?`,
+    [limit, currentPage],
   ));
 
-  return (rows ?? []).map((row) => new Book({
+  const books = (rows ?? []).map((row) => new Book({
     id: row.id,
     title: row.title,
     form: row.form,
@@ -171,4 +177,9 @@ export const findByNewRelease = async (): Promise<Book[]> => {
     likes: row.likes,
     pubDate: row.pub_date,
   }));
+
+  return {
+    books,
+    totalCount: rows.length,
+  };
 };
