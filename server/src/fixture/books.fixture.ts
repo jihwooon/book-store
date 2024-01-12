@@ -147,7 +147,7 @@ export const nonExistingBook = {
   summary: '',
   title: '',
   imgId: 0,
-  categoryId: 0,
+  categoryId: 9999999,
 };
 
 export const notNewReleaseBook = {
@@ -269,3 +269,39 @@ export const recentBooks = [
     pubDate: new Date('2024-01-01'),
   }),
 ];
+
+export const booksCategory = [
+  new Book({
+    author: '김거북',
+    categoryId: 0,
+    contents: '목차입니다.',
+    detail: '용왕님 하이..',
+    form: '종이책',
+    id: 6,
+    imgId: 0,
+    isbn: '5',
+    likes: 5,
+    pages: 100,
+    price: 20000,
+    pubDate: new Date('2024-01-01'),
+    summary: '깡충..',
+    title: '용궁에 간 토끼',
+  })];
+
+export const booksCategoryAPI = [
+  ({
+    author: '김거북',
+    categoryId: 0,
+    contents: '목차입니다.',
+    detail: '용왕님 하이..',
+    form: '종이책',
+    id: 6,
+    imgId: 0,
+    isbn: '5',
+    likes: 5,
+    pages: 100,
+    price: 20000,
+    pubDate: '2024-01-01',
+    summary: '깡충..',
+    title: '용궁에 간 토끼',
+  })];

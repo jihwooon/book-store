@@ -5,7 +5,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import {
   bookLimit,
-  existingBook,
+  booksCategoryAPI,
   notNewReleaseBook,
 } from 'src/fixture/books.fixture';
 
@@ -25,6 +25,7 @@ jest.mock('../application/books-category-new-release.service.ts');
 jest.mock('../application/books-new-release.service.ts');
 
 describe('bookList Controller', () => {
+  const NON_CATEGORY_ID = 99999;
   const LIMIT = 4;
   const CURRENT_PAGE = 0;
   const LIMIT_OVER = 9999;
@@ -51,15 +52,41 @@ describe('bookList Controller', () => {
   });
 
   context('GET /books?category_id', () => {
-    beforeEach(() => {
-      (getBooksByCategory as jest.Mock).mockResolvedValue(existingBook);
-    });
-    it('200 상태코드를 반환한다.', async () => {
-      const { statusCode, body } = await request(app).get('/books').query({ category_id: '1' });
+    context('쿼리 파라미터에 카테고리와 limit=4, currentPage=0가 주어지면', () => {
+      beforeEach(() => {
+        (getBooksByCategory as jest.Mock).mockResolvedValue({
+          books: booksCategoryAPI,
+          totalCount: booksCategoryAPI.length,
+        });
+      });
+      it('200 상태코드를 반환한다.', async () => {
+        const { statusCode, body: { data } } = await request(app).get('/books')
+          .query({ category_id: '1', limit: LIMIT, currentPage: CURRENT_PAGE });
 
-      expect(statusCode).toBe(200);
-      expect(body).toEqual({
-        data: existingBook,
+        expect(statusCode).toBe(200);
+        expect(data).toEqual({
+          books: booksCategoryAPI,
+          totalCount: booksCategoryAPI.length,
+        });
+      });
+    });
+
+    context('쿼리 파라미터에 존재 하지 않는 카테고리가 주어지면', () => {
+      beforeEach(() => {
+        (getBooksByCategory as jest.Mock).mockRejectedValue(
+          new HttpException(`해당 ${NON_CATEGORY_ID}를 찾을 수 없습니다.`, StatusCodes.NOT_FOUND),
+        );
+      });
+      it('404 상태코드와 에러 메세지를 반환한다.', async () => {
+        const { statusCode, body } = await request(app).get('/books')
+          .query({ category_id: '1', limit: LIMIT, currentPage: CURRENT_PAGE });
+
+        expect(statusCode).toBe(404);
+        expect(body).toEqual({
+          message: `해당 ${NON_CATEGORY_ID}를 찾을 수 없습니다.`,
+          status: 404,
+          timestamp: expect.any(String),
+        });
       });
     });
   });
