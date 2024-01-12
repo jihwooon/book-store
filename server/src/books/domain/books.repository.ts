@@ -76,21 +76,21 @@ export const findWithCategory = async (id: number): Promise<Book> => {
   });
 };
 
-export const findByCategory = async (categoryId: number): Promise<Book> => {
+export const findByCategory = async (
+  categoryId: number,
+  limit: number,
+  currentPage: number,
+): Promise<{ books: Book[], totalCount: number }> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
     `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date
        FROM books
-      WHERE category_id=?`,
-    [categoryId],
+      WHERE category_id=?
+      LIMIT ?
+     OFFSET ?`,
+    [categoryId, limit, currentPage],
   ));
 
-  const [row] = rows ?? [];
-  if (!row) {
-    childLogger.error(row);
-    return undefined;
-  }
-
-  return new Book({
+  const books = (rows ?? []).map((row) => new Book({
     id: row.id,
     title: row.title,
     imgId: row.img_id,
@@ -105,7 +105,12 @@ export const findByCategory = async (categoryId: number): Promise<Book> => {
     price: row.price,
     likes: row.likes,
     pubDate: row.pub_date,
-  });
+  }));
+
+  return {
+    books,
+    totalCount: books.length,
+  };
 };
 
 export const findByCategoryAndNewRelease = async (

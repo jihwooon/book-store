@@ -26,7 +26,11 @@ const getAllBooksHandler = async ({
   }
 
   if (category_id) {
-    return ResponseHandler(() => getBooksByCategory(Number(category_id)), StatusCodes.OK, res);
+    return ResponseHandler(() => getBooksByCategory(
+      Number(category_id),
+      Number(limit),
+      Number(currentPage),
+    ), StatusCodes.OK, res);
   }
 
   if (isValue) {
