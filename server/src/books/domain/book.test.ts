@@ -1,10 +1,10 @@
-import { existingBook } from 'src/fixture/books.fixture';
+import { bookMock } from 'src/fixture/books.fixture';
 
 import Book from './book';
 
 describe('Book Class', () => {
   context('객체에 값이 주어지면', () => {
-    const book = new Book(existingBook);
+    const book = new Book(bookMock);
 
     it('멤버 변수를 값을 리턴해야 한다', () => {
       expect(book.getId()).toBe(1);
