@@ -1,4 +1,4 @@
-import { ResultSetHeader, RowDataPacket } from 'mysql2';
+import { type ResultSetHeader, type RowDataPacket } from 'mysql2';
 import logger from 'src/config/logger';
 
 import { doQuery } from 'src/database/mariadb';

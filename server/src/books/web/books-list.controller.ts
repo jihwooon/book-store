@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable camelcase */
-import { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { parseBoolean } from 'src/utils/parseBoolean';
 import { ResponseHandler } from 'src/utils/responseHandler';

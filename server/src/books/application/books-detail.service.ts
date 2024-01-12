@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import HttpException from 'src/utils/httpException';
 
-import Book from '../domain/book';
+import type Book from '../domain/book';
 import { findWithCategory } from '../domain/books.repository';
 
 const getDetailBook = async (id: number): Promise<Book> => {

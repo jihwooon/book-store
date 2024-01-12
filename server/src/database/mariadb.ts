@@ -1,4 +1,4 @@
-import { createPool, Connection } from 'mysql2/promise';
+import { createPool, type Connection } from 'mysql2/promise';
 import dotenv from 'dotenv';
 
 dotenv.config();

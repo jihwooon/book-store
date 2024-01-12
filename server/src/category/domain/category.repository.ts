@@ -1,4 +1,4 @@
-import { RowDataPacket } from 'mysql2';
+import { type RowDataPacket } from 'mysql2';
 import { doQuery } from 'src/database/mariadb';
 
 import Category from './category';
