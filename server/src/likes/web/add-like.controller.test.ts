@@ -1,7 +1,7 @@
 import app from 'src/app';
 import request from 'supertest';
 
-import { existingLike } from 'src/fixture/likes.fixture';
+import { existingLike, nonExistingLike } from 'src/fixture/likes.fixture';
 
 import { StatusCodes } from 'http-status-codes';
 import HttpException from 'src/utils/httpException';
@@ -34,8 +34,8 @@ describe('addLike Controller', () => {
       });
       it('400 상태코드와 에러 메세지를 반환한다.', async () => {
         const { statusCode, body } = await request(app)
-          .post(`/likes/${existingLike.likedBookId}`)
-          .send({ userId: existingLike.userId });
+          .post(`/likes/${nonExistingLike.likedBookId}`)
+          .send({ userId: nonExistingLike.userId });
 
         expect(statusCode).toBe(400);
         expect(body).toEqual({
