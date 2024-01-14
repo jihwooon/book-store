@@ -9,6 +9,8 @@ import HttpException from 'src/utils/httpException';
 
 import { StatusCodes } from 'http-status-codes';
 
+import { existingUser, nonExistingUser } from 'src/fixture/user.fixture';
+
 import getDetailBook from '../application/books-detail.service';
 
 jest.mock('../application/books-detail.service.ts');
@@ -17,13 +19,14 @@ describe('bookDetail Controller', () => {
   describe('GET /books/{bookId}', () => {
     beforeEach(() => {
       when(getDetailBook as jest.Mock)
-        .calledWith(existingBook.getId())
+        .calledWith(existingUser.id, existingBook.getId())
         .mockReturnValue(bookData);
     });
     context('도서 정보 id가 입력되면', () => {
       it('200 상태코드와 도서 정보를 반환한다', async () => {
         const { statusCode, body: { data } } = await request(app)
-          .get(`/books/${existingBook.getId()}`);
+          .get(`/books/${existingBook.getId()}`)
+          .send({ userId: existingUser.id });
 
         expect(statusCode).toBe(200);
         expect(data).toEqual(bookData);
@@ -33,7 +36,7 @@ describe('bookDetail Controller', () => {
     context('도서 정보 id로 찾을 수 없을 경우', () => {
       beforeEach(() => {
         when(getDetailBook as jest.Mock)
-          .calledWith(nonExistingBook.getId())
+          .calledWith(nonExistingUser.id, nonExistingBook.getId())
           .mockRejectedValue(
             new HttpException(
               `${nonExistingBook.getId()} 해당하는 도서 정보를 찾을 수 없습니다.`,
@@ -43,7 +46,8 @@ describe('bookDetail Controller', () => {
       });
       it('404 상태코드와 에러 메시지를 반환한다', async () => {
         const { statusCode, body: { message } } = await request(app)
-          .get(`/books/${nonExistingBook.getId()}`);
+          .get(`/books/${nonExistingBook.getId()}`)
+          .send({ userId: nonExistingUser.id });
 
         expect(statusCode).toBe(404);
         expect(message).toEqual(
