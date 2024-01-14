@@ -4,19 +4,19 @@ import logger from 'src/config/logger';
 
 import { doQuery } from 'src/database/mariadb';
 
-import type Like from './like';
-
 const childLogger = logger.child({
   label: 'like.repository.ts',
 });
 
-export const save = async (likes: Like): Promise<boolean> => {
+export const save = async (
+  { userId, likedBookId }:{ userId: number; likedBookId: number },
+): Promise<boolean> => {
   try {
     await doQuery((connection) => connection.execute(
       `INSERT
          INTO likes (user_id, liked_book_id)
        VALUES (?, ?)`,
-      [likes.getUserId(), likes.getLikedBookId()],
+      [userId, likedBookId],
     ));
     return true;
   } catch (error: any) {

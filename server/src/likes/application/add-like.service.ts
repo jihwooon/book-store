@@ -9,8 +9,9 @@ export const addLike = async (
   likedBookId: number,
 ): Promise<boolean> => {
   const like = new Like({ userId, likedBookId });
+  const likeData = like.getDataOfLike();
 
-  const savedLike = await save(like);
+  const savedLike = await save(likeData);
   if (!savedLike) {
     throw new HttpException('좋아요 추가에 실패했습니다.', StatusCodes.BAD_REQUEST);
   }
