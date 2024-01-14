@@ -29,23 +29,13 @@ export default class User {
     this.name = name;
   }
 
-  getId() {
-    return this.id;
-  }
-
-  getEmail() {
-    return this.email;
-  }
-
-  getPassword() {
-    return this.password;
-  }
-
-  getSalt() {
-    return this.salt;
-  }
-
-  getName() {
-    return this.name;
+  getDataOfUser() {
+    return {
+      id: this.id,
+      email: this.email,
+      password: this.password,
+      salt: this.salt,
+      name: this.name,
+    };
   }
 }

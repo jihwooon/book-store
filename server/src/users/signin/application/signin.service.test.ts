@@ -1,11 +1,13 @@
-import { StatusCodes } from 'http-status-codes';
 import { existingUser, nonExistingUser } from 'src/fixture/user.fixture';
 
 import { isMatchPassword } from 'src/users/domain/password.provider';
-import User from 'src/users/domain/user';
 import { findByEmail } from 'src/users/domain/user.repository';
 
 import HttpException from 'src/utils/httpException';
+
+import { StatusCodes } from 'http-status-codes';
+
+import User from 'src/users/domain/user';
 
 import signinService from './signin.service';
 
@@ -32,7 +34,9 @@ describe('Signin service', () => {
       });
       it('HttpException을 던져야 한다', async () => {
         await expect(signinService(nonExistingUser.email, nonExistingUser.password))
-          .rejects.toThrow(new HttpException('회원 정보를 찾을 수 없습니다.', StatusCodes.NOT_FOUND));
+          .rejects.toThrow(
+            new HttpException('회원 정보를 찾을 수 없습니다.', StatusCodes.NOT_FOUND),
+          );
       });
     });
 
@@ -43,7 +47,9 @@ describe('Signin service', () => {
 
       it('HttpException을 던져야 한다', async () => {
         await expect(signinService(nonExistingUser.email, nonExistingUser.password))
-          .rejects.toThrow(new HttpException('패스워드가 일치 하지 않습니다.', StatusCodes.BAD_REQUEST));
+          .rejects.toThrow(
+            new HttpException('패스워드가 일치 하지 않습니다.', StatusCodes.BAD_REQUEST),
+          );
       });
     });
   });
