@@ -15,10 +15,11 @@ export const findAll = async (limit: number, currentPage: number): Promise<{
   totalCount: number
 }> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
-    `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date
-         FROM books
-        LIMIT ?
-       OFFSET ?`,
+    `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, pub_date,
+            (SELECT count(*) FROM likes WHERE books.id = liked_book_id) as likes
+       FROM books
+      LIMIT ?
+     OFFSET ?`,
     [limit, currentPage],
   ));
 
