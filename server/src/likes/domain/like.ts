@@ -7,18 +7,17 @@ export default class Like {
     userId = 0,
     likedBookId = 0,
   }: {
-   userId?: number,
-   likedBookId?: number,
+    userId?: number,
+    likedBookId?: number,
   }) {
     this.userId = userId;
     this.likedBookId = likedBookId;
   }
 
-  getUserId() {
-    return this.userId;
-  }
-
-  getLikedBookId() {
-    return this.likedBookId;
+  getDataOfLike() {
+    return {
+      userId: this.userId,
+      likedBookId: this.likedBookId,
+    };
   }
 }
