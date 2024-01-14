@@ -4,6 +4,8 @@ import HttpException from 'src/utils/httpException';
 
 import { StatusCodes } from 'http-status-codes';
 
+import { when } from 'jest-when';
+
 import { findByCategory } from '../domain/books.repository';
 import getBooksByCategory from './books-category.service';
 
@@ -19,7 +21,8 @@ describe('BooksCategory service', () => {
 
   describe('getDetailBook', () => {
     beforeEach(() => {
-      (findByCategory as jest.Mock)
+      when(findByCategory as jest.Mock)
+        .calledWith(CATEGORY_ID, LIMIT, OFFSET)
         .mockResolvedValue({
           books: booksCategory,
           totalCount: booksCategory.length,
