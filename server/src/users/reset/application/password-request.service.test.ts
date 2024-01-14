@@ -1,10 +1,10 @@
-import { StatusCodes } from 'http-status-codes';
-
 import { existingUser, inValidUser, validUser } from 'src/fixture/user.fixture';
 
 import User from 'src/users/domain/user';
+
 import { findByEmail } from 'src/users/domain/user.repository';
 
+import { StatusCodes } from 'http-status-codes';
 import HttpException from 'src/utils/httpException';
 
 import passwordResetRequestor from './password-request.service';
@@ -30,7 +30,9 @@ describe('PasswordReset service', () => {
       });
       it('HttpException을 던져야 한다', async () => {
         await expect(passwordResetRequestor(inValidUser.email))
-          .rejects.toThrow(new HttpException('이메일을 찾을 수가 없습니다.', StatusCodes.NOT_FOUND));
+          .rejects.toThrow(
+            new HttpException('이메일을 찾을 수가 없습니다.', StatusCodes.NOT_FOUND),
+          );
       });
     });
   });

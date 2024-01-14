@@ -19,17 +19,18 @@ const signinService = async (
   if (!loginUser) {
     throw new HttpException('회원 정보를 찾을 수 없습니다.', StatusCodes.NOT_FOUND);
   }
+  const userData = loginUser.getDataOfUser();
 
   const validPassword = await isMatchPassword(
-    loginUser.getPassword(),
-    loginUser.getSalt(),
+    userData.password,
+    userData.salt,
     password,
   );
   if (!validPassword) {
     throw new HttpException('패스워드가 일치 하지 않습니다.', StatusCodes.BAD_REQUEST);
   }
 
-  const token = generateToken({ email: loginUser.getEmail(), password: loginUser.getPassword() });
+  const token = generateToken({ email: userData.email, password: userData.password });
 
   return {
     accessToken: token,
