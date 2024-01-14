@@ -15,10 +15,11 @@ export const findAll = async (limit: number, currentPage: number): Promise<{
   totalCount: number
 }> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
-    `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date
-         FROM books
-        LIMIT ?
-       OFFSET ?`,
+    `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, pub_date,
+            (SELECT count(*) FROM likes WHERE books.id = liked_book_id) as likes
+       FROM books
+      LIMIT ?
+     OFFSET ?`,
     [limit, currentPage],
   ));
 
@@ -43,14 +44,16 @@ export const findAll = async (limit: number, currentPage: number): Promise<{
   };
 };
 
-export const findWithCategory = async (id: number): Promise<Book> => {
+export const findWithCategory = async (bookId: number, userId: number): Promise<Book> => {
   const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
-    `SELECT b.id, b.title, b.category_id, b.form, b.isbn, b.summary, b.detail, b.author, b.pages, b.contents, b.price, b.likes, b.pub_date
+    `SELECT b.id, b.title, b.category_id, b.form, b.isbn, b.summary, b.detail, b.author, b.pages, b.contents, b.price, b.pub_date,
+            (SELECT count(*) FROM likes WHERE b.id = liked_book_id) as likes,
+            (SELECT EXISTS(SELECT * FROM likes WHERE user_id = ? AND liked_book_id)) as liked
        FROM books b
        LEFT JOIN category c
          ON b.category_id = c.id
       WHERE b.id = ?`,
-    [id],
+    [userId, bookId],
   ));
 
   const [row] = rows ?? [];
