@@ -13,14 +13,16 @@ const childLogger = logger.child({
 });
 
 export const save = async (
-  user: User,
+  {
+    email, password, name, salt,
+  }: { email: string, password: string, name: string, salt: string },
 ): Promise<boolean> => {
   try {
     await doQuery((connection) => connection.execute(
       `INSERT
          INTO users (email, password, name, salt)
        VALUES (?, ?, ?, ?)`,
-      [user.getEmail(), user.getPassword(), user.getName(), user.getSalt()],
+      [email, password, name, salt],
     ));
     return true;
   } catch (error: any) {
@@ -44,7 +46,7 @@ export const findByEmail = async (
   const [row] = rows ?? [];
   if (!row) {
     childLogger.error(row);
-    throw new HttpException('데이터가 존재 하지 않습니다.', StatusCodes.INTERNAL_SERVER_ERROR);
+    return row;
   }
 
   return new User({
