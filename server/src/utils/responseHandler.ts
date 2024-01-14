@@ -1,8 +1,6 @@
 import { type Response } from 'express';
 import { type StatusCodes } from 'http-status-codes';
 
-import logger from 'src/config/logger';
-
 export const ResponseHandler = async <T = any>(
   func: () => Promise<T>, status: StatusCodes, res: Response,
 ) => {
@@ -13,8 +11,6 @@ export const ResponseHandler = async <T = any>(
       data: result,
     });
   } catch (error: any) {
-    logger.error(error.message);
-
     res.status(error.status).json({
       message: error.message,
       status: error.status,
