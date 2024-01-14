@@ -116,24 +116,24 @@ export const bookLimit = [
     title: '흥부와 놀부',
   }];
 
-export const existingBook = {
+export const existingBook = new Book({
   id: 1,
-  author: '김어림',
-  contents: '목차',
-  detail: '많이 어리다...',
+  title: '어린왕자들',
+  imgId: 0,
+  categoryId: 1,
   form: '종이책',
   isbn: '0',
-  likes: 3,
-  pages: 100,
-  price: 20000,
-  pubDate: '2019-01-01',
   summary: '어리다....',
-  title: '어린왕자들',
-  imgId: 7,
-  categoryId: 1,
-};
+  detail: '많이 어리다...',
+  author: '김어림',
+  pages: 100,
+  contents: '목차',
+  price: 20000,
+  likes: 3,
+  pubDate: new Date('2024-01-01'),
+});
 
-export const nonExistingBook = {
+export const nonExistingBook = new Book({
   id: 99999,
   author: '',
   contents: '',
@@ -143,11 +143,28 @@ export const nonExistingBook = {
   likes: 99999,
   pages: 99999,
   price: 99999,
-  pubDate: '',
+  pubDate: expect.any(String),
   summary: '',
   title: '',
   imgId: 0,
   categoryId: 9999999,
+});
+
+export const bookData = {
+  id: 1,
+  title: '어린왕자들',
+  imgId: 0,
+  categoryId: 1,
+  form: '종이책',
+  isbn: '0',
+  summary: '어리다....',
+  detail: '많이 어리다...',
+  author: '김어림',
+  pages: 100,
+  contents: '목차',
+  price: 20000,
+  likes: 3,
+  pubDate: '2024-01-01',
 };
 
 export const notNewReleaseBook = {

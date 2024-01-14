@@ -4,9 +4,6 @@ import logger from 'src/config/logger';
 
 import { doQuery } from 'src/database/mariadb';
 
-import { StatusCodes } from 'http-status-codes';
-import HttpException from 'src/utils/httpException';
-
 import Book from './book';
 
 const childLogger = logger.child({
@@ -59,7 +56,7 @@ export const findWithCategory = async (id: number): Promise<Book> => {
   const [row] = rows ?? [];
   if (!row) {
     childLogger.error(row);
-    throw new HttpException('데이터가 존재 하지 않습니다.', StatusCodes.INTERNAL_SERVER_ERROR);
+    return row;
   }
 
   return new Book({
