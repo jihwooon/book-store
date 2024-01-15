@@ -53,5 +53,10 @@ INSERT INTO BookStore.likes (user_id, liked_book_id) VALUES (1, 1);
 INSERT INTO BookStore.likes (user_id, liked_book_id) VALUES (2, 2);
 INSERT INTO BookStore.likes (user_id, liked_book_id) VALUES (1, 3);
 
+INSERT INTO cartItems (user_id, book_id, count) VALUES (1,1,1);
+INSERT INTO cartItems (user_id, book_id, count) VALUES (2,4,10);
+INSERT INTO cartItems (user_id, book_id, count) VALUES (2,3,2);
+INSERT INTO cartItems (user_id, book_id, count) VALUES (1,2,3);
+
 -- set Foreign key = 1
 set FOREIGN_KEY_CHECKS = 1;
