@@ -9,7 +9,7 @@ const childLogger = logger.child({
 });
 
 export const save = async (
-  { userId, likedBookId }:{ userId: number; likedBookId: number },
+  { userId, likedBookId }:{ userId: number, likedBookId: number },
 ): Promise<boolean> => {
   try {
     await doQuery((connection) => connection.execute(
