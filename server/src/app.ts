@@ -2,9 +2,10 @@ import rTracer from 'cls-rtracer';
 import express from 'express';
 
 import bookRouter from './routers/books.router';
+import cartItemRouter from './routers/cartItems.router';
 import categoryRouter from './routers/category.router';
-import userRouter from './routers/users.router';
 import likeRouter from './routers/like.router';
+import userRouter from './routers/users.router';
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(userRouter);
 app.use(bookRouter);
 app.use(categoryRouter);
 app.use(likeRouter);
+app.use(cartItemRouter);
 
 app.get('/', async (req, res) => {
   res.send('Hello World');
