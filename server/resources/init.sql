@@ -8,6 +8,7 @@ TRUNCATE BookStore.books;
 TRUNCATE BookStore.category;
 TRUNCATE BookStore.likes;
 TRUNCATE BookStore.users;
+TRUNCATE BookStore.cartItems;
 
 -- insert Data
 INSERT INTO BookStore.category (name) VALUES ('소설');
@@ -57,6 +58,8 @@ INSERT INTO cartItems (user_id, book_id, count) VALUES (1,1,1);
 INSERT INTO cartItems (user_id, book_id, count) VALUES (2,4,10);
 INSERT INTO cartItems (user_id, book_id, count) VALUES (2,3,2);
 INSERT INTO cartItems (user_id, book_id, count) VALUES (1,2,3);
+INSERT INTO cartItems (user_id, book_id, count) VALUES (1,1,2);
+INSERT INTO cartItems (user_id, book_id, count) VALUES (1,1,10);
 
 -- set Foreign key = 1
 set FOREIGN_KEY_CHECKS = 1;
