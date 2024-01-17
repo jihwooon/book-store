@@ -43,20 +43,20 @@ export default class Book {
     likes = 0,
     pubDate = new Date(),
   }: {
-    id?: number,
-    title?: string,
-    imgId?: number,
-    categoryId?: number,
-    form?: string,
-    isbn?: string,
-    summary?: string,
-    detail?: string,
-    author?: string,
-    pages?: number,
-    contents?: string,
-    price?: number,
-    likes?: number,
-    pubDate?: Date,
+    id?: number;
+    title?: string;
+    imgId?: number;
+    categoryId?: number;
+    form?: string;
+    isbn?: string;
+    summary?: string;
+    detail?: string;
+    author?: string;
+    pages?: number;
+    contents?: string;
+    price?: number;
+    likes?: number;
+    pubDate?: Date;
   }) {
     this.id = id;
     this.title = title;

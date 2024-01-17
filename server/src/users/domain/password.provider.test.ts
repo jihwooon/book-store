@@ -40,8 +40,9 @@ describe('Password provider', () => {
         (isMatchPassword as jest.Mock).mockRejectedValue(Error('패스워드가 일치 하지 않습니다'));
       });
       it('Error를 던져야 한다.', async () => {
-        await expect(isMatchPassword(hashedPassword, salt, nonExistingUser.password))
-          .rejects.toThrow('패스워드가 일치 하지 않습니다');
+        await expect(isMatchPassword(hashedPassword, salt, nonExistingUser.password)).rejects.toThrow(
+          '패스워드가 일치 하지 않습니다',
+        );
       });
     });
   });

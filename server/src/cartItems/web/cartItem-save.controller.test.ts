@@ -19,13 +19,11 @@ describe('cartItemSave Controller', () => {
 
     context('사용자가 장바구니에 도서와 수량을 추가하면', () => {
       it('201 상태코드를 반환한다.', async () => {
-        const { status, body } = await request(app)
-          .post('/cart')
-          .send({
-            userId: existingCartItem.userId,
-            bookId: existingCartItem.bookId,
-            count: existingCartItem.count,
-          });
+        const { status, body } = await request(app).post('/cart').send({
+          userId: existingCartItem.userId,
+          bookId: existingCartItem.bookId,
+          count: existingCartItem.count,
+        });
 
         expect(status).toBe(201);
         expect(body).toEqual({ data: true });
@@ -40,13 +38,11 @@ describe('cartItemSave Controller', () => {
       });
 
       it('400 상태코드와 에러 메세지를 반환한다.', async () => {
-        const { status, body } = await request(app)
-          .post('/cart')
-          .send({
-            userId: nonExistingCartItem.userId,
-            bookId: nonExistingCartItem.bookId,
-            count: nonExistingCartItem.count,
-          });
+        const { status, body } = await request(app).post('/cart').send({
+          userId: nonExistingCartItem.userId,
+          bookId: nonExistingCartItem.bookId,
+          count: nonExistingCartItem.count,
+        });
 
         expect(status).toBe(400);
         expect(body).toEqual({

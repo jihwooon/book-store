@@ -8,16 +8,16 @@ const childLogger = logger.child({
   label: 'like.repository.ts',
 });
 
-export const save = async (
-  { userId, likedBookId }:{ userId: number, likedBookId: number },
-): Promise<boolean> => {
+export const save = async ({ userId, likedBookId }: { userId: number; likedBookId: number }): Promise<boolean> => {
   try {
-    await doQuery((connection) => connection.execute(
-      `INSERT
+    await doQuery((connection) =>
+      connection.execute(
+        `INSERT
          INTO likes (user_id, liked_book_id)
        VALUES (?, ?)`,
-      [userId, likedBookId],
-    ));
+        [userId, likedBookId],
+      ),
+    );
     return true;
   } catch (error: any) {
     if (/Duplicate entry/.test(error.message)) {
@@ -28,12 +28,9 @@ export const save = async (
   }
 };
 
-export const deleteByUserIdAndLikedBookId = async (
-  userId: number,
-  likedBookId: number,
-): Promise<boolean> => {
-  const [{ affectedRows }] = await doQuery(
-    (connection) => connection.execute<ResultSetHeader>(
+export const deleteByUserIdAndLikedBookId = async (userId: number, likedBookId: number): Promise<boolean> => {
+  const [{ affectedRows }] = await doQuery((connection) =>
+    connection.execute<ResultSetHeader>(
       `DELETE
          FROM likes
         WHERE user_id = ?

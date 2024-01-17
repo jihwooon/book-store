@@ -24,9 +24,10 @@ describe('bookDetail Controller', () => {
     });
     context('도서 정보 id가 입력되면', () => {
       it('200 상태코드와 도서 정보를 반환한다', async () => {
-        const { statusCode, body: { data } } = await request(app)
-          .get(`/books/${existingBook.getId()}`)
-          .send({ userId: existingUser.id });
+        const {
+          statusCode,
+          body: { data },
+        } = await request(app).get(`/books/${existingBook.getId()}`).send({ userId: existingUser.id });
 
         expect(statusCode).toBe(200);
         expect(data).toEqual(bookData);
@@ -45,14 +46,13 @@ describe('bookDetail Controller', () => {
           );
       });
       it('404 상태코드와 에러 메시지를 반환한다', async () => {
-        const { statusCode, body: { message } } = await request(app)
-          .get(`/books/${nonExistingBook.getId()}`)
-          .send({ userId: nonExistingUser.id });
+        const {
+          statusCode,
+          body: { message },
+        } = await request(app).get(`/books/${nonExistingBook.getId()}`).send({ userId: nonExistingUser.id });
 
         expect(statusCode).toBe(404);
-        expect(message).toEqual(
-          `${nonExistingBook.getId()} 해당하는 도서 정보를 찾을 수 없습니다.`,
-        );
+        expect(message).toEqual(`${nonExistingBook.getId()} 해당하는 도서 정보를 찾을 수 없습니다.`);
       });
     });
   });

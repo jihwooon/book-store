@@ -3,27 +3,32 @@ import logger from 'src/config/logger';
 
 import { doQuery } from 'src/database/mariadb';
 
-import { StatusCodes } from 'http-status-codes';
-import HttpException from 'src/utils/httpException';
-
 import User from './user';
 
 const childLogger = logger.child({
   label: 'user.repository.ts',
 });
 
-export const save = async (
-  {
-    email, password, name, salt,
-  }: { email: string, password: string, name: string, salt: string },
-): Promise<boolean> => {
+export const save = async ({
+  email,
+  password,
+  name,
+  salt,
+}: {
+  email: string;
+  password: string;
+  name: string;
+  salt: string;
+}): Promise<boolean> => {
   try {
-    await doQuery((connection) => connection.execute(
-      `INSERT
+    await doQuery((connection) =>
+      connection.execute(
+        `INSERT
          INTO users (email, password, name, salt)
        VALUES (?, ?, ?, ?)`,
-      [email, password, name, salt],
-    ));
+        [email, password, name, salt],
+      ),
+    );
     return true;
   } catch (error: any) {
     if (/Duplicate entry/.test(error.message)) {
@@ -34,14 +39,14 @@ export const save = async (
   }
 };
 
-export const findByEmail = async (
-  email: string,
-): Promise<User> => {
-  const [rows] = await doQuery((connection) => connection.execute<RowDataPacket[]>(
-    `SELECT email,password,salt
+export const findByEmail = async (email: string): Promise<User> => {
+  const [rows] = await doQuery((connection) =>
+    connection.execute<RowDataPacket[]>(
+      `SELECT email,password,salt
        FROM users WHERE email = ?`,
-    [email],
-  ));
+      [email],
+    ),
+  );
 
   const [row] = rows ?? [];
   if (!row) {
@@ -56,17 +61,15 @@ export const findByEmail = async (
   });
 };
 
-export const updateUserByPasswordAndSalt = async (
-  email: string,
-  password: string,
-  salt: string,
-): Promise<boolean> => {
-  const [{ affectedRows }] = await doQuery((connection) => connection.execute<ResultSetHeader>(
-    `UPDATE users
+export const updateUserByPasswordAndSalt = async (email: string, password: string, salt: string): Promise<boolean> => {
+  const [{ affectedRows }] = await doQuery((connection) =>
+    connection.execute<ResultSetHeader>(
+      `UPDATE users
         SET password = ?, salt = ?
       WHERE email = ?`,
-    [password, salt, email],
-  ));
+      [password, salt, email],
+    ),
+  );
 
   if (affectedRows === 0) {
     childLogger.error('Fail update');

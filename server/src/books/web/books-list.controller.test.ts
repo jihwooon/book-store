@@ -3,11 +3,7 @@ import request from 'supertest';
 
 import { StatusCodes } from 'http-status-codes';
 
-import {
-  bookLimit,
-  booksCategoryAPI,
-  notNewReleaseBook,
-} from 'src/fixture/books.fixture';
+import { bookLimit, booksCategoryAPI, notNewReleaseBook } from 'src/fixture/books.fixture';
 
 import app from 'src/app';
 
@@ -34,10 +30,14 @@ describe('bookList Controller', () => {
   describe('GET /books', () => {
     context('쿼리 파라미터에 limit=3, currentPage=2가 주어지면', () => {
       beforeEach(() => {
-        (getAllBooks as jest.Mock).mockResolvedValue({ books: bookLimit, totalCount: 3 });
+        (getAllBooks as jest.Mock).mockResolvedValue({
+          books: bookLimit,
+          totalCount: 3,
+        });
       });
       it('200 상태코드와 도서 목록, totalCount를 반환한다.', async () => {
-        const { statusCode, body } = await request(app).get('/books')
+        const { statusCode, body } = await request(app)
+          .get('/books')
           .query({ limit: LIMIT, currentPage: CURRENT_PAGE });
 
         expect(statusCode).toBe(200);
@@ -60,8 +60,14 @@ describe('bookList Controller', () => {
         });
       });
       it('200 상태코드를 반환한다.', async () => {
-        const { statusCode, body: { data } } = await request(app).get('/books')
-          .query({ category_id: '1', limit: LIMIT, currentPage: CURRENT_PAGE });
+        const {
+          statusCode,
+          body: { data },
+        } = await request(app).get('/books').query({
+          category_id: '1',
+          limit: LIMIT,
+          currentPage: CURRENT_PAGE,
+        });
 
         expect(statusCode).toBe(200);
         expect(data).toEqual({
@@ -78,7 +84,8 @@ describe('bookList Controller', () => {
         );
       });
       it('404 상태코드와 에러 메세지를 반환한다.', async () => {
-        const { statusCode, body } = await request(app).get('/books')
+        const { statusCode, body } = await request(app)
+          .get('/books')
           .query({ category_id: '1', limit: LIMIT, currentPage: CURRENT_PAGE });
 
         expect(statusCode).toBe(404);
@@ -95,14 +102,20 @@ describe('bookList Controller', () => {
     context('쿼리 파라미터에 카테고리와 신간 true, limit=4, currentPage=0가 주어지면', () => {
       beforeEach(() => {
         (getBooksByCategoryAndNewRelease as jest.Mock).mockResolvedValue({
-          books: bookLimit, totalCount: bookLimit.length,
+          books: bookLimit,
+          totalCount: bookLimit.length,
         });
       });
       it('200 상태코드와 도서 목록, totalCount를 반환한다.', async () => {
-        const { statusCode, body: { data } } = await request(app).get('/books?category_id&news')
-          .query({
-            category_id: 1, news: true, limit: LIMIT, currentPage: CURRENT_PAGE,
-          });
+        const {
+          statusCode,
+          body: { data },
+        } = await request(app).get('/books?category_id&news').query({
+          category_id: 1,
+          news: true,
+          limit: LIMIT,
+          currentPage: CURRENT_PAGE,
+        });
 
         expect(statusCode).toBe(200);
         expect(data).toEqual({
@@ -114,19 +127,17 @@ describe('bookList Controller', () => {
 
     context('쿼리 파라미터에 존재하지 않는 카테고리가 주어지면', () => {
       beforeEach(() => {
-        (getBooksByCategoryAndNewRelease as jest.Mock)
-          .mockRejectedValue(
-            new HttpException(`${notNewReleaseBook.categoryId} 카테고리 정보를 찾을 수 없습니다.`, StatusCodes.NOT_FOUND),
-          );
+        (getBooksByCategoryAndNewRelease as jest.Mock).mockRejectedValue(
+          new HttpException(`${notNewReleaseBook.categoryId} 카테고리 정보를 찾을 수 없습니다.`, StatusCodes.NOT_FOUND),
+        );
       });
       it('404 상태코드와 에러 메시지를 반환한다.', async () => {
-        const { statusCode, body } = await request(app).get('/books?category_id&news')
-          .query({
-            category_id: notNewReleaseBook.categoryId,
-            news: true,
-            limit: LIMIT_OVER,
-            currentPage: CURRENT_PAGE_OVER,
-          });
+        const { statusCode, body } = await request(app).get('/books?category_id&news').query({
+          category_id: notNewReleaseBook.categoryId,
+          news: true,
+          limit: LIMIT_OVER,
+          currentPage: CURRENT_PAGE_OVER,
+        });
 
         expect(statusCode).toBe(404);
         expect(body).toEqual({
@@ -147,7 +158,8 @@ describe('bookList Controller', () => {
         });
       });
       it('200 상태코드를 반환한다.', async () => {
-        const { statusCode, body } = await request(app).get('/books?news')
+        const { statusCode, body } = await request(app)
+          .get('/books?news')
           .query({ news: true, limit: LIMIT, currentPage: CURRENT_PAGE });
 
         expect(statusCode).toBe(200);
@@ -167,8 +179,11 @@ describe('bookList Controller', () => {
         );
       });
       it('404 상태코드를 반환한다.', async () => {
-        const { statusCode, body } = await request(app).get('/books?news')
-          .query({ news: false, limit: LIMIT_OVER, currentPage: CURRENT_PAGE_OVER });
+        const { statusCode, body } = await request(app).get('/books?news').query({
+          news: false,
+          limit: LIMIT_OVER,
+          currentPage: CURRENT_PAGE_OVER,
+        });
 
         expect(statusCode).toBe(404);
         expect(body).toEqual({

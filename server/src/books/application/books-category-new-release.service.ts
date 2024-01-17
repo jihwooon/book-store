@@ -4,11 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { findByCategoryAndNewRelease } from '../domain/books.repository';
 
-export const getBooksByCategoryAndNewRelease = async (
-  categoryId: number,
-  limit: number,
-  currentPage: number,
-) => {
+export const getBooksByCategoryAndNewRelease = async (categoryId: number, limit: number, currentPage: number) => {
   const { books, totalCount } = await findByCategoryAndNewRelease(categoryId, limit, currentPage);
 
   const isCategory = books.some((book) => book.getCategoryId() === categoryId);

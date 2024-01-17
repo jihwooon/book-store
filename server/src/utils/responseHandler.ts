@@ -1,9 +1,7 @@
 import { type Response } from 'express';
 import { type StatusCodes } from 'http-status-codes';
 
-export const ResponseHandler = async <T = any>(
-  func: () => Promise<T>, status: StatusCodes, res: Response,
-) => {
+export const ResponseHandler = async <T = any>(func: () => Promise<T>, status: StatusCodes, res: Response) => {
   try {
     const result = await func();
 

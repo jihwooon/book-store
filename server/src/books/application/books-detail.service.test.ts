@@ -30,13 +30,9 @@ describe('BooksDetail service', () => {
 
     context('도서 정보 id가 올바르지 않으면', () => {
       it('Error를 던져야 한다.', async () => {
-        await expect(getDetailBook(nonExistingUser.id, nonExistingBook.getId()))
-          .rejects.toThrow(
-            new HttpException(
-              `${nonExistingBook.getId()} 해당하는 도서 정보를 찾을 수 없습니다.`,
-              StatusCodes.NOT_FOUND,
-            ),
-          );
+        await expect(getDetailBook(nonExistingUser.id, nonExistingBook.getId())).rejects.toThrow(
+          new HttpException(`${nonExistingBook.getId()} 해당하는 도서 정보를 찾을 수 없습니다.`, StatusCodes.NOT_FOUND),
+        );
       });
     });
   });

@@ -33,10 +33,9 @@ describe('Signin service', () => {
         (findByEmail as jest.Mock).mockResolvedValue(undefined);
       });
       it('HttpException을 던져야 한다', async () => {
-        await expect(signinService(nonExistingUser.email, nonExistingUser.password))
-          .rejects.toThrow(
-            new HttpException('회원 정보를 찾을 수 없습니다.', StatusCodes.NOT_FOUND),
-          );
+        await expect(signinService(nonExistingUser.email, nonExistingUser.password)).rejects.toThrow(
+          new HttpException('회원 정보를 찾을 수 없습니다.', StatusCodes.NOT_FOUND),
+        );
       });
     });
 
@@ -46,10 +45,9 @@ describe('Signin service', () => {
       });
 
       it('HttpException을 던져야 한다', async () => {
-        await expect(signinService(nonExistingUser.email, nonExistingUser.password))
-          .rejects.toThrow(
-            new HttpException('패스워드가 일치 하지 않습니다.', StatusCodes.BAD_REQUEST),
-          );
+        await expect(signinService(nonExistingUser.email, nonExistingUser.password)).rejects.toThrow(
+          new HttpException('패스워드가 일치 하지 않습니다.', StatusCodes.BAD_REQUEST),
+        );
       });
     });
   });

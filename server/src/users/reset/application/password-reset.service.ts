@@ -3,10 +3,7 @@ import { createHash, createSalt } from 'src/users/domain/password.provider';
 import { updateUserByPasswordAndSalt } from 'src/users/domain/user.repository';
 import HttpException from 'src/utils/httpException';
 
-const passwordResetter = async (
-  email: string,
-  rawPassword: string,
-): Promise<boolean> => {
+const passwordResetter = async (email: string, rawPassword: string): Promise<boolean> => {
   const salt = await createSalt();
   const hashPassword = await createHash(rawPassword, salt);
 

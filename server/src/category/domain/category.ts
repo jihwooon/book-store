@@ -3,13 +3,7 @@ export default class Category {
 
   private name: string;
 
-  constructor({
-    id = 0,
-    name = '',
-  }: {
-    id?: number,
-    name?: string,
-  }) {
+  constructor({ id = 0, name = '' }: { id?: number; name?: string }) {
     this.id = id;
     this.name = name;
   }

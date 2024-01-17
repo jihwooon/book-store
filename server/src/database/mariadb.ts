@@ -14,9 +14,7 @@ export const connectionPromise = createPool({
   connectionLimit: 10,
 });
 
-export const doQuery = async <R>(
-  doWork: (connection: Connection) => Promise<R>,
-): Promise<R> => {
+export const doQuery = async <R>(doWork: (connection: Connection) => Promise<R>): Promise<R> => {
   const connection = await connectionPromise.getConnection();
   return doWork(connection);
 };

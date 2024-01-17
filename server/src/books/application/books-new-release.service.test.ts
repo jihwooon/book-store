@@ -39,8 +39,9 @@ describe('BooksNewRelease service', () => {
         });
       });
       it('HttpException을 던져야 한다.', async () => {
-        await expect(getAllBooksByNewRelease(LIMIT_OVER, OFFSET_OVER))
-          .rejects.toThrow(new HttpException('현재 신간 도서 목록이 없습니다.', StatusCodes.NOT_FOUND));
+        await expect(getAllBooksByNewRelease(LIMIT_OVER, OFFSET_OVER)).rejects.toThrow(
+          new HttpException('현재 신간 도서 목록이 없습니다.', StatusCodes.NOT_FOUND),
+        );
       });
     });
   });

@@ -26,10 +26,9 @@ describe('passwordResetRequester service', () => {
         (updateUserByPasswordAndSalt as jest.Mock).mockResolvedValue(false);
       });
       it('HttpException 에러를 던져야한다.', async () => {
-        await expect(passwordResetter(existingUser.email, existingUser.password))
-          .rejects.toThrow(
-            new HttpException('패스워드 초기화에 실패했습니다.', StatusCodes.BAD_REQUEST),
-          );
+        await expect(passwordResetter(existingUser.email, existingUser.password)).rejects.toThrow(
+          new HttpException('패스워드 초기화에 실패했습니다.', StatusCodes.BAD_REQUEST),
+        );
       });
     });
   });

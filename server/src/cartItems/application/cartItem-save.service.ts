@@ -4,11 +4,7 @@ import HttpException from 'src/utils/httpException';
 import CartItem from '../domain/cartItem';
 import { save } from '../domain/cartItem.repository';
 
-export const addToCart = async (
-  userId: number,
-  bookId: number,
-  count: number,
-): Promise<boolean> => {
+export const addToCart = async (userId: number, bookId: number, count: number): Promise<boolean> => {
   const cartItems = CartItem.createCartItems(userId, bookId, count);
 
   const savedCartItems = await save(cartItems);

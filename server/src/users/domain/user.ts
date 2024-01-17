@@ -16,11 +16,11 @@ export default class User {
     salt = '',
     name = '',
   }: {
-    id?: number,
-    email?: string,
-    password?: string,
-    salt?: string,
-    name?: string
+    id?: number;
+    email?: string;
+    password?: string;
+    salt?: string;
+    name?: string;
   }) {
     this.id = id;
     this.email = email;
