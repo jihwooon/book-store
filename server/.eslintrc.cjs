@@ -13,23 +13,21 @@ module.exports = {
     'plugin:jest/recommended',
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
   ],
-  plugins: [
-    'jest',
-    'import',
-    '@typescript-eslint',
-  ],
+  plugins: ['jest', 'import', '@typescript-eslint', 'prettier'],
   overrides: [
     {
       env: {
         node: true,
       },
-      files: [
-        '.eslintrc.{js,cjs}',
-      ],
+      files: ['.eslintrc.{js,cjs}'],
       parserOptions: {
         sourceType: 'script',
       },
+    },
+    {
+      files: '.prettierrc',
     },
   ],
   settings: {
@@ -79,21 +77,21 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'import/prefer-default-export': 'off',
     'import/no-unresolved': [0, { commonjs: false }],
-    'import/extensions': ['error', 'ignorePackages', {
-      js: 'never',
-      jsx: 'never',
-      ts: 'never',
-      tsx: 'never',
-    }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
     'import/order': [
       'error',
       {
         'newlines-between': 'always-and-inside-groups',
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-        ],
+        groups: ['builtin', 'external', 'internal'],
       },
     ],
     '@typescript-eslint/consistent-type-imports': [
@@ -101,6 +99,20 @@ module.exports = {
       {
         prefer: 'type-imports',
         fixStyle: 'inline-type-imports',
+      },
+    ],
+    'prettier/prettier': [
+      'error',
+      {
+        quoteProps: 'as-needed',
+        singleQuote: true,
+        printWidth: 120,
+        trailingComma: 'all',
+        endOfLine: 'auto',
+        semi: true,
+        useTabs: false,
+        bracketSpacing: true,
+        arrowParens: 'always',
       },
     ],
   },
