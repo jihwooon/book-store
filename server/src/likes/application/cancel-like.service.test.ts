@@ -27,8 +27,9 @@ describe('cancelLike Service', () => {
 
   context('사용자 id와 도서 정보 id가 좋아요 취소에 실패하면', () => {
     it('error를 던져야 한다.', async () => {
-      await expect(cancelLike(nonExistingLike.userId, nonExistingLike.likedBookId))
-        .rejects.toThrow(new HttpException('좋아요 취소에 실패했습니다.', StatusCodes.BAD_REQUEST));
+      await expect(cancelLike(nonExistingLike.userId, nonExistingLike.likedBookId)).rejects.toThrow(
+        new HttpException('좋아요 취소에 실패했습니다.', StatusCodes.BAD_REQUEST),
+      );
     });
   });
 });

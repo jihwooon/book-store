@@ -3,13 +3,7 @@ export default class Like {
 
   private likedBookId: number;
 
-  constructor({
-    userId = 0,
-    likedBookId = 0,
-  }: {
-    userId?: number,
-    likedBookId?: number,
-  }) {
+  constructor({ userId = 0, likedBookId = 0 }: { userId?: number; likedBookId?: number }) {
     this.userId = userId;
     this.likedBookId = likedBookId;
   }

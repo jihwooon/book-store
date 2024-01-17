@@ -15,7 +15,6 @@ export const sinupSchema = z.object({
         required_error: '패스워드는 필수 입력 값입니다.',
       })
       .min(8, { message: '패스워드는 8자 이상입니다.' })
-      .max(16, { message: '패스워드는 16자 이하입니다.' })
-    ,
+      .max(16, { message: '패스워드는 16자 이하입니다.' }),
   }),
 });

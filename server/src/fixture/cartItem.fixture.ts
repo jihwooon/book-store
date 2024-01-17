@@ -43,11 +43,13 @@ export const nonExistingCartItem = {
   count: 99999,
 };
 
-export const cartItemBookList = [{
-  id: 1,
-  bookId: 1,
-  count: 1,
-  price: 20000,
-  summary: '어리다....',
-  title: '어린왕자들',
-}];
+export const cartItemBookList = [
+  {
+    id: 1,
+    bookId: 1,
+    count: 1,
+    price: 20000,
+    summary: '어리다....',
+    title: '어린왕자들',
+  },
+];

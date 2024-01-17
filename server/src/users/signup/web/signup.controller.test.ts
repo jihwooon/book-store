@@ -27,7 +27,10 @@ describe('signup Controller', () => {
         (signupService as jest.Mock).mockResolvedValue(true);
       });
       it('201 상태코드를 반환한다.', async () => {
-        const { statusCode, body: { data } } = await request(app).post('/signup').send(validUser);
+        const {
+          statusCode,
+          body: { data },
+        } = await request(app).post('/signup').send(validUser);
 
         expect(statusCode).toBe(201);
         expect(data).toBe(true);
@@ -36,7 +39,9 @@ describe('signup Controller', () => {
 
     context('사용자가 비정상 정보를 입력한 경우', () => {
       beforeEach(() => {
-        (signupService as jest.Mock).mockRejectedValue(new HttpException('회원 가입에 실패했습니다.', StatusCodes.BAD_REQUEST));
+        (signupService as jest.Mock).mockRejectedValue(
+          new HttpException('회원 가입에 실패했습니다.', StatusCodes.BAD_REQUEST),
+        );
       });
       it('400 상태코드와 에러 메세지를 반환한다.', async () => {
         const { statusCode, body } = await request(app).post('/signup').send(inValidUser);
@@ -64,10 +69,7 @@ describe('signup Controller', () => {
               inclusive: true,
               exact: false,
               message: '패스워드는 8자 이상입니다.',
-              path: [
-                'body',
-                'password',
-              ],
+              path: ['body', 'password'],
             },
           ],
           name: 'ZodError',
@@ -86,10 +88,7 @@ describe('signup Controller', () => {
               code: 'invalid_type',
               expected: 'string',
               received: 'undefined',
-              path: [
-                'body',
-                'password',
-              ],
+              path: ['body', 'password'],
               message: '패스워드는 필수 입력 값입니다.',
             },
           ],
@@ -112,10 +111,7 @@ describe('signup Controller', () => {
               inclusive: true,
               exact: false,
               message: '패스워드는 16자 이하입니다.',
-              path: [
-                'body',
-                'password',
-              ],
+              path: ['body', 'password'],
             },
           ],
           name: 'ZodError',
@@ -134,10 +130,7 @@ describe('signup Controller', () => {
               validation: 'email',
               code: 'invalid_string',
               message: '올바른 이메일 형식을 입력하세요.',
-              path: [
-                'body',
-                'email',
-              ],
+              path: ['body', 'email'],
             },
           ],
           name: 'ZodError',
@@ -156,10 +149,7 @@ describe('signup Controller', () => {
               code: 'invalid_type',
               expected: 'string',
               received: 'undefined',
-              path: [
-                'body',
-                'email',
-              ],
+              path: ['body', 'email'],
               message: '이메일은 필수 입력 값입니다.',
             },
           ],
@@ -179,10 +169,7 @@ describe('signup Controller', () => {
               code: 'invalid_type',
               expected: 'string',
               received: 'undefined',
-              path: [
-                'body',
-                'name',
-              ],
+              path: ['body', 'name'],
               message: '이름은 필수 입력 값입니다.',
             },
           ],

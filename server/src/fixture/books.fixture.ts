@@ -56,7 +56,8 @@ export const existingBooks = [
     pubDate: new Date('2019-01-01'),
     summary: '제비...',
     title: '흥부와 놀부',
-  })];
+  }),
+];
 
 export const bookLimit = [
   {
@@ -114,7 +115,8 @@ export const bookLimit = [
     pubDate: '2019-01-01',
     summary: '제비...',
     title: '흥부와 놀부',
-  }];
+  },
+];
 
 export const existingBook = new Book({
   id: 1,
@@ -184,22 +186,24 @@ export const notNewReleaseBook = {
   title: '어린왕자들',
 };
 
-export const newNewReleaseBooks = [{
-  author: '김어림',
-  categoryId: 0,
-  contents: '목차',
-  detail: '많이 어리다...',
-  form: '종이책',
-  id: 1,
-  imgId: 0,
-  isbn: '0',
-  likes: 3,
-  pages: 100,
-  price: 20000,
-  pubDate: '2024-01-01',
-  summary: '어리다....',
-  title: '어린왕자들',
-}];
+export const newNewReleaseBooks = [
+  {
+    author: '김어림',
+    categoryId: 0,
+    contents: '목차',
+    detail: '많이 어리다...',
+    form: '종이책',
+    id: 1,
+    imgId: 0,
+    isbn: '0',
+    likes: 3,
+    pages: 100,
+    price: 20000,
+    pubDate: '2024-01-01',
+    summary: '어리다....',
+    title: '어린왕자들',
+  },
+];
 
 export const newReleaseExistingBook = [
   new Book({
@@ -303,10 +307,11 @@ export const booksCategory = [
     pubDate: new Date('2024-01-01'),
     summary: '깡충..',
     title: '용궁에 간 토끼',
-  })];
+  }),
+];
 
 export const booksCategoryAPI = [
-  ({
+  {
     author: '김거북',
     categoryId: 0,
     contents: '목차입니다.',
@@ -321,7 +326,8 @@ export const booksCategoryAPI = [
     pubDate: '2024-01-01',
     summary: '깡충..',
     title: '용궁에 간 토끼',
-  })];
+  },
+];
 
 export const bookMock = {
   id: 1,

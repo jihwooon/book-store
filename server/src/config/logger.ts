@@ -45,22 +45,16 @@ const logger = winston.createLogger({
       return rTracer.id();
     },
   },
-  transports: [
-    transportsInfo,
-    transportsError,
-  ],
-  exceptionHandlers: [
-    exceptionHandlers,
-  ],
+  transports: [transportsInfo, transportsError],
+  exceptionHandlers: [exceptionHandlers],
 });
 
 if (process.env.NODE_ENV !== 'production') {
-  logger.add(new winston.transports.Console({
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.simple(),
-    ),
-  }));
+  logger.add(
+    new winston.transports.Console({
+      format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
+    }),
+  );
 }
 
 export default logger;

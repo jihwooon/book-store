@@ -12,16 +12,24 @@ const childLogger = logger.child({
   label: 'cartItem.repository.ts',
 });
 
-export const save = async (
-  { userId, bookId, count }: { userId: number, bookId: number, count: number },
-): Promise<boolean> => {
+export const save = async ({
+  userId,
+  bookId,
+  count,
+}: {
+  userId: number;
+  bookId: number;
+  count: number;
+}): Promise<boolean> => {
   try {
-    await doQuery((connection) => connection.execute(
-      `INSERT
+    await doQuery((connection) =>
+      connection.execute(
+        `INSERT
          INTO cartItems (user_id, book_id, count)
        VALUES (?, ?, ?)`,
-      [userId, bookId, count],
-    ));
+        [userId, bookId, count],
+      ),
+    );
     return true;
   } catch (error: any) {
     if (/Duplicate entry/.test(error.message)) {
@@ -32,11 +40,9 @@ export const save = async (
   }
 };
 
-export const findCartItemWithBook = async (
-  bookId: number,
-): Promise<CartItem[]> => {
-  const [rows] = await doQuery(
-    (connection) => connection.execute<RowDataPacket[]>(
+export const findCartItemWithBook = async (bookId: number): Promise<CartItem[]> => {
+  const [rows] = await doQuery((connection) =>
+    connection.execute<RowDataPacket[]>(
       `SELECT ci.id, ci.book_id, b.title, b.summary, b.price, ci.count
          FROM cartItems ci
          LEFT JOIN books b
@@ -46,23 +52,24 @@ export const findCartItemWithBook = async (
     ),
   );
 
-  return (rows ?? []).map((row) => new CartItem({
-    id: row.id,
-    bookId: row.book_id,
-    count: row.count,
-    books: new Book({
-      title: row.title,
-      summary: row.summary,
-      price: row.price,
-    }),
-  }));
+  return (rows ?? []).map(
+    (row) =>
+      new CartItem({
+        id: row.id,
+        bookId: row.book_id,
+        count: row.count,
+        books: new Book({
+          title: row.title,
+          summary: row.summary,
+          price: row.price,
+        }),
+      }),
+  );
 };
 
-export const deleteById = async (
-  id: number,
-): Promise<boolean> => {
-  const [{ affectedRows }] = await doQuery(
-    (connection) => connection.execute<ResultSetHeader>(
+export const deleteById = async (id: number): Promise<boolean> => {
+  const [{ affectedRows }] = await doQuery((connection) =>
+    connection.execute<ResultSetHeader>(
       `DELETE
        FROM cartItems
       WHERE id = ?`,

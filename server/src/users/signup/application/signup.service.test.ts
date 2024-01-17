@@ -15,11 +15,7 @@ describe('Signup service', () => {
     });
     context('사용자가 올바른 정보를 입력하면', () => {
       it('회원가입이 되어야 한다.', async () => {
-        const savedUser = await signupService(
-          validUser.email,
-          validUser.password,
-          validUser.name,
-        );
+        const savedUser = await signupService(validUser.email, validUser.password, validUser.name);
 
         expect(savedUser).toBe(true);
       });
@@ -30,8 +26,9 @@ describe('Signup service', () => {
         (save as jest.Mock).mockReturnValue(false);
       });
       it('HttpException을 던져야 한다', async () => {
-        await expect(signupService(inValidUser.email, inValidUser.password, inValidUser.name))
-          .rejects.toThrow(new HttpException('회원 가입에 실패했습니다.', StatusCodes.BAD_REQUEST));
+        await expect(signupService(inValidUser.email, inValidUser.password, inValidUser.name)).rejects.toThrow(
+          new HttpException('회원 가입에 실패했습니다.', StatusCodes.BAD_REQUEST),
+        );
       });
     });
   });

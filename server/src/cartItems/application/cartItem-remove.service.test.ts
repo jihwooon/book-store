@@ -26,13 +26,9 @@ describe('cartItemRemove Service', () => {
 
   context('카트 id가 올바르지 않으면', () => {
     it('error를 던진다.', async () => {
-      await expect(removeToCart(nonExistingCartItem.id))
-        .rejects.toThrow(
-          new HttpException(
-            '장바구니 제거에 실패했습니다.',
-            StatusCodes.BAD_REQUEST,
-          ),
-        );
+      await expect(removeToCart(nonExistingCartItem.id)).rejects.toThrow(
+        new HttpException('장바구니 제거에 실패했습니다.', StatusCodes.BAD_REQUEST),
+      );
     });
   });
 });

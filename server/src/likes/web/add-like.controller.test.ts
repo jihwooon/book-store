@@ -17,9 +17,10 @@ describe('addLike Controller', () => {
         (addLike as jest.Mock).mockResolvedValue(true);
       });
       it('201 상태코드를 반환한다.', async () => {
-        const { statusCode, body: { data } } = await request(app)
-          .post(`/likes/${existingLike.likedBookId}`)
-          .send({ userId: existingLike.userId });
+        const {
+          statusCode,
+          body: { data },
+        } = await request(app).post(`/likes/${existingLike.likedBookId}`).send({ userId: existingLike.userId });
 
         expect(statusCode).toBe(201);
         expect(data).toBe(true);

@@ -9,7 +9,10 @@ const signupService = async (email: string, password: string, name: string): Pro
   const hashPassword = await createHash(password, salt);
 
   const user = new User({
-    email, password: hashPassword, name, salt,
+    email,
+    password: hashPassword,
+    name,
+    salt,
   });
   const userData = user.getDataOfUser();
 

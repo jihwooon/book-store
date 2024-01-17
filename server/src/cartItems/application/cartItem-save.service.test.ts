@@ -16,11 +16,7 @@ describe('cartItem Service', () => {
 
   context('사용자 id와 도서 정보 id가 주어지고 수량을 추가하면', () => {
     it('true를 반환한다.', async () => {
-      const savedCartItems = await addToCart(
-        existingCartItem.userId,
-        existingCartItem.bookId,
-        existingCartItem.count,
-      );
+      const savedCartItems = await addToCart(existingCartItem.userId, existingCartItem.bookId, existingCartItem.count);
 
       expect(savedCartItems).toBe(true);
     });
@@ -32,13 +28,9 @@ describe('cartItem Service', () => {
     });
 
     it('error를 반환한다.', async () => {
-      await expect(addToCart(
-        nonExistingCartItem.userId,
-        nonExistingCartItem.bookId,
-        nonExistingCartItem.count,
-      )).rejects.toThrow(
-        new HttpException('장바구니 추가에 실패했습니다.', StatusCodes.BAD_REQUEST),
-      );
+      await expect(
+        addToCart(nonExistingCartItem.userId, nonExistingCartItem.bookId, nonExistingCartItem.count),
+      ).rejects.toThrow(new HttpException('장바구니 추가에 실패했습니다.', StatusCodes.BAD_REQUEST));
     });
   });
 });

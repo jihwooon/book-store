@@ -4,10 +4,7 @@ import HttpException from 'src/utils/httpException';
 import Like from '../domain/like';
 import { save } from '../domain/likes.repository';
 
-export const addLike = async (
-  userId: number,
-  likedBookId: number,
-): Promise<boolean> => {
+export const addLike = async (userId: number, likedBookId: number): Promise<boolean> => {
   const like = new Like({ userId, likedBookId });
   const likeData = like.getDataOfLike();
 
