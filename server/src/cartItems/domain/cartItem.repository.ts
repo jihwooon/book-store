@@ -2,7 +2,7 @@ import { doQuery } from 'src/database/mariadb';
 
 import logger from 'src/config/logger';
 
-import { type RowDataPacket } from 'mysql2';
+import { type ResultSetHeader, type RowDataPacket } from 'mysql2';
 
 import Book from 'src/books/domain/book';
 
@@ -56,4 +56,24 @@ export const findCartItemWithBook = async (
       price: row.price,
     }),
   }));
+};
+
+export const deleteById = async (
+  id: number,
+): Promise<boolean> => {
+  const [{ affectedRows }] = await doQuery(
+    (connection) => connection.execute<ResultSetHeader>(
+      `DELETE
+       FROM cartItems
+      WHERE id = ?`,
+      [id],
+    ),
+  );
+
+  if (affectedRows === 0) {
+    childLogger.error(affectedRows);
+    return false;
+  }
+
+  return affectedRows === 1;
 };
