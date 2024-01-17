@@ -4,10 +4,10 @@ import HttpException from 'src/utils/httpException';
 import { StatusCodes } from 'http-status-codes';
 
 import type CartItem from '../domain/cartItem';
-import { findAll } from '../domain/cartItem.repository';
+import { findCartItemWithBook } from '../domain/cartItem.repository';
 
 export const getCartItems = async (bookId: number) => {
-  const cartItems = await findAll(bookId);
+  const cartItems = await findCartItemWithBook(bookId);
   if (cartItems.length === 0) {
     throw new HttpException(
       '장바구니가 내 도서 정보가 존재하지 않습니다.',

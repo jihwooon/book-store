@@ -9,10 +9,9 @@ export const addToCart = async (
   bookId: number,
   count: number,
 ): Promise<boolean> => {
-  const cartItem = new CartItem({ userId, bookId, count });
-  const cartItemData = cartItem.getDataOfCart();
+  const cartItems = CartItem.createCartItems(userId, bookId, count);
 
-  const savedCartItems = await save(cartItemData);
+  const savedCartItems = await save(cartItems);
   if (!savedCartItems) {
     throw new HttpException('장바구니 추가에 실패했습니다.', StatusCodes.BAD_REQUEST);
   }

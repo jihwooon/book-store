@@ -13,7 +13,7 @@ const childLogger = logger.child({
 });
 
 export const save = async (
-  { userId, bookId, count }:{ userId: number, bookId: number, count: number },
+  { userId, bookId, count }: { userId: number, bookId: number, count: number },
 ): Promise<boolean> => {
   try {
     await doQuery((connection) => connection.execute(
@@ -32,7 +32,9 @@ export const save = async (
   }
 };
 
-export const findAll = async (bookId: number): Promise<CartItem[]> => {
+export const findCartItemWithBook = async (
+  bookId: number,
+): Promise<CartItem[]> => {
   const [rows] = await doQuery(
     (connection) => connection.execute<RowDataPacket[]>(
       `SELECT ci.id, ci.book_id, b.title, b.summary, b.price, ci.count

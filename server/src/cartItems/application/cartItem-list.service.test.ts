@@ -6,14 +6,14 @@ import HttpException from 'src/utils/httpException';
 
 import { StatusCodes } from 'http-status-codes';
 
-import { findAll } from '../domain/cartItem.repository';
+import { findCartItemWithBook } from '../domain/cartItem.repository';
 import { getCartItems } from './cartItem-list.service';
 
 jest.mock('../domain/cartItem.repository.ts');
 
 describe('cartItem Service', () => {
   beforeEach(() => {
-    when(findAll as jest.Mock)
+    when(findCartItemWithBook as jest.Mock)
       .calledWith(existingCartItem.bookId)
       .mockResolvedValue(existingCartItems);
   });
@@ -37,7 +37,7 @@ describe('cartItem Service', () => {
 
   context('장바구니 도서 목록에 빈 값이 주어지면', () => {
     beforeEach(() => {
-      (findAll as jest.Mock).mockResolvedValue([]);
+      (findCartItemWithBook as jest.Mock).mockResolvedValue([]);
     });
     it('error를 던진다.', async () => {
       await expect(getCartItems(

@@ -31,6 +31,13 @@ export default class CartItem {
     this.books = books;
   }
 
+  static createCartItems(userId: number, bookId: number, count: number) {
+    const cartItem = new CartItem({ userId, bookId, count });
+    const cartData = cartItem.getDataOfCart();
+
+    return cartData;
+  }
+
   getDataOfCart() {
     return {
       id: this.id,
