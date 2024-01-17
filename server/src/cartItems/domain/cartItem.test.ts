@@ -66,4 +66,18 @@ describe('Cart class', () => {
       }));
     });
   });
+
+  context('장바구니에 사용자 id와 도서 id, 수량을 추가하면', () => {
+    it('결과 값을 반환한다.', () => {
+      const savedCartItems = CartItem.createCartItems(
+        existingCartItem.userId,
+        existingCartItem.bookId,
+        existingCartItem.count,
+      );
+
+      expect(savedCartItems.bookId).toBe(1);
+      expect(savedCartItems.userId).toBe(1);
+      expect(savedCartItems.count).toBe(1);
+    });
+  });
 });
