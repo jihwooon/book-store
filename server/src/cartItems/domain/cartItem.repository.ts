@@ -2,6 +2,12 @@ import { doQuery } from 'src/database/mariadb';
 
 import logger from 'src/config/logger';
 
+import { type RowDataPacket } from 'mysql2';
+
+import Book from 'src/books/domain/book';
+
+import CartItem from './cartItem';
+
 const childLogger = logger.child({
   label: 'cartItem.repository.ts',
 });
@@ -24,4 +30,28 @@ export const save = async (
     }
     throw error;
   }
+};
+
+export const findAll = async (bookId: number): Promise<CartItem[]> => {
+  const [rows] = await doQuery(
+    (connection) => connection.execute<RowDataPacket[]>(
+      `SELECT ci.id, ci.book_id, b.title, b.summary, b.price, ci.count
+         FROM cartItems ci
+         LEFT JOIN books b
+           ON b.id  = ci.book_id
+        WHERE b.id = ?`,
+      [bookId],
+    ),
+  );
+
+  return (rows ?? []).map((row) => new CartItem({
+    id: row.id,
+    bookId: row.book_id,
+    count: row.count,
+    books: new Book({
+      title: row.title,
+      summary: row.summary,
+      price: row.price,
+    }),
+  }));
 };
