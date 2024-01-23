@@ -12,15 +12,18 @@ import { getCartItems } from './cartItem-list.service';
 jest.mock('../domain/cartItem.repository.ts');
 
 describe('cartItem Service', () => {
+  const SelectedCartItem = [1, 4];
+  const notSelectedCartItem = [9999, 9999];
+
   beforeEach(() => {
     when(findCartItemWithBook as jest.Mock)
-      .calledWith(existingCartItem.userId)
+      .calledWith(existingCartItem.userId, SelectedCartItem)
       .mockResolvedValue(existingCartItems);
   });
 
-  context('도서 정보 id가 주어지면', () => {
+  context('사용자 정보 id와 장바구니 상품을 선택하면', () => {
     it('장바구니 도서 목록을 반환한다.', async () => {
-      const cartItems = await getCartItems(existingCartItem.userId);
+      const cartItems = await getCartItems(existingCartItem.userId, SelectedCartItem);
 
       expect(cartItems).toStrictEqual([
         {
@@ -64,7 +67,7 @@ describe('cartItem Service', () => {
       (findCartItemWithBook as jest.Mock).mockResolvedValue([]);
     });
     it('error를 던진다.', async () => {
-      await expect(getCartItems(nonExistingCartItem.userId)).rejects.toThrow(
+      await expect(getCartItems(nonExistingCartItem.userId, notSelectedCartItem)).rejects.toThrow(
         new HttpException('장바구니가 내 도서 정보가 존재하지 않습니다.', StatusCodes.NOT_FOUND),
       );
     });
