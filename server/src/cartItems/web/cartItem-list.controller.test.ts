@@ -1,5 +1,5 @@
 import app from 'src/app';
-import { cartItemBookList, existingCartItem, nonExistingCartItem } from 'src/fixture/cartItem.fixture';
+import { existingCartItem, selectedCartItems } from 'src/fixture/cartItem.fixture';
 
 import request from 'supertest';
 
@@ -12,7 +12,7 @@ jest.mock('../application/cartItem-list.service.ts');
 
 describe('cartItemList Controller', () => {
   beforeEach(() => {
-    (getCartItems as jest.Mock).mockResolvedValue(cartItemBookList);
+    (getCartItems as jest.Mock).mockResolvedValue(selectedCartItems);
   });
 
   describe('GET /cart', () => {
@@ -21,14 +21,19 @@ describe('cartItemList Controller', () => {
         const {
           status,
           body: { data },
-        } = await request(app).get(`/cart/${existingCartItem.bookId}`);
+        } = await request(app)
+          .get(`/cart`)
+          .send({ userId: existingCartItem.userId, selectedId: [1, 4] });
 
         expect(status).toBe(200);
-        expect(data).toEqual(cartItemBookList);
+        expect(data).toEqual([
+          { bookId: 1, count: 1, id: 1, price: 20000, summary: '어리다....', title: '어린왕자들' },
+          { bookId: 2, count: 3, id: 4, price: 20000, summary: '유리구두...', title: '신델렐라' },
+        ]);
       });
     });
 
-    context('장바구니 내에 도서 정보 id가 올바르지 않는 경우', () => {
+    context('장바구니 내에 사용자 정보가 올바르지 않는 경우', () => {
       beforeEach(() => {
         (getCartItems as jest.Mock).mockRejectedValue(
           new HttpException('장바구니가 내 도서 정보가 존재하지 않습니다.', StatusCodes.NOT_FOUND),
@@ -36,7 +41,9 @@ describe('cartItemList Controller', () => {
       });
 
       it('404 상태코드와 에러 메세지를 반환한다.', async () => {
-        const { status, body } = await request(app).get(`/cart/${nonExistingCartItem.bookId}`);
+        const { status, body } = await request(app)
+          .get(`/cart`)
+          .send({ userId: existingCartItem.userId, selectedId: [999, 999] });
 
         expect(status).toBe(404);
         expect(body).toEqual({
