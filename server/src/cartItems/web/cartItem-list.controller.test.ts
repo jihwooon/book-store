@@ -1,9 +1,9 @@
-import { StatusCodes } from 'http-status-codes';
 import app from 'src/app';
-import { cartItemBookList, existingCartItem } from 'src/fixture/cartItem.fixture';
+import { existingCartItem, selectedCartItems } from 'src/fixture/cartItem.fixture';
 
 import request from 'supertest';
 
+import { StatusCodes } from 'http-status-codes';
 import HttpException from 'src/utils/httpException';
 
 import { getCartItems } from '../application/cartItem-list.service';
@@ -12,7 +12,7 @@ jest.mock('../application/cartItem-list.service.ts');
 
 describe('cartItemList Controller', () => {
   beforeEach(() => {
-    (getCartItems as jest.Mock).mockResolvedValue(cartItemBookList);
+    (getCartItems as jest.Mock).mockResolvedValue(selectedCartItems);
   });
 
   describe('GET /cart', () => {
@@ -21,10 +21,15 @@ describe('cartItemList Controller', () => {
         const {
           status,
           body: { data },
-        } = await request(app).get(`/cart`).send({ userId: existingCartItem.userId });
+        } = await request(app)
+          .get(`/cart`)
+          .send({ userId: existingCartItem.userId, selectedId: [1, 4] });
 
         expect(status).toBe(200);
-        expect(data).toEqual(cartItemBookList);
+        expect(data).toEqual([
+          { bookId: 1, count: 1, id: 1, price: 20000, summary: '어리다....', title: '어린왕자들' },
+          { bookId: 2, count: 3, id: 4, price: 20000, summary: '유리구두...', title: '신델렐라' },
+        ]);
       });
     });
 
@@ -36,7 +41,9 @@ describe('cartItemList Controller', () => {
       });
 
       it('404 상태코드와 에러 메세지를 반환한다.', async () => {
-        const { status, body } = await request(app).get(`/cart`);
+        const { status, body } = await request(app)
+          .get(`/cart`)
+          .send({ userId: existingCartItem.userId, selectedId: [999, 999] });
 
         expect(status).toBe(404);
         expect(body).toEqual({

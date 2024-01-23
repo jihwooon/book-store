@@ -110,3 +110,22 @@ export const cartItemBookList = [
     count: 10,
   },
 ];
+
+export const selectedCartItems = [
+  {
+    bookId: 1,
+    count: 1,
+    id: 1,
+    price: 20000,
+    summary: '어리다....',
+    title: '어린왕자들',
+  },
+  {
+    bookId: 2,
+    count: 3,
+    id: 4,
+    price: 20000,
+    summary: '유리구두...',
+    title: '신델렐라',
+  },
+];
