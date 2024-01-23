@@ -34,6 +34,39 @@ export const existingCartItems = [
       title: '어린왕자들',
     }),
   }),
+  new CartItem({
+    id: 4,
+    bookId: 2,
+    count: 3,
+    books: new Book({
+      title: '신델렐라',
+      pubDate: expect.any(Date),
+      summary: '유리구두...',
+      price: 20000,
+    }),
+  }),
+  new CartItem({
+    id: 5,
+    bookId: 1,
+    count: 2,
+    books: new Book({
+      title: '어린왕자들',
+      pubDate: expect.any(Date),
+      summary: '어리다....',
+      price: 20000,
+    }),
+  }),
+  new CartItem({
+    id: 6,
+    bookId: 1,
+    count: 10,
+    books: new Book({
+      title: '어린왕자들',
+      pubDate: expect.any(Date),
+      summary: '어리다....',
+      price: 20000,
+    }),
+  }),
 ];
 
 export const nonExistingCartItem = {
@@ -47,9 +80,33 @@ export const cartItemBookList = [
   {
     id: 1,
     bookId: 1,
-    count: 1,
-    price: 20000,
-    summary: '어리다....',
     title: '어린왕자들',
+    summary: '어리다....',
+    price: 20000,
+    count: 1,
+  },
+  {
+    id: 4,
+    bookId: 2,
+    title: '신델렐라',
+    summary: '유리구두...',
+    price: 20000,
+    count: 3,
+  },
+  {
+    id: 5,
+    bookId: 1,
+    title: '어린왕자들',
+    summary: '어리다....',
+    price: 20000,
+    count: 2,
+  },
+  {
+    id: 6,
+    bookId: 1,
+    title: '어린왕자들',
+    summary: '어리다....',
+    price: 20000,
+    count: 10,
   },
 ];

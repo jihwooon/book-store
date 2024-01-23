@@ -40,15 +40,15 @@ export const save = async ({
   }
 };
 
-export const findCartItemWithBook = async (bookId: number): Promise<CartItem[]> => {
+export const findCartItemWithBook = async (userId: number): Promise<CartItem[]> => {
   const [rows] = await doQuery((connection) =>
     connection.execute<RowDataPacket[]>(
       `SELECT ci.id, ci.book_id, b.title, b.summary, b.price, ci.count
          FROM cartItems ci
          LEFT JOIN books b
-           ON b.id  = ci.book_id
-        WHERE b.id = ?`,
-      [bookId],
+           ON b.id = ci.book_id
+        WHERE ci.user_id = ?`,
+      [userId],
     ),
   );
 
