@@ -1,6 +1,13 @@
+import Header from "../components/Header";
+import {formatNumber} from '../utils/format'
+
 const Home = () => {
   return (
-    <div>bookStore</div>
+    <>
+      <Header/>
+      <div>bookStore</div>
+      <div>count : {formatNumber(10000)}</div>
+    </>
   )
 }
 
