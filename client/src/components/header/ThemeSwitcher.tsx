@@ -1,16 +1,10 @@
-import { ThemeName } from "../../style/theme";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/themeContext";
 
-interface Props {
-  themeName: ThemeName
-  setThemeName: (themeName: ThemeName) => void;
-}
-
-const ThemeSwitcher = ({ themeName, setThemeName }: Props) => {
-    const toggleTheme = () => {
-        setThemeName(themeName === 'light' ? 'dark' : 'light')
-    }
-    
-    return <button onClick={toggleTheme}>{themeName}</button>
+const ThemeSwitcher = () => {
+  const { themeName, toggleTheme } = useContext(ThemeContext)
+  
+  return <button onClick={toggleTheme}>{themeName}</button>
 }
 
 export default ThemeSwitcher;
