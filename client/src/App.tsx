@@ -1,10 +1,17 @@
+import Layout from './components/layout/Layout';
 import Home from './pages/Home';
+import { GlobalStyle } from './style/global';
+import { ThemeProvider } from 'styled-components';
+import { light } from './style/theme';
 
 function App() {
   return (
-    <div className='App'>
-      <Home/>
-      </div>
+    <ThemeProvider theme={light}>
+      <GlobalStyle themeName='light'/>
+      <Layout>
+        <Home/>
+      </Layout>
+    </ThemeProvider>
   );
 }
 
