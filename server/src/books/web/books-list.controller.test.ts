@@ -46,6 +46,7 @@ describe('bookList Controller', () => {
             books: bookLimit,
             totalCount: 3,
           },
+          success: true,
         });
       });
     });
@@ -91,6 +92,7 @@ describe('bookList Controller', () => {
         expect(statusCode).toBe(404);
         expect(body).toEqual({
           message: `해당 ${NON_CATEGORY_ID}를 찾을 수 없습니다.`,
+          success: false,
           status: 404,
           timestamp: expect.any(String),
         });
@@ -142,6 +144,7 @@ describe('bookList Controller', () => {
         expect(statusCode).toBe(404);
         expect(body).toEqual({
           message: `${notNewReleaseBook.categoryId} 카테고리 정보를 찾을 수 없습니다.`,
+          success: false,
           status: 404,
           timestamp: expect.any(String),
         });
@@ -168,6 +171,7 @@ describe('bookList Controller', () => {
             books: bookLimit,
             totalCount: bookLimit.length,
           },
+          success: true,
         });
       });
     });
@@ -188,6 +192,7 @@ describe('bookList Controller', () => {
         expect(statusCode).toBe(404);
         expect(body).toEqual({
           message: '현재 신간 도서 목록이 없습니다.',
+          success: false,
           status: 404,
           timestamp: expect.any(String),
         });

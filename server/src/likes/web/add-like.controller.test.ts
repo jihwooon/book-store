@@ -41,6 +41,7 @@ describe('addLike Controller', () => {
         expect(statusCode).toBe(400);
         expect(body).toEqual({
           message: '좋아요 추가에 실패했습니다.',
+          success: false,
           status: 400,
           timestamp: expect.any(String),
         });

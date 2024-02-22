@@ -39,6 +39,7 @@ describe('categoryList Controller', () => {
         expect(status).toBe(404);
         expect(body).toEqual({
           message: '카테고리 목록이 존재하지 않습니다.',
+          success: false,
           status: 404,
           timestamp: expect.any(String),
         });

@@ -26,7 +26,7 @@ describe('cartItemSave Controller', () => {
         });
 
         expect(status).toBe(201);
-        expect(body).toEqual({ data: true });
+        expect(body).toEqual({ data: true, success: true });
       });
     });
 
@@ -47,6 +47,7 @@ describe('cartItemSave Controller', () => {
         expect(status).toBe(400);
         expect(body).toEqual({
           message: '장바구니 추가에 실패했습니다.',
+          success: false,
           status: 400,
           timestamp: expect.any(String),
         });

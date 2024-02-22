@@ -48,6 +48,7 @@ describe('cartItemList Controller', () => {
         expect(status).toBe(404);
         expect(body).toEqual({
           message: '장바구니가 내 도서 정보가 존재하지 않습니다.',
+          success: false,
           status: 404,
           timestamp: expect.any(String),
         });
