@@ -7,7 +7,7 @@ export const useCategory = () => {
   
     useEffect(() => {
       fetchCategory().then((category) => {
-        if (!category) return ;
+        if (!category || !Array.isArray(category)) return;
 
         const categoryWithAll = [
           {
@@ -18,7 +18,7 @@ export const useCategory = () => {
         ]
         setCategory(categoryWithAll);
       })
-    }, [])
+    },[])
     
     return { category }
 }
