@@ -1,4 +1,5 @@
 import rTracer from 'cls-rtracer';
+import cors from 'cors';
 import express from 'express';
 
 import bookRouter from './routers/books.router';
@@ -11,6 +12,12 @@ const app = express();
 
 app.use(express.json());
 app.use(rTracer.expressMiddleware());
+app.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  }),
+);
 
 app.use(userRouter);
 app.use(bookRouter);

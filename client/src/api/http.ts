@@ -1,6 +1,6 @@
-import axios, { AxiosRequestConfig }from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
-const BASE_URL = "https://localhost:8080";
+const BASE_URL = "http://localhost:8080";
 const DEFAULT_TIMEOUT = 30000;
 
 export const createClient = (config?: AxiosRequestConfig) => {
@@ -10,14 +10,13 @@ export const createClient = (config?: AxiosRequestConfig) => {
     headers: {
       "content-type": "application/json",
     },
-    withCredentials: true,
     ...config,
   });
   axiosInstance.interceptors.response.use((response) => {
-      return response;
-    },
-    (error)=> {
-        return Promise.reject(error);
+    return response;
+  },
+    (error) => {
+      return Promise.reject(error);
     }
   )
 
