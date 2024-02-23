@@ -48,6 +48,7 @@ describe('signin Controller', () => {
         expect(statusCode).toBe(404);
         expect(body).toEqual({
           message: '회원 정보를 찾을 수 없습니다.',
+          success: false,
           status: 404,
           timestamp: expect.any(String),
         });

@@ -5,13 +5,15 @@ export const ResponseHandler = async <T = any>(func: () => Promise<T>, status: S
   try {
     const result = await func();
 
-    res.status(status).json({
-      data: result,
-    });
+    res.status(status).json({ success: true, data: result });
   } catch (error: any) {
-    res.status(error.status).json({
-      message: error.message,
-      status: error.status,
+    const errorCode = error.status || 500;
+    const errorMessage = error.message || 'Internal Server Error';
+
+    res.status(errorCode).json({
+      success: false,
+      message: errorMessage,
+      status: errorCode,
       timestamp: new Date().toISOString(),
     });
   }

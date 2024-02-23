@@ -52,7 +52,7 @@ export const findAll = async (
   };
 };
 
-export const findWithCategory = async (bookId: number, userId: number): Promise<Book> => {
+export const findWithCategory = async (userId: number, bookId: number): Promise<Book> => {
   const [rows] = await doQuery((connection) =>
     connection.execute<RowDataPacket[]>(
       `SELECT b.id, b.title, b.category_id, b.form, b.isbn, b.summary, b.detail, b.author, b.pages, b.contents, b.price, b.pub_date,
