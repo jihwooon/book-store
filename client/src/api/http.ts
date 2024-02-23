@@ -10,6 +10,7 @@ export const createClient = (config?: AxiosRequestConfig) => {
     headers: {
       "content-type": "application/json",
     },
+    withCredentials: true,
     ...config,
   });
   axiosInstance.interceptors.response.use((response) => {
