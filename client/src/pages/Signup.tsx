@@ -68,7 +68,7 @@ const Signup = () => {
   )
 }
 
-const SingupStyle = styled.div`
+export const SingupStyle = styled.div`
   max-width: ${({ theme }) => theme.layout.width.small};
   margin: 80px auto;
 
