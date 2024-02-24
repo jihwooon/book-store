@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useAlert } from '../hooks/useAlert'
 import { SingupStyle } from './Signup'
 import { signin } from '../api/auth.api'
+import { useAuthStore } from '../store/authStore'
 
 export interface SigninProps {
   email: string;
@@ -16,13 +17,18 @@ const Signin = () => {
   const navigate = useNavigate();
   const showAlert = useAlert();
   const { register, handleSubmit, formState: { errors } } = useForm<SigninProps>();
+
+  const { isloggedIn, storeLogin, storeLogout } = useAuthStore();
   
   const onSubmit = (data: SigninProps) => {
     signin(data).then((res) => {
+      storeLogin(res.data)
       showAlert('로그인 완료되었습니다.')
       navigate('/')
     })
   }
+
+  console.log(isloggedIn)
 
   return (
     <>
