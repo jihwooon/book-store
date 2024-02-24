@@ -12,7 +12,7 @@
     "test": "jest --runInBand --detectOpenHandles --forceExit",
     "test:only-changed": "jest --runInBand --onlyChanged",
     "test:watch": "jest --watch --runInBand --detectOpenHandles --forceExit",
-    "start": "tsx watch src/index.ts"
+    "start": "tsx --watch src/index.ts"
   },
   "keywords": [],
   "author": "",
