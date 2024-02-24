@@ -18,17 +18,17 @@ const Signin = () => {
   const showAlert = useAlert();
   const { register, handleSubmit, formState: { errors } } = useForm<SigninProps>();
 
-  const { isloggedIn, storeLogin, storeLogout } = useAuthStore();
+  const { isloggedIn, storeLogin } = useAuthStore();
   
   const onSubmit = (data: SigninProps) => {
     signin(data).then((res) => {
       storeLogin(res.data)
       showAlert('로그인 완료되었습니다.')
       navigate('/')
+    }, (error) => {
+      showAlert('로그인에 실패했습니다.')
     })
   }
-
-  console.log(isloggedIn)
 
   return (
     <>
