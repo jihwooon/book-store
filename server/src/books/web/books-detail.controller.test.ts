@@ -24,13 +24,12 @@ describe('bookDetail Controller', () => {
     });
     context('도서 정보 id가 입력되면', () => {
       it('200 상태코드와 도서 정보를 반환한다', async () => {
-        const {
-          statusCode,
-          body: { data },
-        } = await request(app).get(`/books/${existingBook.getId()}`).send({ userId: existingUser.id });
+        const { statusCode, body } = await request(app)
+          .get(`/books/${existingBook.getId()}`)
+          .send({ userId: existingUser.id });
 
         expect(statusCode).toBe(200);
-        expect(data).toEqual(bookData);
+        expect(body).toEqual(bookData);
       });
     });
 

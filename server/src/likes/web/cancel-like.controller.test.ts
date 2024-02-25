@@ -17,13 +17,12 @@ describe('cancelLike Controller', () => {
         (cancelLike as jest.Mock).mockResolvedValue(true);
       });
       it('200 상태코드를 반환한다.', async () => {
-        const {
-          statusCode,
-          body: { data },
-        } = await request(app).delete(`/likes/${existingLike.likedBookId}`).send({ userId: existingLike.userId });
+        const { statusCode, body } = await request(app)
+          .delete(`/likes/${existingLike.likedBookId}`)
+          .send({ userId: existingLike.userId });
 
         expect(statusCode).toBe(200);
-        expect(data).toBe(true);
+        expect(body).toBe(true);
       });
     });
 

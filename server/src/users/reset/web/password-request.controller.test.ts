@@ -20,9 +20,7 @@ describe('passwordRequest Controller', () => {
       it('200 상태코드와 검증 된 email를 반환한다.', async () => {
         const {
           statusCode,
-          body: {
-            data: { email },
-          },
+          body: { email },
         } = await request(app).post('/reset').send(existingUser.email);
 
         expect(statusCode).toBe(200);

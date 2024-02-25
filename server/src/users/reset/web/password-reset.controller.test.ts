@@ -18,15 +18,12 @@ describe('passwordReset Controller', () => {
         (passwordResetter as jest.Mock).mockResolvedValue(true);
       });
       it('400 상태코드와 응답 메세지를 반환한다.', async () => {
-        const {
-          statusCode,
-          body: { data },
-        } = await request(app).put('/reset').send({
+        const { statusCode, body } = await request(app).put('/reset').send({
           existingUser,
         });
 
         expect(statusCode).toBe(200);
-        expect(data).toBe(true);
+        expect(body).toBe(true);
       });
     });
 

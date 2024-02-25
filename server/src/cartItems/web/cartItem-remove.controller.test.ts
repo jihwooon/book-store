@@ -22,7 +22,7 @@ describe('cartItemSave Controller', () => {
         const { status, body } = await request(app).delete(`/cart/${existingCartItem.id}`);
 
         expect(status).toBe(200);
-        expect(body).toEqual({ data: true, success: true });
+        expect(body).toEqual(true);
       });
     });
 
