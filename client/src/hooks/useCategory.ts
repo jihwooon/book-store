@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react"
-import { fetchCategory } from "../api/category.api"
-import { Category } from "../models/category.model"
+import { useEffect, useState } from "react";
+import { fetchCategory } from "../api/category.api";
+import { Category } from "../models/category.model";
 
 export const useCategory = () => {
-    const [category, setCategory] = useState<Category[]>([])
-  
-    useEffect(() => {
-      fetchCategory().then((category) => {
-        if (!category || !Array.isArray(category)) return;
+  const [category, setCategory] = useState<Category[]>([]);
 
-        const categoryWithAll = [
-          {
-            id: null,
-            name: '전체'    
-          },
-          ...category
-        ]
-        setCategory(categoryWithAll);
-      })
-    },[])
-    
-    return { category }
-}
+  useEffect(() => {
+    fetchCategory().then((category) => {
+      if (!category || !Array.isArray(category)) return;
+
+      const categoryWithAll = [
+        {
+          id: null,
+          name: "전체",
+        },
+        ...category,
+      ];
+      setCategory(categoryWithAll);
+    });
+  }, []);
+
+  return { category };
+};
