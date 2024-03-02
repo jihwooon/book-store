@@ -17,13 +17,10 @@ describe('categoryList Controller', () => {
         (getAllCategory as jest.Mock).mockResolvedValue(existingCategories);
       });
       it('200 상태코드와 응답 메세지를 반환한다.', async () => {
-        const {
-          status,
-          body: { data },
-        } = await request(app).get('/category');
+        const { status, body } = await request(app).get('/category');
 
         expect(status).toBe(200);
-        expect(data).toEqual(existingCategories);
+        expect(body).toEqual(existingCategories);
       });
     });
 

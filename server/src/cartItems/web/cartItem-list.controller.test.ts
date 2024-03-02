@@ -18,15 +18,12 @@ describe('cartItemList Controller', () => {
   describe('GET /cart', () => {
     context('사용자가 장바구니에 도서와 수량을 추가하면', () => {
       it('201 상태코드를 반환한다.', async () => {
-        const {
-          status,
-          body: { data },
-        } = await request(app)
+        const { status, body } = await request(app)
           .get(`/cart`)
           .send({ userId: existingCartItem.userId, selectedId: [1, 4] });
 
         expect(status).toBe(200);
-        expect(data).toEqual([
+        expect(body).toEqual([
           { bookId: 1, count: 1, id: 1, price: 20000, summary: '어리다....', title: '어린왕자들' },
           { bookId: 2, count: 3, id: 4, price: 20000, summary: '유리구두...', title: '신델렐라' },
         ]);

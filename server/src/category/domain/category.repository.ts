@@ -11,7 +11,7 @@ export const findAll = async (): Promise<Category[]> => {
   return (rows ?? []).map(
     (row) =>
       new Category({
-        id: row.id,
+        id: row.category_id,
         name: row.name,
       }),
   );

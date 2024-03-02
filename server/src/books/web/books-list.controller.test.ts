@@ -41,13 +41,7 @@ describe('bookList Controller', () => {
           .query({ limit: LIMIT, currentPage: CURRENT_PAGE });
 
         expect(statusCode).toBe(200);
-        expect(body).toEqual({
-          data: {
-            books: bookLimit,
-            totalCount: 3,
-          },
-          success: true,
-        });
+        expect(body).toEqual({ books: bookLimit, totalCount: 3 });
       });
     });
   });
@@ -61,17 +55,14 @@ describe('bookList Controller', () => {
         });
       });
       it('200 상태코드를 반환한다.', async () => {
-        const {
-          statusCode,
-          body: { data },
-        } = await request(app).get('/books').query({
+        const { statusCode, body } = await request(app).get('/books').query({
           category_id: '1',
           limit: LIMIT,
           currentPage: CURRENT_PAGE,
         });
 
         expect(statusCode).toBe(200);
-        expect(data).toEqual({
+        expect(body).toEqual({
           books: booksCategoryAPI,
           totalCount: booksCategoryAPI.length,
         });
@@ -109,10 +100,7 @@ describe('bookList Controller', () => {
         });
       });
       it('200 상태코드와 도서 목록, totalCount를 반환한다.', async () => {
-        const {
-          statusCode,
-          body: { data },
-        } = await request(app).get('/books?category_id&news').query({
+        const { statusCode, body } = await request(app).get('/books?category_id&news').query({
           category_id: 1,
           news: true,
           limit: LIMIT,
@@ -120,7 +108,7 @@ describe('bookList Controller', () => {
         });
 
         expect(statusCode).toBe(200);
-        expect(data).toEqual({
+        expect(body).toEqual({
           books: bookLimit,
           totalCount: bookLimit.length,
         });
@@ -167,11 +155,8 @@ describe('bookList Controller', () => {
 
         expect(statusCode).toBe(200);
         expect(body).toEqual({
-          data: {
-            books: bookLimit,
-            totalCount: bookLimit.length,
-          },
-          success: true,
+          books: bookLimit,
+          totalCount: bookLimit.length,
         });
       });
     });

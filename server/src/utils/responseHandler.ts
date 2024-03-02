@@ -5,7 +5,7 @@ export const ResponseHandler = async <T = any>(func: () => Promise<T>, status: S
   try {
     const result = await func();
 
-    res.status(status).json({ success: true, data: result });
+    res.status(status).json(result);
   } catch (error: any) {
     const errorCode = error.status || 500;
     const errorMessage = error.message || 'Internal Server Error';

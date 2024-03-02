@@ -15,14 +15,7 @@ INSERT INTO BookStore.category (name) VALUES ('소설');
 INSERT INTO BookStore.category (name) VALUES ('컴퓨터/IT');
 INSERT INTO BookStore.category (name) VALUES ('자기계발');
 INSERT INTO BookStore.category (name) VALUES ('기술/공학');
-INSERT INTO BookStore.category (name) VALUES ('시/에세이');
-INSERT INTO BookStore.category (name) VALUES ('인문');
-INSERT INTO BookStore.category (name) VALUES ('가정/육아');
-INSERT INTO BookStore.category (name) VALUES ('요리');
-INSERT INTO BookStore.category (name) VALUES ('건강');
-INSERT INTO BookStore.category (name) VALUES ('취미/실용/스포츠');
-INSERT INTO BookStore.category (name) VALUES ('정치/사회');
-INSERT INTO BookStore.category (name) VALUES ('역사 문화');
+
 
 INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
 VALUES ("어린왕자들", 7, 1, "종이책", 0, "어리다....", "많이 어리다...", "김어림", 100, "목차", 20000, 0 , "2024-01-01");

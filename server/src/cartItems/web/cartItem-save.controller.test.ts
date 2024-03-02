@@ -26,7 +26,7 @@ describe('cartItemSave Controller', () => {
         });
 
         expect(status).toBe(201);
-        expect(body).toEqual({ data: true, success: true });
+        expect(body).toEqual(true);
       });
     });
 

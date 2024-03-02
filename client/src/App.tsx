@@ -1,24 +1,33 @@
-import Layout from './components/layout/Layout';
-import Home from './pages/Home';
-import { BookStoreThemeProvider } from './context/themeContext';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Error from './components/common/Error';
-import Signup from './pages/Signup';
-import ResetPassword from './pages/ResetPassword';
-import Signin from './pages/Signin';
+import Layout from "./components/layout/Layout";
+import Home from "./pages/Home";
+import { BookStoreThemeProvider } from "./context/themeContext";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Error from "./components/common/Error";
+import Signup from "./pages/Signup";
+import ResetPassword from "./pages/ResetPassword";
+import Signin from "./pages/Signin";
+import Books from "./pages/Books";
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Layout><Home/></Layout>,
-    errorElement: <Error />
+    path: "/",
+    element: (
+      <Layout>
+        <Home />
+      </Layout>
+    ),
+    errorElement: <Error />,
   },
   {
-    path: '/books',
-    element: <Layout><div>도서 목록</div></Layout>,
+    path: "/books",
+    element: (
+      <Layout>
+        <Books />
+      </Layout>
+    ),
   },
   {
-    path: '/signup',
+    path: "/signup",
     element: (
       <Layout>
         <Signup />
@@ -26,7 +35,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/reset',
+    path: "/reset",
     element: (
       <Layout>
         <ResetPassword />
@@ -34,19 +43,19 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/signin',
+    path: "/signin",
     element: (
       <Layout>
         <Signin />
       </Layout>
     ),
   },
-])
+]);
 
 function App() {
   return (
-    <BookStoreThemeProvider >
-      <RouterProvider router={router}/>
+    <BookStoreThemeProvider>
+      <RouterProvider router={router} />
     </BookStoreThemeProvider>
   );
 }
