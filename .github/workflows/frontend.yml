@@ -1,0 +1,29 @@
+name: book-store Client
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "./client/**"
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "./client/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 21.2.0
+          cache: "npm"
+          cache-dependency-path: ./client/package-lock.json
+
+      - name: install
+        run: npm install
+
+      - name: typecheck
+        run: npm run typecheck
+
