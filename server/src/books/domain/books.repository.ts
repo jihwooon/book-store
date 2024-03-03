@@ -19,7 +19,7 @@ export const findAll = async (
 }> => {
   const [rows] = await doQuery((connection) =>
     connection.execute<RowDataPacket[]>(
-      `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, pub_date,
+      `SELECT id, title, img_id, form, isbn, summary, detail, author, pages, contents, price, pub_date,
             (SELECT count(*) FROM likes WHERE books.id = liked_book_id) as likes
        FROM books
       LIMIT ?
@@ -35,6 +35,7 @@ export const findAll = async (
         title: row.title,
         form: row.form,
         isbn: row.isbn,
+        imgId: row.img_id,
         summary: row.summary,
         detail: row.detail,
         author: row.author,
@@ -96,7 +97,7 @@ export const findByCategory = async (
 ): Promise<{ books: Book[]; totalCount: number }> => {
   const [rows] = await doQuery((connection) =>
     connection.execute<RowDataPacket[]>(
-      `SELECT id, title, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date
+      `SELECT id, title, img_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date
        FROM books
       WHERE category_id=?
       LIMIT ?
