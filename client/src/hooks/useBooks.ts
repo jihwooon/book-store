@@ -15,7 +15,7 @@ export const useBooks = () => {
 		currentPage: 1,
 	})
 
-	const [ isEmpty, setIsEmpry] = useState(true)
+	const [isEmpty, setIsEmpty] = useState(true)
 
 	useEffect(() => {
 		const params = new URLSearchParams(location.search)
@@ -28,7 +28,7 @@ export const useBooks = () => {
 		}).then((res) => {
 			setBooks(res.books);
 			setPagination(res.pagination)
-			setIsEmpry(res.books.length === 0)
+			setIsEmpty(res.books.length === 0)
 		})
 	}, [location.search])
 
