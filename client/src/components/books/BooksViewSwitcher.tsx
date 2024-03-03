@@ -16,10 +16,12 @@ const viewOptions = [
   }
 ]
 
+export type ViewMode = 'grid' | 'list'
+
 const BooksViewSwitcher = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const handleSwitch = (value: string) => {
+  const handleSwitch = (value: ViewMode) => {
     const newSearchParams = new URLSearchParams(searchParams);
 
     newSearchParams.set(QUERYSTRING.VIEW, value)
@@ -40,7 +42,7 @@ const BooksViewSwitcher = () => {
             key={option.value}
             size="medium"
             scheme={searchParams.get(QUERYSTRING.VIEW) === option.value ? "primary" : "normal"}
-            onClick={() => handleSwitch(option.value)}
+            onClick={() => handleSwitch(option.value as ViewMode)}
           >
             {option.icon}
           </Button>
