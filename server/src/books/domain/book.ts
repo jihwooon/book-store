@@ -7,6 +7,8 @@ export default class Book {
 
   private categoryId: number;
 
+  private categoryName: string;
+
   private form: string;
 
   private isbn: string;
@@ -32,6 +34,7 @@ export default class Book {
     title = '',
     imgId = 0,
     categoryId = 0,
+    categoryName = '',
     form = '',
     isbn = '',
     summary = '',
@@ -47,6 +50,7 @@ export default class Book {
     title?: string;
     imgId?: number;
     categoryId?: number;
+    categoryName?: string;
     form?: string;
     isbn?: string;
     summary?: string;
@@ -62,6 +66,7 @@ export default class Book {
     this.title = title;
     this.imgId = imgId;
     this.categoryId = categoryId;
+    this.categoryName = categoryName;
     this.form = form;
     this.isbn = isbn;
     this.summary = summary;
@@ -88,6 +93,10 @@ export default class Book {
 
   getCategoryId() {
     return this.categoryId;
+  }
+
+  getCategoryName() {
+    return this.categoryName;
   }
 
   getForm() {

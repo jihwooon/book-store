@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig } from 'axios';
 import { getToken, removeToken } from '../store/authStore';
 
 const BASE_URL = "http://localhost:8080";
