@@ -1,12 +1,13 @@
-import Layout from "./components/layout/Layout";
-import Home from "./pages/Home";
-import { BookStoreThemeProvider } from "./context/themeContext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Error from "./components/common/Error";
-import Signup from "./pages/Signup";
+import Layout from "./components/layout/Layout";
+import { BookStoreThemeProvider } from "./context/themeContext";
+import BookDetail from "./pages/BookDetail";
+import Books from "./pages/Books";
+import Home from "./pages/Home";
 import ResetPassword from "./pages/ResetPassword";
 import Signin from "./pages/Signin";
-import Books from "./pages/Books";
+import Signup from "./pages/Signup";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,14 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+  {
+    path: '/book/:bookId',
+    element: (
+      <Layout>
+        <BookDetail />
+      </Layout>
+    )
+  }
 ]);
 
 function App() {

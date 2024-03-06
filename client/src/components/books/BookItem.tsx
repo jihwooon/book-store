@@ -1,4 +1,5 @@
 import { FaHeart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import { Book } from "../../models/book.model";
 import { formatNumber } from "../../utils/format";
@@ -13,27 +14,32 @@ interface Props {
 const BookItem = ({ book, view }: Props) => {
   return (
     <BookItemStyled view={view}>
-      <div className="img">
-        <img src={getImgSrc(book.imgId)} alt={book.title} />
-      </div>
-      <div className="content">
-        <h2 className="title">{book.title}</h2>
-        <p className="summary">{book.summary}</p>
-        <p className="author">{book.author}</p>
-        <p className="price">{formatNumber(book.price)}원</p>
-        <div className="likes">
-          <FaHeart />
-          <span>{book.likes}</span>
+      <Link to={`/book/${book.id}`}>
+        <div className="img">
+          <img src={getImgSrc(book.imgId)} alt={book.title} />
         </div>
-      </div>
+        <div className="content">
+          <h2 className="title">{book.title}</h2>
+          <p className="summary">{book.summary}</p>
+          <p className="author">{book.author}</p>
+          <p className="price">{formatNumber(book.price)}원</p>
+          <div className="likes">
+            <FaHeart />
+            <span>{book.likes}</span>
+          </div>
+        </div>
+      </Link>
     </BookItemStyled>
   );
 };
 
 const BookItemStyled = styled.div<Pick<Props, 'view'>>`
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  a {
+    display: flex;
+    flex-direction: ${({ view }) => (view === 'grid') ? "column" : "row"};
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+  }
 
   .img {
     border-radius: ${({ theme }) => theme.borderRadius.default};
