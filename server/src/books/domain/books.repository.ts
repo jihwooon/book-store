@@ -56,7 +56,7 @@ export const findAll = async (
 export const findWithCategory = async (userId: number, bookId: number): Promise<Book> => {
   const [rows] = await doQuery((connection) =>
     connection.execute<RowDataPacket[]>(
-      `SELECT b.id, b.title, b.category_id, b.form, b.isbn, b.summary, b.detail, b.author, b.pages, b.contents, b.price, b.pub_date,
+      `SELECT b.id, b.title, b.category_id, c.name as category_name, b.form, b.isbn, b.summary, b.detail, b.author, b.pages, b.contents, b.price, b.pub_date,
             (SELECT count(*) FROM likes WHERE b.id = liked_book_id) as Likes,
             (SELECT EXISTS(SELECT * FROM likes WHERE user_id = ? AND liked_book_id)) as liked
        FROM books b
@@ -79,6 +79,7 @@ export const findWithCategory = async (userId: number, bookId: number): Promise<
     form: row.form,
     isbn: row.isbn,
     categoryId: row.category_id,
+    categoryName: row.category_name,
     summary: row.summary,
     detail: row.detail,
     author: row.author,
