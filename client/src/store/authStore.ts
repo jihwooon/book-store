@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
 interface StoreState {
-    isloggedIn: boolean
-    storeLogin: (token: string) => void
-    storeLogout: () => void;
+  isLoggedIn: boolean
+  storeLogin: (token: string) => void
+  storeLogout: () => void;
 }
 
 export const getToken = () => {
@@ -20,13 +20,14 @@ export const removeToken = () => {
 }
 
 export const useAuthStore = create<StoreState>((set) => ({
-    isloggedIn: getToken() ? true : false,
-    storeLogin: (token: string) => {
-      set({ isloggedIn: true })
-      setToken(token);
-    },
-    storeLogout: () => {
-      set({ isloggedIn: false })
-      removeToken()
-    }
+  isLoggedIn: getToken() ? true : false,
+
+  storeLogin: (token: string) => {
+    set({ isLoggedIn: true })
+    setToken(token);
+  },
+  storeLogout: () => {
+    set({ isLoggedIn: false })
+    removeToken()
+  }
 }))

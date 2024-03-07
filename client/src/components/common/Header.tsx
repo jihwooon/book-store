@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import { FaSignInAlt, FaRegUser } from "react-icons/fa";
-import logo from '../../assets/images/logo.png'
+import { FaRegUser, FaSignInAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import logo from '../../assets/images/logo.png';
 import { useCategory } from "../../hooks/useCategory";
 import { useAuthStore } from "../../store/authStore";
 
 const Header = () => {
   const { category } = useCategory();
-  const { isloggedIn, storeLogout } = useAuthStore();
+  const { isLoggedIn: isloggedIn, storeLogout } = useAuthStore();
 
   return (
     <HeaderStyle>
@@ -60,7 +60,7 @@ const HeaderStyle = styled.header`
   width: 100%;
   margin: 0 auto;
   max-width: ${({ theme }) => theme.layout.width.large};
-  
+
   display: flex;
   justify-content: space-between;
   padding: 20px 0;
