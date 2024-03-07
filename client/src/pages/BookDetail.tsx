@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+import AddToCart from "../components/book/AddToCart";
 import LikeButton from "../components/book/LikeButton";
 import EllipsisBox from "../components/common/EllipisisBox";
 import Title from "../components/common/Title";
@@ -77,7 +78,9 @@ const BookDetail = () => {
           <div className="like">
             <LikeButton book={book} onClick={likeToggle} />
           </div>
-          <div className="add-cart">Cart</div>
+          <div className="add-cart">
+            <AddToCart book={book}/>
+          </div>
         </div>
       </header>
       <div className="content">
