@@ -29,6 +29,8 @@ export default class Book {
 
   private pubDate: Date;
 
+  private liked: boolean;
+
   constructor({
     id = 0,
     title = '',
@@ -45,6 +47,7 @@ export default class Book {
     price = 0,
     likes = 0,
     pubDate = new Date(),
+    liked = false,
   }: {
     id?: number;
     title?: string;
@@ -61,6 +64,7 @@ export default class Book {
     price?: number;
     likes?: number;
     pubDate?: Date;
+    liked?: boolean;
   }) {
     this.id = id;
     this.title = title;
@@ -77,6 +81,7 @@ export default class Book {
     this.price = price;
     this.likes = likes;
     this.pubDate = pubDate;
+    this.liked = liked;
   }
 
   getId() {
@@ -137,5 +142,9 @@ export default class Book {
 
   getPubDate() {
     return this.pubDate;
+  }
+
+  getLiked() {
+    return this.liked;
   }
 }

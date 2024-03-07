@@ -1,12 +1,12 @@
 import { useForm } from 'react-hook-form'
-import Title from "../components/common/Title"
-import { InputText } from "../components/common/InputText"
-import Button from "../components/common/Button"
 import { Link, useNavigate } from "react-router-dom"
-import { useAlert } from '../hooks/useAlert'
-import { SingupStyle } from './Signup'
 import { signin } from '../api/auth.api'
+import Button from "../components/common/Button"
+import { InputText } from "../components/common/InputText"
+import Title from "../components/common/Title"
+import { useAlert } from '../hooks/useAlert'
 import { useAuthStore } from '../store/authStore'
+import { SingupStyle } from './Signup'
 
 export interface SigninProps {
   email: string;
@@ -18,8 +18,8 @@ const Signin = () => {
   const showAlert = useAlert();
   const { register, handleSubmit, formState: { errors } } = useForm<SigninProps>();
 
-  const { isloggedIn, storeLogin } = useAuthStore();
-  
+  const { isLoggedIn: isloggedIn, storeLogin } = useAuthStore();
+
   const onSubmit = (data: SigninProps) => {
     signin(data).then((res) => {
       storeLogin(res.data)
@@ -36,16 +36,16 @@ const Signin = () => {
       <SingupStyle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <fieldset>
-            <InputText 
-              placeholder="이메일" 
+            <InputText
+              placeholder="이메일"
               inputType="email"
               {...register('email', { required: true })}
             />
             {errors.email && <p className='error-text'>이메일을 입력해주세요.</p>}
           </fieldset>
           <fieldset>
-            <InputText 
-              placeholder="패스워드" 
+            <InputText
+              placeholder="패스워드"
               inputType="password"
               {...register('password', { required: true })}
             />

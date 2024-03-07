@@ -57,7 +57,7 @@ export const findWithCategory = async (userId: number, bookId: number): Promise<
   const [rows] = await doQuery((connection) =>
     connection.execute<RowDataPacket[]>(
       `SELECT b.id, b.title, b.category_id, c.name as category_name, b.form, b.isbn, b.summary, b.detail, b.author, b.pages, b.contents, b.price, b.pub_date, b.img_id,
-            (SELECT count(*) FROM likes WHERE b.id = liked_book_id) as Likes,
+            (SELECT count(*) FROM likes WHERE b.id = liked_book_id) as likes,
             (SELECT EXISTS(SELECT * FROM likes WHERE user_id = ? AND liked_book_id)) as liked
        FROM books b
        LEFT JOIN category c
@@ -89,6 +89,7 @@ export const findWithCategory = async (userId: number, bookId: number): Promise<
     likes: row.likes,
     pubDate: row.pub_date,
     imgId: row.img_id,
+    liked: row.liked,
   });
 };
 
