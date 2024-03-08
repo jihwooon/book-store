@@ -11,10 +11,14 @@ export const connectionPromise = createPool({
   port: Number(process.env.MARIADB_PORT),
   dateStrings: true,
   waitForConnections: true,
-  connectionLimit: 100000,
+  connectionLimit: 10,
 });
 
 export const doQuery = async <R>(doWork: (connection: Connection) => Promise<R>): Promise<R> => {
   const connection = await connectionPromise.getConnection();
-  return doWork(connection);
+  try {
+    return doWork(connection);
+  } finally {
+    connection.release();
+  }
 };
