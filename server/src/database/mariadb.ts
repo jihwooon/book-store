@@ -12,6 +12,7 @@ export const connectionPromise = createPool({
   dateStrings: true,
   waitForConnections: true,
   connectionLimit: 10,
+  idleTimeout: 30000,
 });
 
 export const doQuery = async <R>(doWork: (connection: Connection) => Promise<R>): Promise<R> => {
