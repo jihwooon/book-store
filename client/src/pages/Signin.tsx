@@ -15,10 +15,10 @@ export interface SigninProps {
 
 const Signin = () => {
   const navigate = useNavigate();
-  const showAlert = useAlert();
+  const { showAlert } = useAlert();
   const { register, handleSubmit, formState: { errors } } = useForm<SigninProps>();
 
-  const { isLoggedIn: isloggedIn, storeLogin } = useAuthStore();
+  const { storeLogin } = useAuthStore();
 
   const onSubmit = (data: SigninProps) => {
     signin(data).then((res) => {

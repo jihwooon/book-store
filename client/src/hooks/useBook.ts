@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchBook, likeBook, unlikeBook } from "../api/books.api";
-import addCart from "../api/cart.api";
+import { addCart } from "../api/cart.api";
 import { BookDetail } from "../models/book.model";
 import { useAuthStore } from "../store/authStore";
 import { useAlert } from "./useAlert";
@@ -8,7 +8,7 @@ import { useAlert } from "./useAlert";
 export const useBook = (bookId: string | undefined) => {
 	const [book, setBook] = useState<BookDetail | null>(null);
 	const { isLoggedIn } = useAuthStore();
-	const showAlert = useAlert();
+	const { showAlert } = useAlert();
 	const [cartAdded, setCartAdded] = useState(false)
 
 	const likeToggle = () => {

@@ -4,6 +4,7 @@ import Layout from "./components/layout/Layout";
 import { BookStoreThemeProvider } from "./context/themeContext";
 import BookDetail from "./pages/BookDetail";
 import Books from "./pages/Books";
+import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import ResetPassword from "./pages/ResetPassword";
 import Signin from "./pages/Signin";
@@ -56,6 +57,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <BookDetail />
+      </Layout>
+    )
+  },
+  {
+    path: '/carts',
+    element: (
+      <Layout>
+        <Cart />
       </Layout>
     )
   }
