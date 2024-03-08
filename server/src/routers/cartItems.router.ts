@@ -6,7 +6,7 @@ import addCartHandler from 'src/cartItems/web/cartItem-save.controller';
 const router = express.Router();
 
 router.post('/cart', addCartHandler);
-router.get('/cart', getCartHandler);
+router.get('/carts', getCartHandler);
 router.delete('/cart/:id', removeCartHandler);
 
 export default router;
