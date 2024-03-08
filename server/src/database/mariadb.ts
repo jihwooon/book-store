@@ -1,5 +1,5 @@
-import { createPool, type Connection } from 'mysql2/promise';
 import dotenv from 'dotenv';
+import { createPool, type Connection } from 'mysql2/promise';
 
 dotenv.config();
 
@@ -11,7 +11,7 @@ export const connectionPromise = createPool({
   port: Number(process.env.MARIADB_PORT),
   dateStrings: true,
   waitForConnections: true,
-  connectionLimit: 10,
+  connectionLimit: 100000,
 });
 
 export const doQuery = async <R>(doWork: (connection: Connection) => Promise<R>): Promise<R> => {

@@ -1,3 +1,4 @@
+import { Cart } from "src/models/cart.model";
 import { httpClient } from "./http";
 
 interface AddCartParams {
@@ -5,10 +6,20 @@ interface AddCartParams {
 	quantity: number;
 }
 
-const addCart = async (params: AddCartParams) => {
+export const addCart = async (params: AddCartParams) => {
 	const response = await httpClient.post('/cart', params)
 
 	return response.data
 };
 
-export default addCart;
+export const fetchCart = async () => {
+	const response = await httpClient.get<Cart[]>("/carts")
+
+	return response.data
+};
+
+export const deleteCart = async (cartId: number) => {
+	const response = await httpClient.delete(`/carts/${cartId}`)
+
+	return response.data;
+}

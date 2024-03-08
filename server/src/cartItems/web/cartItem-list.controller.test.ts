@@ -19,7 +19,7 @@ describe('cartItemList Controller', () => {
     context('사용자가 장바구니에 도서와 수량을 추가하면', () => {
       it('201 상태코드를 반환한다.', async () => {
         const { status, body } = await request(app)
-          .get(`/cart`)
+          .get(`/carts`)
           .send({ userId: existingCartItem.userId, selectedId: [1, 4] });
 
         expect(status).toBe(200);
@@ -39,7 +39,7 @@ describe('cartItemList Controller', () => {
 
       it('404 상태코드와 에러 메세지를 반환한다.', async () => {
         const { status, body } = await request(app)
-          .get(`/cart`)
+          .get(`/carts`)
           .send({ userId: existingCartItem.userId, selectedId: [999, 999] });
 
         expect(status).toBe(404);
