@@ -9,13 +9,15 @@ TRUNCATE BookStore.category;
 TRUNCATE BookStore.likes;
 TRUNCATE BookStore.users;
 TRUNCATE BookStore.cartItems;
+TRUNCATE BookStore.delivery;
+TRUNCATE BookStore.orders;
+TRUNCATE BookStore.orderedBook;
 
 -- insert Data
 INSERT INTO BookStore.category (name) VALUES ('소설');
 INSERT INTO BookStore.category (name) VALUES ('컴퓨터/IT');
 INSERT INTO BookStore.category (name) VALUES ('자기계발');
 INSERT INTO BookStore.category (name) VALUES ('기술/공학');
-
 
 INSERT INTO BookStore.books (title, img_id, category_id, form, isbn, summary, detail, author, pages, contents, price, likes, pub_date)
 VALUES ("어린왕자들", 7, 1, "종이책", 0, "어리다....", "많이 어리다...", "김어림", 100, "목차", 20000, 0 , "2024-01-01");
@@ -53,6 +55,20 @@ INSERT INTO cartItems (user_id, book_id, count) VALUES (2,3,2);
 INSERT INTO cartItems (user_id, book_id, count) VALUES (1,2,3);
 INSERT INTO cartItems (user_id, book_id, count) VALUES (1,1,2);
 INSERT INTO cartItems (user_id, book_id, count) VALUES (1,1,10);
+
+-- Delivery
+INSERT INTO delivery VALUES (1, '강원도 춘천시 동내면 대룡산길 227-314 24408 한국', '홍길동' , '010-1234-5667');
+INSERT INTO delivery VALUES (2, '경상북도 경주시 감포읍 회곡길 10-8 38123 한국', '안녕길' , '010-2345-5667');
+INSERT INTO delivery VALUES (3, '경기도 고양시 덕양구 통일로754번길 12(관산동) 10285 한국', '윤봉길' , '010-3333-5667');
+
+-- Order
+INSERT INTO orders (book_title, total_quantity, total_price, user_id, delivery_id, created_at) VALUES ("어린왕자", 3, 6000, 1, 1, '2019-11-11');
+INSERT INTO orders (book_title, total_quantity, total_price, user_id, delivery_id, created_at) VALUES ("어린왕자", 3, 6000, 1, 1, '2019-11-11');
+
+-- orderBook
+INSERT INTO orderedBook (order_id, book_id, quantity ) VALUES (1, 2, 3);
+INSERT INTO orderedBook (order_id, book_id, quantity ) VALUES (2, 1, 3);
+INSERT INTO orderedBook (order_id, book_id, quantity ) VALUES (3, 2, 10);
 
 -- set Foreign key = 1
 set FOREIGN_KEY_CHECKS = 1;
