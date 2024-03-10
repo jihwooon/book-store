@@ -12,7 +12,7 @@ export const save = async (
   totalPrice: number,
   userId: number,
   deliveryId: number,
-): Promise<void> => {
+): Promise<number> => {
   const [{ insertId }] = await doQuery((connection) =>
     connection.execute<ResultSetHeader>(
       `INSERT INTO orders (book_title, total_quantity, total_price, user_id, delivery_id, created_at) VALUES (?, ?, ?, ?, ?, ?)`,
@@ -24,4 +24,6 @@ export const save = async (
     childLogger.error('Fail Save Repository');
     throw new Error('저장에 실패하였습니다.');
   }
+
+  return insertId;
 };
