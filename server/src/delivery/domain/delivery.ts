@@ -5,10 +5,23 @@ export default class Delivery {
 
   private contact: string;
 
-  constructor({ id = 0, address = '', contact = '' }: { id?: number; address?: string; contact?: string }) {
+  private receiver: string;
+
+  constructor({
+    id = 0,
+    address = '',
+    contact = '',
+    receiver = '',
+  }: {
+    id?: number;
+    address?: string;
+    contact?: string;
+    receiver?: string;
+  }) {
     this.id = id;
     this.address = address;
     this.contact = contact;
+    this.receiver = receiver;
   }
 
   getId() {
@@ -21,5 +34,9 @@ export default class Delivery {
 
   getContact() {
     return this.contact;
+  }
+
+  getReceiver() {
+    return this.receiver;
   }
 }
