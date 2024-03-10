@@ -1,9 +1,17 @@
 import app from 'src/app';
 import request from 'supertest';
 
+import { order } from '../application/order-save.service';
+
+jest.mock('../application/order-save.service.ts');
+
 describe('saveOrdersHandler', () => {
   describe('POST /orders', () => {
     context('주문 하기 성공하면', () => {
+      beforeEach(() => {
+        (order as jest.Mock).mockResolvedValue('주문 등록 완료');
+      });
+
       it('상태코드 200과 응답 정보를 반환한다.', async () => {
         const { status, body } = await request(app)
           .post('/orders')
