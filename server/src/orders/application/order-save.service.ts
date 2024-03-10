@@ -1,25 +1,27 @@
 import { saveDelivery } from 'src/delivery/application/delivery-save.service';
 import Delivery from 'src/delivery/domain/delivery';
 
-import { save } from '../domain/order.repository';
+import { save as saveOrder } from '../domain/order.repository';
+import { save as saveOrderedBook } from '../domain/orderedBook.repository';
 
 export const order = async (
-  items: any,
+  items: object[],
   deliver: object,
   totalPrice: number,
   firstTitle: string,
   totalQuantity: number,
   userId: number,
-): Promise<string> => {
+): Promise<void> => {
   const deliveryInfo = new Delivery(deliver);
-
   const deliveryId = await saveDelivery(
     deliveryInfo.getAddress(),
     deliveryInfo.getContact(),
     deliveryInfo.getReceiver(),
   );
 
-  save(firstTitle, totalQuantity, totalPrice, userId, deliveryId);
+  const orderId = await saveOrder(firstTitle, totalQuantity, totalPrice, userId, deliveryId);
 
-  return '주문 등록 완료';
+  items.forEach((item: any) => {
+    saveOrderedBook({ orderId, bookId: item.bookId, quantity: item.quantity });
+  });
 };
