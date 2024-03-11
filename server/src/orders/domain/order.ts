@@ -1,3 +1,5 @@
+import Delivery from 'src/delivery/domain/delivery';
+
 export default class Order {
   private id: number;
 
@@ -9,6 +11,8 @@ export default class Order {
 
   private userId: number;
 
+  private delivery: Delivery;
+
   private deliveryId: number;
 
   private createdAt: Date;
@@ -19,6 +23,7 @@ export default class Order {
     totalQuantity = 0,
     totalPrice = 0,
     userId = 0,
+    delivery = new Delivery({}),
     deliveryId = 0,
     createdAt = new Date(),
   }: {
@@ -27,6 +32,7 @@ export default class Order {
     totalQuantity?: number;
     totalPrice?: number;
     userId?: number;
+    delivery?: Delivery;
     deliveryId?: number;
     createdAt?: Date;
   }) {
@@ -35,6 +41,7 @@ export default class Order {
     this.totalQuantity = totalQuantity;
     this.totalPrice = totalPrice;
     this.userId = userId;
+    this.delivery = delivery;
     this.deliveryId = deliveryId;
     this.createdAt = createdAt;
   }
@@ -57,6 +64,10 @@ export default class Order {
 
   getUserId() {
     return this.userId;
+  }
+
+  getDelivery() {
+    return this.delivery;
   }
 
   getDeliveryId() {

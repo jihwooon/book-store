@@ -4,7 +4,7 @@ import { ResponseHandler } from 'src/utils/responseHandler';
 
 import { StatusCodes } from 'http-status-codes';
 
-import { order } from '../application/order-save.service';
+import { order } from '../application/orders-save.service';
 
 const saveOrdersHandler = async (
   { body: { items, delivery, totalPrice, firstBookTitle, totalQuantity, userId } }: Request,
