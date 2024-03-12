@@ -1,5 +1,3 @@
-import type Order from '../domain/order';
-
 import { findAll } from '../domain/order.repository';
 
 export const getAllOrders = async () => {
@@ -18,12 +16,4 @@ export const getAllOrders = async () => {
   });
 
   return findOrder;
-};
-
-const getOrders = (orders: Order[]) => {
-  orders.map((order) => {
-    return {
-      orderId: order.getId(),
-    };
-  });
 };
