@@ -61,3 +61,27 @@ export const findAll = async (): Promise<Order[]> => {
 
   return orders;
 };
+
+export const findAllWithOrderId = async (orderId: number) => {
+  const [rows] = await doQuery((connection) =>
+    connection.execute<RowDataPacket[]>(
+      `SELECT ob.book_id, o.title, o.author, o.price, ob.quantity
+       FROM orderedBook ob
+       LEFT JOIN books o
+       ON ob.book_id = o.id
+       WHERE ob.order_id = ?
+    `,
+      [orderId],
+    ),
+  );
+
+  const orders = (rows ?? []).map((row) => ({
+    bookId: row.book_id,
+    bookTitle: row.title,
+    author: row.author,
+    price: row.price,
+    quantity: row.quantity,
+  }));
+
+  return orders;
+};
