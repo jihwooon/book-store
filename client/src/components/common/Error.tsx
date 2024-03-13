@@ -7,7 +7,7 @@ interface RouterError {
 
 const Error = () => {
   const error = useRouteError() as RouterError
-  
+
   return (
     <div>
       <h1>오류가 발생했습니다</h1>

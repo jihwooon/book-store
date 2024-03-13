@@ -85,7 +85,7 @@ const BookDetail = () => {
       </header>
       <div className="content">
         <Title size="medium">상세 설명</Title>
-        <EllipsisBox linelimit={4}>{book.detail}</EllipsisBox>
+        <EllipsisBox lineLimit={4}>{book.detail}</EllipsisBox>
 
         <Title size="medium">목차</Title>
         <p className="index">{book.contents}</p>
