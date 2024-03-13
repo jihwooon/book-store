@@ -20,7 +20,7 @@ export const removeToken = () => {
 }
 
 export const useAuthStore = create<StoreState>((set) => ({
-  isLoggedIn: getToken() ? true : false,
+  isLoggedIn: !!getToken(),
 
   storeLogin: (token: string) => {
     set({ isLoggedIn: true })

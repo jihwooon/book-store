@@ -3,16 +3,16 @@ import { FaAngleDown } from "react-icons/fa";
 import { styled } from "styled-components";
 import Button from "./Button";
 
-interface Prpos {
+interface Props {
   children: React.ReactNode;
-  linelimit: number;
+  lineLimit: number;
 }
 
-const EllipsisBox = ({ children, linelimit }: Prpos) => {
+const EllipsisBox = ({ children, lineLimit }: Props) => {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <EllipsisBoxStyle linelimit={linelimit} $expanded={expanded}>
+    <EllipsisBoxStyle lineLimit={lineLimit} $expanded={expanded}>
       <p>{children}</p>
       <div className="toggle">
         <Button
@@ -30,7 +30,7 @@ const EllipsisBox = ({ children, linelimit }: Prpos) => {
 };
 
 interface EllipsisBoxStyleProps {
-  linelimit: number;
+  lineLimit: number;
   $expanded: boolean;
 }
 
@@ -39,8 +39,8 @@ const EllipsisBoxStyle = styled.div<EllipsisBoxStyleProps>`
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: ${({ linelimit, $expanded }) => ($expanded ? "none" : linelimit)};
-    - webkit - box - orient : vertical;
+    -webkit-line-clamp: ${({ lineLimit, $expanded }) => ($expanded ? "none" : lineLimit)};
+    -webkit-box-orient: vertical;
     padding: 20px 0 0 0;
     margin: 0;
   }
@@ -53,6 +53,6 @@ const EllipsisBoxStyle = styled.div<EllipsisBoxStyleProps>`
   svg {
     transform: ${({ $expanded }) => ($expanded ? "rotate(180deg)" : "rotate(0)")}
   }
-`;
+`
 
 export default EllipsisBox;
