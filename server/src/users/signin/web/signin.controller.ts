@@ -14,7 +14,9 @@ const signinController = async (req: Request, res: Response) => {
       httpOnly: true,
     });
 
-    return accessToken;
+    return {
+      token: accessToken,
+    };
   };
 
   ResponseHandler(signInFunction, StatusCodes.OK, res);
