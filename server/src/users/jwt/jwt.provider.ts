@@ -22,9 +22,11 @@ export const validateToken = (token: string) => {
   }
 
   try {
-    const decodedJwt = jwt.verify(token, process.env.JWT_SECRET as Secret) as jwt.JwtPayload;
+    const { userId } = jwt.verify(token, process.env.JWT_SECRET as Secret) as jwt.JwtPayload;
 
-    return decodedJwt;
+    return {
+      userId,
+    };
   } catch (e) {
     throw new HttpException('인증 할 수 없는 token 입니다', StatusCodes.UNAUTHORIZED);
   }

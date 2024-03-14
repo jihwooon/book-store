@@ -3,7 +3,7 @@ import request from 'supertest';
 
 import { order } from '../application/orders-save.service';
 
-jest.mock('../application/order-save.service.ts');
+jest.mock('../application/orders-save.service.ts');
 
 describe('saveOrdersHandler', () => {
   describe('POST /orders', () => {
@@ -36,7 +36,7 @@ describe('saveOrdersHandler', () => {
             totalPrice: 50000,
           });
 
-        expect(status).toBe(200);
+        expect(status).toBe(201);
         expect(body).toEqual('주문 등록 완료');
       });
     });

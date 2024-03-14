@@ -10,16 +10,22 @@ describe('getAllOrdersHandler Controller', () => {
         expect(status).toBe(200);
         expect(body).toEqual([
           {
+            address: '강원도 춘천시 동내면 대룡산길 227-314 24408 한국',
+            bookTitle: '어린왕자',
+            contact: '010-1234-5667',
             orderId: 1,
-            createAt: expect.any(String),
-            delivery: {
-              address: '서울시 경인로',
-              receiver: '홍길동',
-              contact: '010-1234-5667',
-            },
-            bookTitle: '홍길동전',
-            totalPrice: 25000,
-            totalCount: 5,
+            receiver: '홍길동',
+            totalPrice: 6000,
+            totalQuantity: 3,
+          },
+          {
+            address: '강원도 춘천시 동내면 대룡산길 227-314 24408 한국',
+            bookTitle: '어린왕자',
+            contact: '010-1234-5667',
+            orderId: 2,
+            receiver: '홍길동',
+            totalPrice: 6000,
+            totalQuantity: 3,
           },
         ]);
       });

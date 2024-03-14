@@ -19,7 +19,10 @@ describe('cancelLike Controller', () => {
       it('200 상태코드를 반환한다.', async () => {
         const { statusCode, body } = await request(app)
           .delete(`/likes/${existingLike.likedBookId}`)
-          .send({ userId: existingLike.userId });
+          .set(
+            'Authorization',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYWJjZGVAZ21haWwuY29tIiwiaWF0IjoxNzEwNDIzODUxLCJleHAiOjE3MTA0MjQxNTF9.m1GUUsCHpMtaX3jScLJ-GACfZ_BEUQUnyMxrq_bg5FQ',
+          );
 
         expect(statusCode).toBe(200);
         expect(body).toBe(true);
@@ -35,7 +38,10 @@ describe('cancelLike Controller', () => {
       it('400 상태코드와 에러 메세지를 반환한다.', async () => {
         const { statusCode, body } = await request(app)
           .delete(`/likes/${nonExistingLike.likedBookId}`)
-          .send({ userId: nonExistingLike.userId });
+          .set(
+            'Authorization',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYWJjZGVAZ21haWwuY29tIiwiaWF0IjoxNzEwNDIzODUxLCJleHAiOjE3MTA0MjQxNTF9.m1GUUsCHpMtaX3jScLJ-GACfZ_BEUQUnyMxrq_bg5FQ',
+          );
 
         expect(statusCode).toBe(400);
         expect(body).toEqual({

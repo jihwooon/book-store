@@ -19,7 +19,7 @@ describe('cartItemSave Controller', () => {
 
     context('사용자가 장바구니에 카트 id 입력하면', () => {
       it('200 상태코드를 반환한다.', async () => {
-        const { status, body } = await request(app).delete(`/cart/${existingCartItem.id}`);
+        const { status, body } = await request(app).delete(`/carts/${existingCartItem.id}`);
 
         expect(status).toBe(200);
         expect(body).toEqual(true);
@@ -34,7 +34,7 @@ describe('cartItemSave Controller', () => {
       });
 
       it('400 상태코드와 에러 메세지를 반환한다.', async () => {
-        const { status, body } = await request(app).delete(`/cart/${nonExistingCartItem.id}`);
+        const { status, body } = await request(app).delete(`/carts/${nonExistingCartItem.id}`);
 
         expect(status).toBe(400);
         expect(body).toEqual({
