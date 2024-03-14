@@ -22,7 +22,7 @@ const Signin = () => {
 
   const onSubmit = (data: SigninProps) => {
     signin(data).then((res) => {
-      storeLogin(res.data)
+      storeLogin(res.token)
       showAlert('로그인 완료되었습니다.')
       navigate('/')
     }, (error) => {

@@ -21,7 +21,7 @@ export const resetPassword = async (data: SignupProps) => {
 }
 
 interface SiginResponse {
-  data: string;
+  token: string;
 }
 
 export const signin = async (data: SigninProps) => {

@@ -1,20 +1,8 @@
-import jwt from 'jsonwebtoken';
-
 import { StatusCodes } from 'http-status-codes';
 import { isMatchPassword } from 'src/users/domain/password.provider';
 import { findByEmail } from 'src/users/domain/user.repository';
+import { generateToken } from 'src/users/jwt/jwt.provider';
 import HttpException from 'src/utils/httpException';
-
-const generateToken = (loginUser: { email: string; password: string }) =>
-  jwt.sign(
-    {
-      email: loginUser.email,
-    },
-    '1235467898910',
-    {
-      expiresIn: '5m',
-    },
-  );
 
 const signinService = async (email: string, password: string): Promise<{ accessToken: string }> => {
   const loginUser = await findByEmail(email);
@@ -29,6 +17,7 @@ const signinService = async (email: string, password: string): Promise<{ accessT
   }
 
   const token = generateToken({
+    userId: userData.id,
     email: userData.email,
     password: userData.password,
   });
