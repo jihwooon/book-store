@@ -12,14 +12,14 @@ import { addToCart } from '../application/cartItem-save.service';
 jest.mock('../application/cartItem-save.service.ts');
 
 describe('cartItemSave Controller', () => {
-  describe('POST /cart', () => {
+  describe('POST /carts', () => {
     beforeEach(() => {
       (addToCart as jest.Mock).mockResolvedValue(true);
     });
 
     context('사용자가 장바구니에 도서와 수량을 추가하면', () => {
       it('201 상태코드를 반환한다.', async () => {
-        const { status, body } = await request(app).post('/cart').send({
+        const { status, body } = await request(app).post('/carts').send({
           userId: existingCartItem.userId,
           bookId: existingCartItem.bookId,
           count: existingCartItem.count,
@@ -38,7 +38,7 @@ describe('cartItemSave Controller', () => {
       });
 
       it('400 상태코드와 에러 메세지를 반환한다.', async () => {
-        const { status, body } = await request(app).post('/cart').send({
+        const { status, body } = await request(app).post('/carts').send({
           userId: nonExistingCartItem.userId,
           bookId: nonExistingCartItem.bookId,
           count: nonExistingCartItem.count,

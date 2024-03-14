@@ -27,7 +27,9 @@ describe('signin Controller', () => {
         });
 
         expect(statusCode).toBe(200);
-        expect(body).toBe(ACCESS_TOKEN);
+        expect(body).toEqual({
+          token: ACCESS_TOKEN,
+        });
       });
     });
 
