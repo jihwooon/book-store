@@ -42,7 +42,7 @@ export const save = async ({
 export const findByEmail = async (email: string): Promise<User> => {
   const [rows] = await doQuery((connection) =>
     connection.execute<RowDataPacket[]>(
-      `SELECT email,password,salt
+      `SELECT id, email,password,salt
        FROM users WHERE email = ?`,
       [email],
     ),
@@ -55,6 +55,7 @@ export const findByEmail = async (email: string): Promise<User> => {
   }
 
   return new User({
+    id: row.id,
     email: row.email,
     password: row.password,
     salt: row.salt,
