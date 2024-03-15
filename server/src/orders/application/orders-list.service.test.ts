@@ -1,5 +1,9 @@
 import { mockOrders } from 'src/fixture/orders.fixture';
 
+import HttpException from 'src/utils/httpException';
+
+import { StatusCodes } from 'http-status-codes';
+
 import { findAll } from '../domain/order.repository';
 import { getAllOrders } from './orders-list.service';
 
@@ -35,6 +39,17 @@ describe('orderList Service', () => {
             totalQuantity: 1,
           },
         ]);
+      });
+    });
+
+    context('주문 목록에 존재하지 않으면', () => {
+      beforeEach(() => {
+        (findAll as jest.Mock).mockResolvedValue([]);
+      });
+      it('error를 던져야 한다', async () => {
+        await expect(getAllOrders()).rejects.toThrow(
+          new HttpException('주문 목록을 찾을 수 없습니다.', StatusCodes.NOT_FOUND),
+        );
       });
     });
   });
