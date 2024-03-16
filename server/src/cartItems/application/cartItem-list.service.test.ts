@@ -1,4 +1,4 @@
-import { existingCartItem, existingCartItems, nonExistingCartItem } from 'src/fixture/cartItem.fixture';
+import { existingCartItems, nonExistingCartItem } from 'src/fixture/cartItem.fixture';
 
 import { when } from 'jest-when';
 
@@ -6,24 +6,30 @@ import HttpException from 'src/utils/httpException';
 
 import { StatusCodes } from 'http-status-codes';
 
+import { existingLike } from 'src/fixture/likes.fixture';
+
+import { validateToken } from 'src/users/jwt/jwt.provider';
+
+import { ACCESS_TOKEN } from 'src/fixture/jwt.fixture';
+
 import { findCartItemWithBook } from '../domain/cartItem.repository';
 import { getCartItems } from './cartItem-list.service';
 
 jest.mock('../domain/cartItem.repository.ts');
+jest.mock('../../users/jwt/jwt.provider.ts');
 
 describe('cartItem Service', () => {
   const SelectedCartItem = [1, 4];
   const notSelectedCartItem = [9999, 9999];
 
   beforeEach(() => {
-    when(findCartItemWithBook as jest.Mock)
-      .calledWith(existingCartItem.userId, SelectedCartItem)
-      .mockResolvedValue(existingCartItems);
+    when(validateToken as jest.Mock).mockResolvedValue({ userId: existingLike.userId });
+    when(findCartItemWithBook as jest.Mock).mockResolvedValue(existingCartItems);
   });
 
   context('사용자 정보 id와 장바구니 상품을 선택하면', () => {
     it('장바구니 도서 목록을 반환한다.', async () => {
-      const cartItems = await getCartItems(existingCartItem.userId, SelectedCartItem);
+      const cartItems = await getCartItems(ACCESS_TOKEN, SelectedCartItem);
 
       expect(cartItems).toStrictEqual([
         {
