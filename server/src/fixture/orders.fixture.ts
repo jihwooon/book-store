@@ -58,3 +58,5 @@ export const mockOrders = [
     }),
   }),
 ];
+
+export const orderDetailMock = [{ author: '걍구두', bookId: 2, bookTitle: '신델렐라', price: 20000, quantity: 3 }];
