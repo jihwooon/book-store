@@ -69,6 +69,33 @@ export const findCartItemWithBook = async (userId: number, selectedId: number[])
   );
 };
 
+export const findCartItemAndBook = async (userId: number) => {
+  const [rows] = await doQuery((connection) =>
+    connection.execute<RowDataPacket[]>(
+      `SELECT ci.id, ci.book_id, b.title, b.summary, b.price, ci.count
+      FROM cartItems ci
+      LEFT JOIN books b
+        ON b.id = ci.book_id
+      WHERE ci.user_id = ?`,
+      [userId],
+    ),
+  );
+
+  return (rows ?? []).map(
+    (row) =>
+      new CartItem({
+        id: row.id,
+        bookId: row.book_id,
+        count: row.count,
+        books: new Book({
+          title: row.title,
+          summary: row.summary,
+          price: row.price,
+        }),
+      }),
+  );
+};
+
 export const deleteById = async (id: number): Promise<boolean> => {
   const [{ affectedRows }] = await doQuery((connection) =>
     connection.execute<ResultSetHeader>(
