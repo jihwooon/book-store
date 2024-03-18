@@ -27,7 +27,13 @@ export const validateToken = (token: string) => {
     return {
       userId,
     };
-  } catch (e) {
-    throw new HttpException('인증 할 수 없는 token 입니다', StatusCodes.UNAUTHORIZED);
+  } catch (err: any) {
+    if (err instanceof jwt.TokenExpiredError) {
+      throw new HttpException('로그인 세션이 만료되었습니다.', StatusCodes.UNAUTHORIZED);
+    } else if (err instanceof jwt.JsonWebTokenError) {
+      throw new HttpException('인증 할 수 없는 token 입니다', StatusCodes.BAD_REQUEST);
+    }
+
+    return err;
   }
 };

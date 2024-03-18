@@ -7,6 +7,7 @@ import { getCartItems } from '../application/cartItem-list.service';
 
 const getCartHandler = async ({ body: { selectedId }, headers }: Request, res: Response) => {
   const accessToken = headers.authorization;
+
   ResponseHandler(() => getCartItems(accessToken, selectedId), StatusCodes.OK, res);
 };
 
