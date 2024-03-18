@@ -81,19 +81,14 @@ export const findCartItemAndBook = async (userId: number) => {
     ),
   );
 
-  return (rows ?? []).map(
-    (row) =>
-      new CartItem({
-        id: row.id,
-        bookId: row.book_id,
-        count: row.count,
-        books: new Book({
-          title: row.title,
-          summary: row.summary,
-          price: row.price,
-        }),
-      }),
-  );
+  return (rows ?? []).map((row) => ({
+    id: row.id,
+    bookId: row.book_id,
+    count: row.count,
+    title: row.title,
+    summary: row.summary,
+    price: row.price,
+  }));
 };
 
 export const deleteById = async (id: number): Promise<boolean> => {
