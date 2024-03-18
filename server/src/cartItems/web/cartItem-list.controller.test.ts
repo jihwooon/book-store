@@ -6,9 +6,9 @@ import request from 'supertest';
 import { StatusCodes } from 'http-status-codes';
 import HttpException from 'src/utils/httpException';
 
-import { getCartItems } from '../application/cartItem-list.service';
+import { getCartItems } from '../application/cartItem-list-existed-select.service';
 
-jest.mock('../application/cartItem-list.service.ts');
+jest.mock('../application/cartItem-list-existed-select.service.ts');
 
 describe('cartItemList Controller', () => {
   beforeEach(() => {

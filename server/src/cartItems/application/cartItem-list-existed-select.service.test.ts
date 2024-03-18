@@ -13,7 +13,7 @@ import { validateToken } from 'src/users/jwt/jwt.provider';
 import { ACCESS_TOKEN } from 'src/fixture/jwt.fixture';
 
 import { findCartItemWithBook } from '../domain/cartItem.repository';
-import { getCartItems } from './cartItem-list.service';
+import { getCartItems } from './cartItem-list-existed-select.service';
 
 jest.mock('../domain/cartItem.repository.ts');
 jest.mock('../../users/jwt/jwt.provider.ts');
