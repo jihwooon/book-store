@@ -1,0 +1,36 @@
+name: book-store server-spring
+
+on:
+    push:
+      branches: [ main ]
+      paths:
+        - "server-spring/**"
+    pull_request:
+      branches: [ main ]
+      paths:
+        - "server-spring/**"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server-spring
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Test with Gradle
+        user: gradle/gradle-build-action@v2
+        with:
+          arguments: test
+          build-root-directory: server-spring
+      - name: Build with Gradle
+        user: gradle/gradle-build-action@v2
+        with:
+          arguments: assemble
+          build-root-directory: server-spring
+
