@@ -1,20 +1,20 @@
-name: book-store Server
+name: book-store server-node
 
 on:
     push:
       branches: [ main ]
       paths:
-        - "server/**"
+        - "server-node/**"
     pull_request:
       branches: [ main ]
       paths:
-        - "server/**"
+        - "server-node/**"
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./server
+        working-directory: ./server-node
 
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 21.2.0
           cache: "npm"
-          cache-dependency-path: ./server/package-lock.json
+          cache-dependency-path: ./server-node/package-lock.json
 
       - name: install
         run: npm install
