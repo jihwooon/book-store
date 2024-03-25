@@ -16,3 +16,13 @@ services:
     environment:
       TZ: Asia/Seoul
     command: --init-file /docker-entrypoint-initdb.d/init.sql
+  
+  server-node:
+    image: jihwooon/book-store-node:lts
+    restart: always
+    build:
+      context: server-node
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./server-node/.env
+
