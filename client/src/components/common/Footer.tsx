@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="copyright">
         <p>copyright(c), 2024, book store.</p>
       </div>
-    </FooterStyed>  
+    </FooterStyed>
   )
 }
 
@@ -22,7 +22,7 @@ const FooterStyed = styled.footer`
   padding: 20px 0;
   display: flex;
   justify-content: space-between;
-  
+
 
   .logo {
     img {

@@ -11,6 +11,9 @@ interface Props {
   view?: ViewMode;
 }
 
+export default function $1() {
+  return <h1>$ComponentName$</h1>
+}
 const BookItem = ({ book, view }: Props) => {
   return (
     <BookItemStyled view={view}>
